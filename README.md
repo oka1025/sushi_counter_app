@@ -52,3 +52,6 @@
 - 全国のユーザーのよく食べられた寿司ランキングなどの表示
 - 位置情報を使って、その場所でしか得られないスタンプを獲得できる機能
 - アプリ内でお店の感想や写真を記録できる機能
+
+## 画面遷移図
+Figma：https://www.figma.com/design/ipR1cPhKF4K959SJr5w6td/%E7%84%A1%E9%A1%8C?node-id=50-156&t=TG9xcgTttAUwapEc-1
