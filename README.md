@@ -55,3 +55,8 @@
 
 ## 画面遷移図
 Figma：https://www.figma.com/design/ipR1cPhKF4K959SJr5w6td/%E7%84%A1%E9%A1%8C?node-id=50-156&t=TG9xcgTttAUwapEc-1
+
+## ER図
+![ダウンロード](https://github.com/user-attachments/assets/fde24619-6ae4-4420-aeda-409e0a9f36ab)
+
+
