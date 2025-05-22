@@ -1,6 +1,5 @@
 ### ER図
-![158795cc1fc62ba16f5db7515e2fb3b2](https://github.com/user-attachments/assets/3503b0ea-9be8-48f9-a19d-5d5f27657411)
-
+![ダウンロード](https://github.com/user-attachments/assets/181e5f1c-d39e-408f-8d4b-d8987b949eb8)
 
 ### 本サービスの概要
 **ユーザー登録機能**
