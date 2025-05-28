@@ -1,5 +1,4 @@
 FROM ruby:3.2.3
-
 ENV LANG C.UTF-8
 ENV TZ Asia/Tokyo
 
