@@ -1,0 +1,27 @@
+<ul class="fixed-bottom w-100 shadow-lg list-unstyled list-group list-group-horizontal text-center ">
+  <button class="mx-auto list-group-item list-group-item-action ">
+    <%= link_to root_path, class: "custom-purple" do %>
+    <i class="bi bi-house"></i><br> ホーム
+    <% end %>
+  </button>
+  <button class="mx-auto list-group-item list-group-item-action ">
+    <%= link_to root_path do %>
+    <i class="bi bi-plus-slash-minus"></i><br> カウンター
+    <% end %>
+  </button>
+  <button class="mx-auto list-group-item list-group-item-action">
+    <%= link_to root_path do %>
+    <i class="bi bi-clock-history"></i><br> カウント履歴
+    <% end %>
+  </button>
+  <button class="mx-auto list-group-item list-group-item-action">
+    <%= link_to root_path do %>
+    <i class="bi bi-clipboard-data"></i><br> データベース
+    <% end %>
+  </button>
+  <button class="mx-auto list-group-item list-group-item-action">
+    <%= link_to root_path do %>
+    <%= image_tag("icons/gatya.svg" , size: "18x18", alt: "ガチャ") %><br> ガチャ
+    <% end %>
+  </button>
+</ul>
