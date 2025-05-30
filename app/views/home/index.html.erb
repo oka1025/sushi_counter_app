@@ -1,11 +1,13 @@
-<div class="text-center">
-  <span class="border">
-    ゲストユーザーのデータは一定時間で削除されます。<br>
-    継続的にご利用いただくにはユーザー登録が必要です。<br>
-    <a class="btn btn-primary" href=/ role="button">ログイン</a>
-    <a class="btn btn-primary" href="#" role="button">新規登録</a>
-  </span>
-</div>
+<% if !user_signed_in? %>
+  <div class="text-center">
+    <span class="border">
+      ゲストユーザーのデータは一定時間で削除されます。<br>
+      継続的にご利用いただくにはユーザー登録が必要です。<br>
+      <a class="btn btn-primary" href=/users/sign_in role="button">ログイン</a>
+      <a class="btn btn-primary" href=/users/sign_up role="button">新規登録</a>
+    </span>
+  </div>
+<% end %>
 
 <div class="text-center">メインメニュー</div>
 <div class="d-grid gap-2 d-md-block text-center">
