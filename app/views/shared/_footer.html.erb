@@ -1,27 +1,34 @@
-<ul class="fixed-bottom w-100 shadow-lg list-unstyled list-group list-group-horizontal text-center ">
-  <button class="mx-auto list-group-item list-group-item-action ">
-    <%= link_to root_path, class: "custom-purple" do %>
-    <i class="bi bi-house"></i><br> ホーム
+<ul class="bottom-nav list-unstyled d-flex justify-content-around align-items-center m-0 p-0 fixed-bottom">
+  <li class="nav-item text-center flex-fill">
+    <%= link_to root_path, class: "nav-link text-navy" do %>
+      <i class="bi bi-house fs-4"></i><br>
+      <small>ホーム</small>
     <% end %>
-  </button>
-  <button class="mx-auto list-group-item list-group-item-action ">
-    <%= link_to root_path do %>
-    <i class="bi bi-plus-slash-minus"></i><br> カウンター
+  </li>
+  <li class="nav-item text-center flex-fill">
+    <%= link_to "#", class: "nav-link text-navy" do %>
+      <i class="bi bi-plus-slash-minus fs-4"></i><br>
+      <small>カウンター</small>
     <% end %>
-  </button>
-  <button class="mx-auto list-group-item list-group-item-action">
-    <%= link_to root_path do %>
-    <i class="bi bi-clock-history"></i><br> カウント履歴
+  </li>
+  <li class="nav-item text-center flex-fill">
+    <%= link_to "#", class: "nav-link text-navy" do %>
+      <i class="bi bi-clock-history fs-4"></i><br>
+      <small>履歴</small>
     <% end %>
-  </button>
-  <button class="mx-auto list-group-item list-group-item-action">
-    <%= link_to root_path do %>
-    <i class="bi bi-clipboard-data"></i><br> データベース
+  </li>
+  <li class="nav-item text-center flex-fill">
+    <%= link_to "#", class: "nav-link text-navy" do %>
+      <i class="bi bi-clipboard-data fs-4"></i><br>
+      <small>寿司DB</small>
     <% end %>
-  </button>
-  <button class="mx-auto list-group-item list-group-item-action">
-    <%= link_to root_path do %>
-    <%= image_tag("icons/gatya.svg" , size: "18x18", alt: "ガチャ") %><br> ガチャ
+  </li>
+  <li class="nav-item text-center flex-fill mt-1">
+    <%= link_to "#", class: "nav-link text-navy " do %>
+      <img src="/assets/icons/46369.svg" class="icon-invert mb-1" alt="ガチャ" /><br>
+      <div class="">
+        <small>ガチャ</small>
+      </div>
     <% end %>
-  </button>
+  </li>
 </ul>

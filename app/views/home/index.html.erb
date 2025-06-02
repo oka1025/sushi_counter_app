@@ -1,18 +1,57 @@
 <% if !user_signed_in? %>
-  <div class="text-center">
-    <span class="border">
+  <div class="d-flex justify-content-center mb-4">
+    <div class="border-navy rounded p-4 text-center bg-white" style="max-width: 500px;">
+      <h5 class="fw-bold mb-3">ゲストユーザーで利用中です。</h5>
+      <p class="mb-4">
       ゲストユーザーのデータは一定時間で削除されます。<br>
-      継続的にご利用いただくにはユーザー登録が必要です。<br>
-      <a class="btn btn-primary" href=/users/sign_in role="button">ログイン</a>
-      <a class="btn btn-primary" href=/users/sign_up role="button">新規登録</a>
-    </span>
+      継続的にご利用いただくにはユーザー登録が必要です。
+      </p>
+
+      <div class="d-flex justify-content-center gap-3">
+        <a class="btn btn-navy rouded-pill px-4 fw-bold" href=/users/sign_in role="button">ログイン</a>
+        <a class="btn btn-navy rouded-pill px-4 fw-bold" href=/users/sign_up role="button">新規登録</a>
+      </div>
+    </div>
   </div>
 <% end %>
 
-<div class="text-center">メインメニュー</div>
-<div class="d-grid gap-2 d-md-block text-center">
-  <button type="button" class="btn btn-outline-primary">カウンター</button>
-  <button type="button" class="btn btn-outline-primary">カウント履歴</button>
-  <button type="button" class="btn btn-outline-primary">カウント履歴</button>
-  <button type="button" class="btn btn-outline-primary">カウント履歴</button>
+<div class="container my-4">
+  <h4 class="fw-bold mb-2">メニュー</h4>
+  <div class="row  g-1">
+
+    <!-- カウンター -->
+    <div class="col">
+      <%= link_to "#", class: "menu-card text-center" do %>
+        <i class="menu-icon bi bi-plus-slash-minus"></i>
+        <div class="menu-label">カウンター</div>
+      <% end %>
+    </div>
+
+    <!-- カウント履歴 -->
+    <div class="col">
+      <%= link_to "#", class: "menu-card text-center" do %>
+        <i class="menu-icon bi bi-clock-history"></i>
+        <div class="menu-label">履歴</div>
+      <% end %>
+    </div>
+
+    <!-- 寿司データベース -->
+    <div class="col">
+      <%= link_to "#", class: "menu-card text-center" do %>
+        <i class="menu-icon bi bi-clipboard-data"></i>
+        <div class="menu-label">寿司DB</div>
+      <% end %>
+    </div>
+
+    <!-- ガチャ -->
+    <div class="col">
+      <%= link_to "#", class: "menu-card text-center" do %>
+        <div>
+          <img src="/assets/icons/46369.svg" class="icon-invert mt-3" alt="ガチャ" />
+        </div>
+        <div class="menu-label mt-2">ガチャ</div>
+      <% end %>
+    </div>
+
+  </div>
 </div>

@@ -1,5 +1,124 @@
 @import "bootstrap/scss/bootstrap";
 
-.custom-purple {
-  color: #000b5e;
+body {
+  font-size: 1rem; // 通常サイズ（PCなど）
+  background-color: #f8f9fa; // 任意の背景色（例：Bootstrapのlightグレー）
+}
+
+
+@media (max-width: 576px) {
+  body {
+    font-size: 0.875rem; // スマホ用に少し小さく
+  }
+}
+
+.smahosize {
+  font-size: 2; // 通常サイズ
+
+  @media (max-width: 576px) {
+    font-size: 1rem; // スマホサイズ
+  }
+}
+
+.main-container {
+  padding: 1rem; // 外側に余白を追加
+}
+
+.bg-navy {
+  background-color: #0A2D88; // 任意の色コード
+}
+
+.text-navy {
+  color: #0A2D88; // 任意の色コード
+
+  &:hover {
+    color: #3C5FC0;  // 少し暗いネイビー
+  }
+}
+
+.border-navy {
+  border: 2px solid #0A2D88; // 好きな色コードを指定
+}
+
+.btn-navy {
+  background-color: #0A2D88;     // ネイビー背景
+  color: #ffffff;                // 白文字
+  border: none;                  // 枠線なし（必要なら追加）
+
+  &:hover {
+    background-color: #2549A6;  // 少し明るいネイビー
+    color: #ffffff;
+  }
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.bottom-nav {
+  height: 60px;
+  background: #fff;
+  border-top: 1px solid #ccc;
+  z-index: 1030;
+
+  .icon-invert {
+    width: 21.69px;
+    height: 21.69px;
+    filter: invert(13%) sepia(51%) saturate(5143%) hue-rotate(221deg) brightness(86%) contrast(96%);
+  }
+
+  .nav-item {
+    .nav-link {
+      color: #0A2D88; // 通常の文字色
+
+      &:hover {
+        background-color: #eef2ff; // 背景色を薄く
+        color: #0a2e88da;            // テキストとアイコンの色変更
+
+        i,
+        small {
+          color: #0a2e88da;
+        }
+      }
+    }
+  }
+}
+
+.menu-card {
+  display: block;
+  padding: 0.2rem 0.5rem;
+  border: 2px solid #0A2D88; // ネイビー色
+  border-radius: 1rem;
+  color: #0A2D88;
+  background-color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #eef2ff;
+    color: #0a2e88da;
+  }
+
+  .menu-icon {
+    margin-bottom: 0.5rem;
+    font-size:48px;
+  }
+
+  .menu-icon-svg {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 0.5rem;
+  color: #0A2D88;
+  }
+
+  .menu-label {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .icon-invert {
+    width: 48px;
+    height: 48px;
+    filter: invert(13%) sepia(51%) saturate(5143%) hue-rotate(221deg) brightness(86%) contrast(96%);
+  }
 }
