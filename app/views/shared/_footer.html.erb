@@ -6,7 +6,7 @@
     <% end %>
   </li>
   <li class="nav-item text-center flex-fill">
-    <%= link_to "#", class: "nav-link text-navy" do %>
+    <%= link_to sushi_items_path, class: "nav-link text-navy" do %>
       <i class="bi bi-plus-slash-minus fs-4"></i><br>
       <small>カウンター</small>
     <% end %>
@@ -25,7 +25,7 @@
   </li>
   <li class="nav-item text-center flex-fill mt-1">
     <%= link_to "#", class: "nav-link text-navy " do %>
-      <img src="/assets/icons/46369.svg" class="icon-invert mb-1" alt="ガチャ" /><br>
+      <%= image_tag "icons/46369.svg", class: "icon-invert", alt: "ガチャ" %><br>
       <div class="">
         <small>ガチャ</small>
       </div>

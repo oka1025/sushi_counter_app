@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sushi_item: one
+  counter: one
+  count: 1
+
+two:
+  sushi_item: two
+  counter: two
+  count: 1

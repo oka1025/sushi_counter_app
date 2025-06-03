@@ -1,0 +1,26 @@
+class SushiItem < ApplicationRecord
+  validates :name, presence: true
+  belongs_to :category
+  belongs_to :created_by_user, class_name: "User", optional: true
+  has_many :sushi_item_counters
+  has_one_attached :image
+
+  before_destroy :prevent_system_item_deletion
+  before_update :prevent_system_item_editing
+
+  private
+
+  def prevent_system_item_deletion
+    if created_by_user_id.nil?
+      errors.add(:base, "初期データの寿司は削除できません")
+      throw(:abort)
+    end
+  end
+
+  def prevent_system_item_editing
+    if created_by_user_id.nil?
+      errors.add(:base, "初期データの寿司は編集できません")
+      throw(:abort)
+    end
+  end
+end

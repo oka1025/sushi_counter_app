@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+  root to: "home#index"
+  resources :sushi_items, only: [:new, :create, :index]
+  resources :counters, only: %i[index] 
+    
 
   devise_for :users
-
-  root to: "home#index"
-
   devise_scope :users do
     get '/users', to: redirect("/users/sign_up")
   end

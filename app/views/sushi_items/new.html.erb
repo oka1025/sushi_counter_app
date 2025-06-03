@@ -1,0 +1,12 @@
+<%= form_with model: @sushi_item, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :category_id, "カテゴリー" %>
+  <%= f.collection_select :category_id, @categories, :id, :name, prompt: "選択してください" %>
+
+  <%= f.label :image %>
+  <%= f.file_field :image %>
+
+  <%= f.submit "登録" %>
+<% end %>
