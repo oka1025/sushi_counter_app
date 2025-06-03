@@ -8,15 +8,15 @@ body {
 
 @media (max-width: 576px) {
   body {
-    font-size: 0.875rem; // スマホ用に少し小さく
+    font-size: 0.9rem; // スマホ用に少し小さく
   }
 }
 
 .smahosize {
-  font-size: 2; // 通常サイズ
+  font-size: 1.2rem; //.常サイズ
 
   @media (max-width: 576px) {
-    font-size: 1rem; // スマホサイズ
+    font-size: 1.1rem; // スマホサイズ
   }
 }
 
@@ -114,6 +114,10 @@ body {
   .menu-label {
     font-weight: 600;
     font-size: 1rem;
+
+    @media (max-width: 576px) {
+    font-size: 0.8rem; // スマホサイズ
+    }
   }
 
   .icon-invert {

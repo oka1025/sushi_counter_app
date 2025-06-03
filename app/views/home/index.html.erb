@@ -1,27 +1,10 @@
-<% if !user_signed_in? %>
-  <div class="d-flex justify-content-center mb-4">
-    <div class="border-navy rounded p-4 text-center bg-white" style="max-width: 500px;">
-      <h5 class="fw-bold mb-3">ゲストユーザーで利用中です。</h5>
-      <p class="mb-4">
-      ゲストユーザーのデータは一定時間で削除されます。<br>
-      継続的にご利用いただくにはユーザー登録が必要です。
-      </p>
-
-      <div class="d-flex justify-content-center gap-3">
-        <a class="btn btn-navy rouded-pill px-4 fw-bold" href=/users/sign_in role="button">ログイン</a>
-        <a class="btn btn-navy rouded-pill px-4 fw-bold" href=/users/sign_up role="button">新規登録</a>
-      </div>
-    </div>
-  </div>
-<% end %>
-
 <div class="container my-4">
   <h4 class="fw-bold mb-2">メニュー</h4>
   <div class="row  g-1">
 
     <!-- カウンター -->
     <div class="col">
-      <%= link_to "#", class: "menu-card text-center" do %>
+      <%= link_to sushi_items_path, class: "menu-card text-center" do %>
         <i class="menu-icon bi bi-plus-slash-minus"></i>
         <div class="menu-label">カウンター</div>
       <% end %>
@@ -47,7 +30,7 @@
     <div class="col">
       <%= link_to "#", class: "menu-card text-center" do %>
         <div>
-          <img src="/assets/icons/46369.svg" class="icon-invert mt-3" alt="ガチャ" />
+          <%= image_tag "icons/46369.svg", class: "icon-invert mt-3", alt: "ガチャ" %>
         </div>
         <div class="menu-label mt-2">ガチャ</div>
       <% end %>

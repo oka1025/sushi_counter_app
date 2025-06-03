@@ -1,0 +1,14 @@
+<% @sushi_items.each do |sushi| %>
+  <div>
+    <%= sushi.name %><br>
+    <% if sushi.image.attached? %>
+      <%= image_tag sushi.image, alt: sushi.name %>
+    <% end %>
+    <% if sushi.created_by_user_id == current_user.id %>
+      <%= link_to "編集", edit_sushi_item_path(sushi_item) %>
+      <%= link_to "削除", sushi_item_path(sushi_item), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+    <% else %>
+      <p>（この寿司は編集・削除できません）</p>
+    <% end %>
+  </div>
+<% end %>

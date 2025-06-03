@@ -5,3 +5,18 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+nigiri = Category.find_or_create_by!(name: "にぎり")
+
+[
+  { name: "まぐろ", category: nigiri, image_file: "maguro.png" },
+].each do |data|
+  sushi = SushiItem.find_or_initialize_by(name: data[:name])
+  sushi.created_by_user_id = nil
+  sushi.category = data[:category]
+  sushi.image.attach(
+    io: File.open(Rails.root.join("app/assets/images/seeds/#{data[:image_file]}")),
+    filename: data[:image_file],
+    content_type: "image/png"
+  )
+  sushi.save!
+end
