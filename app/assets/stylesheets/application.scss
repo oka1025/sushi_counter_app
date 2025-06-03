@@ -126,3 +126,54 @@ body {
     filter: invert(13%) sepia(51%) saturate(5143%) hue-rotate(221deg) brightness(86%) contrast(96%);
   }
 }
+
+
+.sushi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 10px;
+}
+
+.sushi-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  padding: 10px;
+}
+
+.count-display {
+  position: relative;
+}
+
+.sushi-img {
+  width: 100px;
+  height: auto;
+}
+
+.sushi-count {
+  font-size: 32px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: black;
+}
+
+.count-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 8px;
+}
+
+.count-btn {
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: navy;
+  color: white;
+  border-radius: 6px;
+}
