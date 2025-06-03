@@ -1,14 +1,26 @@
-<% @sushi_items.each do |sushi| %>
-  <div>
-    <%= sushi.name %><br>
-    <% if sushi.image.attached? %>
-      <%= image_tag sushi.image, alt: sushi.name %>
-    <% end %>
-    <% if sushi.created_by_user_id == current_user.id %>
-      <%= link_to "編集", edit_sushi_item_path(sushi_item) %>
-      <%= link_to "削除", sushi_item_path(sushi_item), method: :delete, data: { confirm: "本当に削除しますか？" } %>
-    <% else %>
-      <p>（この寿司は編集・削除できません）</p>
-    <% end %>
-  </div>
-<% end %>
+<div class="sushi-grid">
+  <% @sushi_items.each do |sushi| %>
+    <div class="sushi-card" id="sushi_<%= sushi.id %>">
+      <div class="count-display">
+        <%= image_tag sushi.image, class: "sushi-img" %>
+        <div class="sushi-count" id="count_<%= sushi.id %>">
+          <%= sushi.sushi_item_counters.find_by(counter_id: @counter.id)&.count || 0 %>
+        </div>
+      </div>
+      <div class="count-buttons">
+        <%= button_to "-", update_count_sushi_item_path(sushi, direction: "decrement"), method: :patch, form: { data: { turbo_stream: true }}, class: "count-btn minus" %>
+        <%= button_to "+", update_count_sushi_item_path(sushi, direction: "increment"), method: :patch, form: { data: { turbo_stream: true }}, class: "count-btn plus" %>
+      </div>
+      <p class="sushi-name"><%= sushi.name %></p>
+      <% if sushi.created_by_user_id == current_user.id %>
+        <%= link_to "編集", edit_sushi_item_path(sushi) %>
+        <%= button_to "削除", sushi_item_path(sushi), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+      <% else %>
+        <p>（この寿司は編集・削除できません）</p>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<div class="mx-auto">
+  <%= link_to '寿司追加', new_sushi_item_path, class: 'text-center text-navy fw-bold' %>
+</div>

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  after_create :create_initial_counter
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise  :database_authenticatable, :registerable,
@@ -11,4 +13,9 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
   validates :password, presence: true, length: { minimum: 7 }, format: { with: VALID_PASSWORD_REGEX }
   has_many :counters, dependent: :destroy
+  has_many :sushi_items, foreign_key: :created_by_user_id, dependent: :nullify
+
+  def create_initial_counter
+    counters.create!
+  end
 end

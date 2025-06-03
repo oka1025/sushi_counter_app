@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   root to: "home#index"
-  resources :sushi_items, only: [:new, :create, :index]
+  resources :sushi_items, only: [:new, :create, :index, :edit, :destroy, :update] do
+    member do
+      patch :update_count
+    end
+  end
+
   resources :counters, only: %i[index] 
     
 

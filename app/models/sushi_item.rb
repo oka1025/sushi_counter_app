@@ -2,7 +2,7 @@ class SushiItem < ApplicationRecord
   validates :name, presence: true
   belongs_to :category
   belongs_to :created_by_user, class_name: "User", optional: true
-  has_many :sushi_item_counters
+  has_many :sushi_item_counters, dependent: :destroy
   has_one_attached :image
 
   before_destroy :prevent_system_item_deletion
