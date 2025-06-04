@@ -68,6 +68,13 @@ class SushiItemsController < ApplicationController
     end
   end
 
+  def remove_image
+    @sushi_item = current_user.sushi_items.find(params[:id])
+    @sushi_item.image.purge
+
+    redirect_to edit_sushi_item_path(@sushi_item), notice: "画像を削除しました"
+  end
+
   private
 
   def sushi_item_params

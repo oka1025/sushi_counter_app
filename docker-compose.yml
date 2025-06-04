@@ -5,7 +5,7 @@ services:
     platform: linux/x86_64
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: root
+      MYSQL_DATABASE: myapp_production
       TZ: Asia/Tokyo
     ports:
       - "3306:3306"

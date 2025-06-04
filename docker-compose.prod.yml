@@ -1,0 +1,8 @@
+version: '3'
+services:
+  web:
+    environment:
+      RAILS_ENV: production
+      DATABASE_URL: mysql2://root:password@db:3306/myapp_production
+    depends_on:
+      - db
