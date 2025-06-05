@@ -3,10 +3,8 @@
     <div class="card-body">
       <h2 class="card-title text-center mb-4">ログイン</h2>
 
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "needs-validation" }) do |f| %>
-        <% if flash[:alert] %>
-          <div class="alert alert-danger"><%= flash[:alert] %></div>
-        <% end %>
+      <%= form_with model: resource, url: user_session_path, html: { class: "needs-validation" } do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="mb-3">
           <%= f.label :email, class: "form-label mb-1" %>

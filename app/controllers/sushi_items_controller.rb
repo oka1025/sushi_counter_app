@@ -16,7 +16,7 @@ class SushiItemsController < ApplicationController
   end
 
   def index
-    @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
+    @sushi_items = SushiItem.includes(:sushi_item_counters, :category).where("created_by_user_id = ? OR created_by_user_id IS NULL", current_user.id)
 
     if user_signed_in?
       @counter = current_user.counters.order(created_at: :desc).first_or_create!(eaten_at: Time.current)

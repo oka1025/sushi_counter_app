@@ -14,7 +14,7 @@
       <p class="sushi-name"><%= sushi.name %></p>
       <% if sushi.created_by_user_id == current_user.id %>
         <%= link_to "編集", edit_sushi_item_path(sushi) %>
-        <%= button_to "削除", sushi_item_path(sushi), method: :delete, data: { turbo: false,confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+        <%= button_to "削除", sushi_item_path(sushi), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
       <% else %>
         <p>（この寿司は編集・削除できません）</p>
       <% end %>
