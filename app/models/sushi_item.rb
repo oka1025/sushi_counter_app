@@ -18,7 +18,13 @@ class SushiItem < ApplicationRecord
   end
 
   def prevent_system_item_editing
-    if created_by_user_id.nil?
+    return unless created_by_user_id.nil?
+
+    if (changed - ["updated_at"]).empty? && image.attached?
+      return
+    end
+
+    if changed_to_save.any? { |attr, _| attr != "updated_at" && attr != "image_attachment_id" }
       errors.add(:base, "初期データの寿司は編集できません")
       throw(:abort)
     end
