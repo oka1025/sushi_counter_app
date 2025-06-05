@@ -57,7 +57,7 @@
   </div>
 </div>
 
-<% if !user_signed_in? && request.path != "/users/sign_in" && request.path != "/users/sign_up" %>
+<% if !user_signed_in? && request.path != "/users/sign_in" && request.path != "/users/sign_up" && request.path != user_registration_path %>
   <div class="d-flex justify-content-center mt-4 mb-4">
     <div class="border-navy rounded p-4 text-center bg-white" style="max-width: 500px;">
       <h5 class="smahosize fw-bold mb-3">ゲストユーザーで利用中です。</h5>
