@@ -12,7 +12,8 @@ dessert = Category.find_or_create_by!(name: "デザート")
 others = Category.find_or_create_by!(name: "その他")
 
 [
-  { name: "まぐろ", category: nigiri, image_file: "maguro.png" },
+  { name: "まぐろ", category: nigiri },
+  { name: "とろびんちょう", category: nigiri },
 ].each do |data|
   existing = SushiItem.find_by(name: data[:name], created_by_user_id: nil)
   if existing
@@ -24,17 +25,6 @@ others = Category.find_or_create_by!(name: "その他")
   sushi.created_by_user_id = nil
   sushi.category = data[:category]
 
-  image_path = Rails.root.join("app/assets/images/seeds/#{data[:image_file]}")
-  unless File.exist?(image_path)
-    puts "画像ファイルが存在しません: #{image_path}"
-  else
-    sushi.image.attach(
-      io: File.open(image_path),
-      filename: data[:image_file],
-      content_type: "image/png"
-    )
-  end
-  
   if sushi.save
     puts "保存成功: #{sushi.name}"
   else
