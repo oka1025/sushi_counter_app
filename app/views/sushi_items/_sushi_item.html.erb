@@ -1,0 +1,20 @@
+<div class="sushi-card" id="sushi_<%= sushi_item.id %>">
+  <div class="count-display">
+    <%= image_tag sushi_item.image, class: "sushi-img" if sushi_item.image.present?%>
+    <div class="sushi-count" id="count_<%= sushi_item.id %>">
+      <%= sushi_item.sushi_item_counters.find_by(counter_id: @counter.id)&.count || 0 %>
+    </div>
+  </div>
+  <div class="count-buttons">
+    <%= button_to "-", update_count_sushi_item_path(sushi_item, direction: "decrement"), method: :patch, form: { data: { turbo_stream: true }}, class: "count-btn minus" %>
+    <%= button_to "+", update_count_sushi_item_path(sushi_item, direction: "increment"), method: :patch, form: { data: { turbo_stream: true }}, class: "count-btn plus" %>
+  </div>
+  <p class="sushi-name"><%= sushi_item.name %></p>
+  <% if sushi_item.created_by_user_id == current_user.id %>
+    <%= link_to "編集", edit_sushi_item_path(sushi_item) %>
+    <%= button_to "削除", sushi_item_path(sushi_item), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+  <% elsif sushi_item.created_by_user_id.nil? %>
+    <%= link_to "編集", edit_sushi_item_path(sushi_item) %>
+  <% end %>
+</div>
+

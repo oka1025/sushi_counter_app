@@ -21,7 +21,7 @@ body {
 }
 
 .main-container {
-  padding: 1rem; // 外側に余白を追加
+  padding: 0 0.5rem 1rem 0.5rem; /* 上 0、右下左 1rem */ // 外側に余白を追加
 }
 
 .bg-navy {
@@ -47,6 +47,16 @@ body {
 
   &:hover {
     background-color: #2549A6;  // 少し明るいネイビー
+    color: #ffffff;
+  }
+}
+
+.btn-outline-navy {
+  background-color: #ffffff;
+  color: #0A2D88;
+  
+  &:hover {
+    background-color: #f8f9fa;  // 少し明るいネイビー
     color: #ffffff;
   }
 }
@@ -130,7 +140,16 @@ body {
 
 .sushi-grid {
   display: grid;
+  @media (max-width: 576px) {
   grid-template-columns: repeat(2, 1fr);
+  }
+    @media (min-width: 900px) {
+  grid-template-columns: repeat(4, 1fr);
+  }
+    @media (min-width: 1200px) {
+  grid-template-columns: repeat(5, 1fr);
+  }
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   padding: 10px;
 }
@@ -149,7 +168,7 @@ body {
 
 .sushi-img {
   max-width: 200px;
-  max-height: 110px;
+  max-height: 80px;
 }
 
 .sushi-count {
@@ -173,8 +192,39 @@ body {
   height: 40px;
   font-size: 20px;
   font-weight: bold;
-  background-color: navy;
+  background-color: #0A2D88;
   color: white;
   border-radius: 6px;
 }
 
+.spsize-category{
+  font-size: 1.2rem; //.常サイズ
+
+  @media (max-width: 576px) {
+    font-size: 0.75rem; // スマホサイズ
+  }
+}
+
+.category-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* 必要に応じて上に表示されるよう調整 */
+  background-color: #f8f9fa; /* 背景色を指定しないと、下の要素が透けることがある */
+  padding: 0.4rem 0;
+}
+
+.btn-nav {
+  position: fixed;
+  bottom: 70px;
+  right: 0.5rem;
+  z-index: 1000;
+}
+
+.btn-shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.233); /* 水平, 垂直, ぼかし, 色 */
+}
+
+
+.mb-6 {
+  margin-bottom: 6rem; /* 例えば 64px */
+}

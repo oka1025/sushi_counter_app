@@ -5,6 +5,11 @@ def attach_image(name:, filename:)
   sushi = SushiItem.find_by(name: name, created_by_user_id: nil)
   return puts "見つかりません: #{name}" unless sushi
 
+  if sushi.image.attached?
+    puts "スキップ（既に画像あり）: #{name}"
+    return
+  end
+
   image_path = Rails.root.join("app/assets/images/seeds/#{filename}")
   unless File.exist?(image_path)
     puts "画像ファイルが存在しません: #{filename}"
