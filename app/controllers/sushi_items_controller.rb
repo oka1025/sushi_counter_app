@@ -16,7 +16,13 @@ class SushiItemsController < ApplicationController
   end
 
   def index
-    @sushi_items = SushiItem.includes(:sushi_item_counters, :category).where("created_by_user_id = ? OR created_by_user_id IS NULL", current_user.id)
+    @categories = Category.all
+
+    category_id = params[:category_id].presence || 1
+    @selected_category = Category.find_by(id: category_id)
+    @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
+      .where(category_id: @selected_category.id)
+      .where("created_by_user_id = ? OR created_by_user_id IS NULL", current_user.id)
 
     if user_signed_in?
       @counter = current_user.counters.order(created_at: :desc).first_or_create!(eaten_at: Time.current)
@@ -26,12 +32,31 @@ class SushiItemsController < ApplicationController
   end
 
   def edit
-    @sushi_item = current_user.sushi_items.find(params[:id])
+    @sushi_item = SushiItem.find_by(id: params[:id])
+
+    unless @sushi_item && (
+    @sushi_item.created_by_user_id == current_user.id ||
+    @sushi_item.created_by_user_id.nil?
+    )
+      redirect_to sushi_items_path, alert: "編集権限がありません"
+      return
+    end
+
     @categories = Category.all
   end
 
   def update
-    @sushi_item = current_user.sushi_items.find(params[:id])
+    @sushi_item = SushiItem.find_by(id: params[:id])
+
+    unless @sushi_item.created_by_user_id == current_user.id || @sushi_item.created_by_user_id.nil?
+      redirect_to sushi_items_path, alert: "更新権限がありません"
+      return
+    end
+
+    if params[:sushi_item][:reset_to_default_image] == "1"
+      reset_default_image(@sushi_item)
+    end
+
     if @sushi_item.update(sushi_item_params)
       redirect_to sushi_items_path, notice: "更新しました"
     else
@@ -71,7 +96,6 @@ class SushiItemsController < ApplicationController
   def remove_image
     @sushi_item = current_user.sushi_items.find(params[:id])
     @sushi_item.image.purge
-
     redirect_to edit_sushi_item_path(@sushi_item), notice: "画像を削除しました"
   end
 
@@ -79,5 +103,24 @@ class SushiItemsController < ApplicationController
 
   def sushi_item_params
     params.require(:sushi_item).permit(:name, :image, :category_id, :created_by_user)
+  end
+
+  def reset_default_image(sushi)
+    default_filename = {
+      "まぐろ" => "maguro.png",
+      "とろびんちょう" => "bincho.png"
+    }[sushi.name]
+
+    return unless default_filename
+
+    path = Rails.root.join("app/assets/images/seeds/#{default_filename}")
+    if File.exist?(path)
+      sushi.image.purge
+      sushi.image.attach(
+        io: File.open(path),
+        filename: default_filename,
+        content_type: "image/png"
+      ) 
+    end
   end
 end

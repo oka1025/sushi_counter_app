@@ -4,6 +4,7 @@ class SushiItem < ApplicationRecord
   belongs_to :created_by_user, class_name: "User", optional: true
   has_many :sushi_item_counters, dependent: :destroy
   has_one_attached :image
+  attr_accessor :reset_to_default_image
 
   before_destroy :prevent_system_item_deletion
   before_update :prevent_system_item_editing
@@ -18,13 +19,10 @@ class SushiItem < ApplicationRecord
   end
 
   def prevent_system_item_editing
-    return unless created_by_user_id.nil?
+    return if created_by_user_id.present?
 
-    if (changed - ["updated_at"]).empty? && image.attached?
-      return
-    end
-
-    if changed_to_save.any? { |attr, _| attr != "updated_at" && attr != "image_attachment_id" }
+    # nameやcategory_idなどが変更されているか確認
+    if saved_change_to_name? || saved_change_to_category_id?
       errors.add(:base, "初期データの寿司は編集できません")
       throw(:abort)
     end

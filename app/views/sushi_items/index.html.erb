@@ -1,26 +1,15 @@
-<div class="sushi-grid">
-  <% @sushi_items.each do |sushi| %>
-    <div class="sushi-card" id="sushi_<%= sushi.id %>">
-      <div class="count-display">
-        <%= image_tag sushi.image, class: "sushi-img" if sushi.image.present?%>
-        <div class="sushi-count" id="count_<%= sushi.id %>">
-          <%= sushi.sushi_item_counters.find_by(counter_id: @counter.id)&.count || 0 %>
-        </div>
-      </div>
-      <div class="count-buttons">
-        <%= button_to "-", update_count_sushi_item_path(sushi, direction: "decrement"), method: :patch, form: { data: { turbo_stream: true }}, class: "count-btn minus" %>
-        <%= button_to "+", update_count_sushi_item_path(sushi, direction: "increment"), method: :patch, form: { data: { turbo_stream: true }}, class: "count-btn plus" %>
-      </div>
-      <p class="sushi-name"><%= sushi.name %></p>
-      <% if sushi.created_by_user_id == current_user.id %>
-        <%= link_to "編集", edit_sushi_item_path(sushi) %>
-        <%= button_to "削除", sushi_item_path(sushi), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
-      <% else %>
-        <p>（この寿司は編集・削除できません）</p>
-      <% end %>
-    </div>
+<div class="text-center category-nav">
+  <% @categories.each do |category| %>
+    <% is_selected = @selected_category.id == category.id %>
+    <%= link_to category.name, sushi_items_path(category_id: category.id), 
+        class: "btn #{is_selected ? 'btn-navy' : 'text-navy'} fw-bold spsize-category" %>
   <% end %>
 </div>
-<div class="text-center">
-  <%= link_to '寿司追加', new_sushi_item_path, class: 'btn btn-navy fw-bold' %>
+
+<div class="sushi-grid mb-6">
+  <%= render @sushi_items %>
+</div>
+
+<div class="btn-nav">
+  <%= link_to '寿司追加', new_sushi_item_path, class: 'btn btn-navy fw-bold btn-shadow' %>
 </div>
