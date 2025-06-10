@@ -1,0 +1,13 @@
+<turbo-frame id="category_nav" data-selected-category-id="<%= @selected_category.id %>">
+  <%= render "sushi_items/category_nav", categories: categories, selected_category: selected_category %>
+  
+  <div class="sushi-grid mb-6">
+    <%= render sushi_items %>
+  </div>
+
+  <div class="btn-nav">
+    <%= link_to '寿司追加', new_sushi_item_path(return_category_id: @selected_category.id), 
+        data: { turbo_frame: "modal_frame" }, 
+        class: 'btn btn-navy fw-bold btn-shadow' %>
+  </div>
+</turbo-frame>

@@ -1,15 +1,20 @@
-<div class="text-center category-nav">
-  <% @categories.each do |category| %>
-    <% is_selected = @selected_category.id == category.id %>
-    <%= link_to category.name, sushi_items_path(category_id: category.id), 
-        class: "btn #{is_selected ? 'btn-navy' : 'text-navy'} fw-bold spsize-category" %>
-  <% end %>
-</div>
 
-<div class="sushi-grid mb-6">
-  <%= render @sushi_items %>
-</div>
+<turbo-frame id="category_nav" data-selected-category-id="<%= @selected_category.id %>">
+  <%= render partial: "sushi_items/category_and_list", locals: { categories: @categories, selected_category: @selected_category, sushi_items: @sushi_items, counter: @counter } %>
+  
+  <div class="btn-nav">
+    <%= link_to '寿司追加', new_sushi_item_path(return_category_id: @selected_category.id), 
+        data: { turbo_frame: "modal_frame" }, 
+        class: 'btn btn-navy fw-bold btn-shadow' %>
+  </div>
+</turbo-frame>
 
-<div class="btn-nav">
-  <%= link_to '寿司追加', new_sushi_item_path, class: 'btn btn-navy fw-bold btn-shadow' %>
+<!-- モーダル１つにまとめる -->
+<div data-controller="modal"
+    data-action="turbo:frame-load->modal#show click@window->modal#outsideClick"
+    id="modal_root">
+  <div class="modal-overlay d-none" data-modal-target="overlay"></div>
+  <turbo-frame id="modal_frame" class="modal-frame d-none" data-modal-target="frame">
+    <!-- new/editフォームの中身はここに読み込まれる -->
+  </turbo-frame>
 </div>
