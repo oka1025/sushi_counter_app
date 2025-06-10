@@ -1,28 +1,15 @@
 class SushiItemsController < ApplicationController
-  def new
-    @sushi_item = SushiItem.new
-    @categories = Category.all
-  end
-
-  def create
-    @sushi_item = SushiItem.new(sushi_item_params)
-    @sushi_item.created_by_user = current_user
-    if @sushi_item.save
-      redirect_to sushi_items_path, notice: "寿司を登録しました"
-    else
-      @categories = Category.all
-      render :new
-    end
-  end
+  before_action :selected_category, only: %i[index new create edit update]
 
   def index
-    @categories = Category.all
-
-    category_id = params[:category_id].presence || 1
-    @selected_category = Category.find_by(id: category_id)
     @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
       .where(category_id: @selected_category.id)
       .where("created_by_user_id = ? OR created_by_user_id IS NULL", current_user.id)
+    
+    respond_to do |format|
+      format.turbo_stream if turbo_frame_request?
+      format.html
+    end
 
     if user_signed_in?
       @counter = current_user.counters.order(created_at: :desc).first_or_create!(eaten_at: Time.current)
@@ -30,9 +17,44 @@ class SushiItemsController < ApplicationController
       @counter = nil
     end
   end
+  
+
+  def new
+    @sushi_item = SushiItem.new
+    @return_category_id = params[:return_category_id] || 1
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
+  end
+
+  def create
+    @return_category_id = params[:return_category_id] || sushi_item_params[:category_id]
+
+    @sushi_item = SushiItem.new(sushi_item_params)
+    @sushi_item.created_by_user = current_user
+    @counter = current_user.counters.order(created_at: :desc).first_or_create!(eaten_at: Time.current)
+
+    if @sushi_item.save
+      @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
+        .where(category_id: @return_category_id)
+      respond_to do |format|
+        format.html { redirect_to sushi_items_path(category_id: @return_category_id), notice: "寿司を作成しました" }
+        format.turbo_stream 
+      end
+    else
+      @categories = Category.all
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("form", partial: "form", locals: { sushi_item: @sushi_item }) }
+        format.html { render :new }
+      end
+    end
+  end
 
   def edit
     @sushi_item = SushiItem.find_by(id: params[:id])
+    @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
+      .where(category_id: @selected_category.id)
 
     unless @sushi_item && (
     @sushi_item.created_by_user_id == current_user.id ||
@@ -42,11 +64,15 @@ class SushiItemsController < ApplicationController
       return
     end
 
-    @categories = Category.all
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def update
     @sushi_item = SushiItem.find_by(id: params[:id])
+    @counter = current_user.counters.order(created_at: :desc).first_or_create!(eaten_at: Time.current)
 
     unless @sushi_item.created_by_user_id == current_user.id || @sushi_item.created_by_user_id.nil?
       redirect_to sushi_items_path, alert: "更新権限がありません"
@@ -58,17 +84,40 @@ class SushiItemsController < ApplicationController
     end
 
     if @sushi_item.update(sushi_item_params)
-      redirect_to sushi_items_path, notice: "更新しました"
+      @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
+                              .where(category_id: @selected_category.id)
+
+      respond_to do |format|
+          format.turbo_stream 
+          format.html { redirect_to sushi_items_path(category_id: category_id), notice: "更新しました" }
+      end
     else
-      @categories = Category.all
-      render :edit
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("modal_frame", 
+            partial: "sushi_items/edit_form", 
+            locals: { sushi_item: @sushi_item, categories: @categories })
+        end
+        format.html { render :edit, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
-    sushi_item = current_user.sushi_items.find(params[:id])
-    sushi_item.destroy!
-    redirect_to sushi_items_path, notice: "削除しました"
+    @sushi_item = current_user.sushi_items.find(params[:id])
+    @sushi_item.destroy
+
+    @selected_category = @sushi_item.category
+    @categories = Category.all
+    @counter = current_user.counters.order(created_at: :desc).first
+
+    @sushi_items = SushiItem.includes(:category, :sushi_item_counters)
+                            .where(category_id: @selected_category.id)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to sushi_items_path(category_id: @selected_category.id), notice: '削除しました' }
+    end
   end
 
   def update_count
@@ -96,7 +145,7 @@ class SushiItemsController < ApplicationController
   def remove_image
     @sushi_item = current_user.sushi_items.find(params[:id])
     @sushi_item.image.purge
-    redirect_to edit_sushi_item_path(@sushi_item), notice: "画像を削除しました"
+    redirect_to edit_sushi_item_path(@sushi_item)
   end
 
   private
@@ -104,6 +153,13 @@ class SushiItemsController < ApplicationController
   def sushi_item_params
     params.require(:sushi_item).permit(:name, :image, :category_id, :created_by_user)
   end
+
+  def selected_category
+    @categories = Category.all
+    category_id = params[:category_id].presence || params[:return_category_id].presence || 1
+    @selected_category = Category.find_by(id: category_id)
+  end
+
 
   def reset_default_image(sushi)
     default_filename = {

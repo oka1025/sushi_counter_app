@@ -1,0 +1,5 @@
+<%= turbo_stream.remove "sushi_item_#{@sushi_item.id}" %>
+
+<%= turbo_stream.append "flash_messages" do %>
+  <div class="flash-overlay alert alert-success">削除しました</div>
+<% end %>
