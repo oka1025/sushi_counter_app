@@ -45,8 +45,8 @@ class SushiItemsController < ApplicationController
     else
       @categories = Category.all
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("form", partial: "form", locals: { sushi_item: @sushi_item }) }
-        format.html { render :new }
+        format.turbo_stream { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
@@ -93,11 +93,7 @@ class SushiItemsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace("modal_frame", 
-            partial: "sushi_items/edit_form", 
-            locals: { sushi_item: @sushi_item, categories: @categories })
-        end
+        format.turbo_stream { render :edit, status: :unprocessable_entity }
         format.html { render :edit, status: :unprocessable_entity }
       end
     end

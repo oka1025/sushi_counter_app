@@ -1,16 +1,18 @@
 <% puts "💡 update.turbo_stream.erb 読み込まれた！" %>
 
-<%= turbo_stream.replace "category_nav", partial: "sushi_items/category_and_list", locals: { categories: @categories, selected_category: @selected_category, sushi_items: @sushi_items } %>
+<%= turbo_stream.replace "category_nav", 
+  partial: "sushi_items/category_and_list", 
+  locals: { 
+    categories: @categories, 
+    selected_category: @selected_category, 
+    sushi_items: @sushi_items 
+  } %>
 
-<%= turbo_stream.replace "sushi_item_#{@sushi_item.id}", partial: "sushi_items/sushi_item", locals: { sushi_item: @sushi_item } %>
-
-<%= turbo_stream.replace "new_sushi_link" do %>
-  <div class="btn-nav">
-    <%= link_to '寿司追加', new_sushi_item_path(return_category_id: @selected_category.id), 
-        data: { turbo_frame: "modal_frame" }, 
-        class: 'btn btn-navy fw-bold btn-shadow' %>
-  </div>
-<% end %>
+<%= turbo_stream.replace "sushi_item_#{@sushi_item.id}", 
+  partial: "sushi_items/sushi_item", 
+  locals: { 
+    sushi_item: @sushi_item 
+  } %>
 
 <%= turbo_stream.update "modal_frame" do %>
   <%= raw "" %>

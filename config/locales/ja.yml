@@ -2,7 +2,7 @@ ja:
   activerecord:
     model:
       user: ユーザー
-      sushi_item: 寿司一覧
+      sushi_item: 寿司
     attributes:
       user:
         name: ユーザーネーム
@@ -13,3 +13,4 @@ ja:
       sushi_item:
         name: 名前
         image: 画像
+        category: カテゴリー
