@@ -6,7 +6,11 @@ import { application } from "./application"
 import ModalController from "./modal_controller"
 import ModalCloseHookController from "./modal_close_hook_controller"
 import HelloController from "./hello_controller"
+import FlashController from "./flash_controller"
 
 application.register("hello", HelloController)
 application.register("modal", ModalController)
 application.register("modal-close-hook", ModalCloseHookController)
+
+Stimulus.register("flash", FlashController)
+

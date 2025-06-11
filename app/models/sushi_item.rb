@@ -5,9 +5,11 @@ class SushiItem < ApplicationRecord
   has_many :sushi_item_counters, dependent: :destroy
   has_one_attached :image
   attr_accessor :reset_to_default_image
+  attr_accessor :remove_image
 
   before_destroy :prevent_system_item_deletion
   before_update :prevent_system_item_editing
+  before_save :purge_image_if_requested
 
   private
 
@@ -26,5 +28,9 @@ class SushiItem < ApplicationRecord
       errors.add(:base, "初期データの寿司は編集できません")
       throw(:abort)
     end
+  end
+
+  def purge_image_if_requested
+    image.purge if remove_image == "1"
   end
 end

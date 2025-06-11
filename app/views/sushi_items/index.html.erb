@@ -9,6 +9,13 @@
   </div>
 </turbo-frame>
 
+<div class="btn-nav2">
+  <%= button_to "寿司カウントをリセット", reset_items_counter_path(@counter),
+            method: :delete,
+            data: { confirm: "本当にこのカウントをリセットしますか？" },
+            class: "btn btn-warning btn-shadow" %>
+</div>
+
 <!-- モーダル１つにまとめる -->
 <div data-controller="modal"
     data-action="turbo:frame-load->modal#show click@window->modal#outsideClick"

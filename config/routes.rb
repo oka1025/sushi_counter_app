@@ -7,8 +7,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :counters, only: %i[index] 
-    
+  resources :counters do
+    member do
+      delete :reset_items
+    end
+  end
 
   devise_for :users
   devise_scope :users do
