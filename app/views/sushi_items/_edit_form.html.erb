@@ -1,6 +1,7 @@
 <div class="container my-4" style="max-width: 500px;">
   <%= form_with model: sushi, data: { turbo_frame: "modal_frame" }, html: { class: "p-4 border rounded bg-white" } do |f| %>
     <%= hidden_field_tag :category_id, @selected_category.id %>
+    <%= render "shared/errors_messages", resource: sushi %>
     <% if sushi.created_by_user_id == current_user.id %>
       <div class="mb-3">
         <%= f.label :name, class: "form-labe mb-1" %>
