@@ -138,16 +138,10 @@ class SushiItemsController < ApplicationController
     end
   end
 
-  def remove_image
-    @sushi_item = current_user.sushi_items.find(params[:id])
-    @sushi_item.image.purge
-    redirect_to edit_sushi_item_path(@sushi_item)
-  end
-
   private
 
   def sushi_item_params
-    params.require(:sushi_item).permit(:name, :image, :category_id, :created_by_user)
+    params.require(:sushi_item).permit(:name, :image, :category_id, :created_by_user, :remove_image)
   end
 
   def selected_category

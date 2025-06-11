@@ -9,14 +9,14 @@ import "./controllers"
 import * as bootstrap from "bootstrap"
 
 
-document.addEventListener("turbo:render", () => {
+document.addEventListener("turbo:load", () => {
   console.log("🔥 turbo:load event fired"); // ← これが出れば動いてる！
 
   const flashMessages = document.querySelectorAll(".flash-message");
 
   flashMessages.forEach((msg) => {
     console.log("🙌 flash message found:", msg.innerText); // ← これも表示されるか？
-    
+
     setTimeout(() => {
       msg.style.transition = "opacity 0.5s ease-out";
       msg.style.opacity = "0";

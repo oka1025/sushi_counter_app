@@ -208,7 +208,7 @@ body {
 .category-nav {
   position: sticky;
   top: 0;
-  z-index: 1000; /* 必要に応じて上に表示されるよう調整 */
+  z-index: 500; /* 必要に応じて上に表示されるよう調整 */
   background-color: #f8f9fa; /* 背景色を指定しないと、下の要素が透けることがある */
   padding: 0.4rem 0;
 }
@@ -217,6 +217,13 @@ body {
   position: fixed;
   bottom: 70px;
   right: 0.5rem;
+  z-index: 1000;
+}
+
+.btn-nav2 {
+  position: fixed;
+  bottom: 70px;
+  left: 0.5rem;
   z-index: 1000;
 }
 
@@ -256,3 +263,4 @@ body {
 .d-none {
   display: none !important;
 }
+
