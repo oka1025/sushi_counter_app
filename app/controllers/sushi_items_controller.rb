@@ -12,7 +12,8 @@ class SushiItemsController < ApplicationController
     end
 
     if user_signed_in?
-      @counter = current_user.counters.order(created_at: :desc).first_or_create!(eaten_at: Time.current)
+      @counter = current_counter || current_user.counters.create!(eaten_at: Time.current)
+      set_current_counter(@counter)
     else
       @counter = nil
     end

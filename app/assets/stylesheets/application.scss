@@ -213,6 +213,14 @@ body {
   padding: 0.4rem 0;
 }
 
+.plus-nav {
+  position: fixed;
+  bottom: 67px;
+  right: 0.5rem;
+  z-index: 1000;
+  font-size: 1.0rem;
+}
+
 .btn-nav {
   position: fixed;
   bottom: 70px;
@@ -227,8 +235,19 @@ body {
   z-index: 1000;
 }
 
+.btn-nav3 {
+  position: fixed;
+  bottom: 70px;
+  right: 3.7rem;
+  z-index: 1000;
+}
+
 .btn-shadow {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.233); /* 水平, 垂直, ぼかし, 色 */
+}
+
+.icon-shadow {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.233); /* 水平, 垂直, ぼかし, 色 */
 }
 
 
