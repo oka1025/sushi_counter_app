@@ -5,9 +5,12 @@
     <%= render sushi_items %>
   </div>
 
-  <div class="btn-nav">
-    <%= link_to '寿司追加', new_sushi_item_path(return_category_id: @selected_category.id), 
-        data: { turbo_frame: "modal_frame" }, 
-        class: 'btn btn-navy fw-bold btn-shadow' %>
+  <div class="plus-nav">
+    <%= link_to new_sushi_item_path(return_category_id: @selected_category.id),
+        class: "shadow bg-navy text-white rounded-circle d-inline-flex justify-content-center align-items-center",
+        style: "width: 45px; height: 45px;",
+        data: { turbo_frame: "modal_frame" } do %>
+          <i class="bi bi-plus-lg fs-5"></i>
+        <% end %>
   </div>
 </turbo-frame>

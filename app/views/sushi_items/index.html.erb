@@ -1,19 +1,18 @@
 
 <turbo-frame id="category_nav" data-selected-category-id="<%= @selected_category.id %>">
   <%= render partial: "sushi_items/category_and_list", locals: { categories: @categories, selected_category: @selected_category, sushi_items: @sushi_items, counter: @counter } %>
-  
-  <div class="btn-nav">
-    <%= link_to '寿司追加', new_sushi_item_path(return_category_id: @selected_category.id), 
-        data: { turbo_frame: "modal_frame" }, 
-        class: 'btn btn-navy fw-bold btn-shadow' %>
-  </div>
 </turbo-frame>
 
+<div class="btn-nav3">
+  <%= link_to "保存画面へ", new_counter_path,
+            class: "btn btn-navy btn-shadow fw-bold" %>
+</div>
+
 <div class="btn-nav2">
-  <%= button_to "寿司カウントをリセット", reset_items_counter_path(@counter),
+  <%= button_to "カウントリセット", reset_items_counter_path(@counter),
             method: :delete,
             data: { confirm: "本当にこのカウントをリセットしますか？" },
-            class: "btn btn-warning btn-shadow" %>
+            class: "btn btn-danger btn-shadow fw-bold" %>
 </div>
 
 <!-- モーダル１つにまとめる -->
