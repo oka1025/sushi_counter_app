@@ -7,9 +7,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :counters, only: [:new, :update, :index, :show] do
+  resources :counters, only: [:new, :update, :index, :show, :edit] do
     member do
       delete :reset_items
+      post :use
     end
   end
 

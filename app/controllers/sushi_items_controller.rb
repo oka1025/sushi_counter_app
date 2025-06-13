@@ -120,7 +120,7 @@ class SushiItemsController < ApplicationController
 
   def update_count
     @sushi_item = SushiItem.find(params[:id])
-    @counter = current_user.counters.order(created_at: :desc).first_or_create!(eaten_at: Time.current)
+    @counter = current_counter || current_user.counters.create!(eaten_at: Time.current)
 
     sushi_counter = @sushi_item.sushi_item_counters.find_or_initialize_by(counter_id: @counter.id)
     sushi_counter.count ||= 0
