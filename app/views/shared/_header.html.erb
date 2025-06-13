@@ -27,7 +27,7 @@
   </div>
   <div class="offcanvas-body">
     <ul class="nav flex-column">
-      <h5 class="offcanvas-title" id="offcanvasSidebarLabel text-navy">メインメニュー</h5>
+      <h5 class="offcanvas-title text-navy2" id="offcanvasSidebarLabel">メインメニュー</h5>
       <li class="nav-item mb-2">
         <%= link_to 'ホーム', root_path, class: 'nav-link text-navy' %>
       </li>
@@ -44,7 +44,7 @@
         <%= link_to 'ガチャ', "#", class: 'nav-link text-navy' %>
       </li>
       <br>
-      <h5 class="offcanvas-title" id="offcanvasSidebarLabel">ユーザーメニュー</h5>
+      <h5 class="offcanvas-title text-navy2" id="offcanvasSidebarLabel">ユーザーメニュー</h5>
       <li class="nav-item mb-2">
         <% if user_signed_in? %>
           <%= link_to 'ログアウト', destroy_user_session_path, class: 'text-navy nav-link bi bi-box-arrow-right', data: { turbo_method: :delete } %>

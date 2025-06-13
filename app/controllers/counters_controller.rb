@@ -13,13 +13,16 @@ class CountersController < ApplicationController
 
   def update
     @counter = current_user.counters.find(params[:id])
-    @new_counter = current_user.counters.order(created_at: :desc).first_or_create!(eaten_at: Time.current)
+    @new_counter = current_user.counters.order(created_at: :desc).first
+    @counter.update(saved: true)
+
     if @counter.update(counter_params.except(:update_source))
       if params[:counter][:update_source] == "new"
         clear_current_counter
         current_user.increment!(:coin, @counter.total_count)
         redirect_to counters_path, notice: "#{@counter.total_count}コイン獲得しました"
-        current_user.counters.create!(eaten_at: Time.current)
+        counter = current_user.counters.create!(eaten_at: Time.current)
+        set_current_counter(counter)
       elsif params[:counter][:update_source] == "edit"
         clear_current_counter
         set_current_counter(@new_counter)
@@ -32,7 +35,10 @@ class CountersController < ApplicationController
   end
 
   def index
-    @counters = current_user.counters.find_by(params[:id])
+    @counters = current_user.counters
+                            .includes(:sushi_item_counters)
+                            .where(saved: true)
+                            .order(eaten_at: :desc, created_at: :desc)
   end
 
   def edit
@@ -44,6 +50,12 @@ class CountersController < ApplicationController
     set_current_counter(@counter)
     session[:counter_update_source] = "edit"
     redirect_to sushi_items_path, notice: "カウントを編集します"
+  end
+
+  def destroy
+    counter = current_user.counters.find(params[:id])
+    counter.destroy!
+    redirect_to counters_path, notice: "削除しました"
   end
 
   private

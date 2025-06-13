@@ -1,1 +1,10 @@
-<%= link_to "編集",edit_counter_path(counter) %>
+
+<%= link_to edit_counter_path(counter), class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" do %>
+  <div>
+    <strong><%= l(counter.eaten_at, format: :long) %></strong>
+    <span class="ms-2"><%= counter.store_name %></span>
+  </div>
+  <div class="fw-bold">
+    <%= counter.sushi_item_counters.sum(:count) %>貫
+  </div>
+<% end %>
