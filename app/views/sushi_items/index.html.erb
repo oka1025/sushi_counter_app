@@ -4,8 +4,11 @@
 </turbo-frame>
 
 <div class="btn-nav3">
-  <%= link_to "保存画面へ", new_counter_path,
-            class: "btn btn-navy btn-shadow fw-bold" %>
+  <% if session[:counter_update_source] == "edit" %>
+    <%= link_to "保存画面へ", edit_counter_path(@counter),class: "btn btn-navy btn-shadow fw-bold" %>
+  <% else %>
+    <%= link_to "保存画面へ", new_counter_path,class: "btn btn-navy btn-shadow fw-bold" %>
+  <% end %>
 </div>
 
 <div class="btn-nav2">

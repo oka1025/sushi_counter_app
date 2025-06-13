@@ -18,7 +18,7 @@
         <p>以下の寿司をカウントしました：</p>
         <ul>
           <% @counter.sushi_item_counters.includes(:sushi_item).each do |sic| %>
-            <li><%= sic.sushi_item.name %>: <%= sic.count %> 貫</li>
+            <li><%= sic.sushi_item.name %>：<%= sic.count %> 貫</li>
           <% end %>
         </ul>
 
@@ -31,4 +31,6 @@
     </div>
   </div>
 </div>
-<%= link_to "カウント画面へ", sushi_items_path, class: "btn btn-navy" %>
+<div class="text-end">
+  <%= link_to "カウント画面へ", use_counter_path(@counter), method: :post, class: "btn btn-navy" %>
+</div>
