@@ -36,6 +36,10 @@ body {
   }
 }
 
+.text-navy2 {
+  color: #0A2D88; // 任意の色コード
+}
+
 .border-navy {
   border: 2px solid #0A2D88; // 好きな色コードを指定
 }
@@ -238,7 +242,7 @@ body {
 .btn-nav3 {
   position: fixed;
   bottom: 70px;
-  right: 4.2rem;
+  right: 4.5rem;
   z-index: 1000;
 }
 
@@ -250,8 +254,12 @@ body {
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.233); /* 水平, 垂直, ぼかし, 色 */
 }
 
-
 .mb-6 {
+  margin-bottom: 3.5rem; 
+}
+
+
+.mb-7 {
   margin-bottom: 6rem; /* 例えば 64px */
 }
 

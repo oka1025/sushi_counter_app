@@ -1,14 +1,20 @@
 <turbo-frame id="category_nav" data-selected-category-id="<%= @selected_category.id %>">
   <%= render "sushi_items/category_nav", categories: categories, selected_category: selected_category %>
-  
-  <div class="sushi-grid mb-6">
+
+  <h2 class="mb-1">
+    <% if @counter && @counter.saved? %>
+      <span class="badge bg-warning text-dark mx-1">編集中</span>
+    <% end %>
+  </h2>
+
+  <div class="sushi-grid mb-7">
     <%= render sushi_items %>
   </div>
 
   <div class="plus-nav">
     <%= link_to new_sushi_item_path(return_category_id: @selected_category.id),
         class: "shadow bg-navy text-white rounded-circle d-inline-flex justify-content-center align-items-center",
-        style: "width: 50px; height: 50px;",
+        style: "width: 55px; height: 55px;",
         data: { turbo_frame: "modal_frame" } do %>
           <i class="bi bi-plus-lg fs-5"></i>
         <% end %>
