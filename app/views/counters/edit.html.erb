@@ -21,12 +21,8 @@
             <li><%= sic.sushi_item.name %>: <%= sic.count %> 貫</li>
           <% end %>
         </ul>
-  
-        <% sum = 0 %>
-        <% @counter.sushi_item_counters.each do |sic| %>
-          <% sum += sic.count %>
-        <% end %>
-        <p>合計<%= sum %>貫<p>
+
+        <p>合計：<%= @counter.total_count %> 貫<p>
 
         <div class="d-grid">
           <%= f.submit "更新", class: "btn btn-navy" %>
