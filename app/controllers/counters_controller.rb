@@ -15,17 +15,22 @@ class CountersController < ApplicationController
     if @counter.update(counter_params.except(:update_source))
       if params[:counter][:update_source] == "new"
         clear_current_counter
+        current_user.increment!(:coin, @counter.total_count)
+        redirect_to counters_path, notice: "カウントを保存しました"
       elsif params[:counter][:update_source] == "edit"
-        pass
+        redirect_to counters_path, notice: "カウントを更新しました"
       end
-      redirect_to counters_path, notice: "カウントを保存しました"
     else
       render action_from_source(params[:counter][:update_source]), status: :unprocessable_entity
     end
   end
 
   def index
-    @counter = current_user.counters.order(created_at: :desc)
+    @counter = current_user.counters.find_by(params[:id])
+  end
+
+  def edit
+    @counter = current_user.counters.find(params[:id])
   end
 
   private

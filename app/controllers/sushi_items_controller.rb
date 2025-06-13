@@ -16,6 +16,7 @@ class SushiItemsController < ApplicationController
       set_current_counter(@counter)
     else
       @counter = nil
+      redirect_to root_path
     end
   end
   

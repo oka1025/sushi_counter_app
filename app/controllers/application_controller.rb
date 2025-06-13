@@ -9,15 +9,14 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-  
+
   def set_current_counter(counter)
     session[:current_counter_id] = counter.id
   end
-  
+
   def clear_current_counter
     session.delete(:current_counter_id)
   end
-
 
   protected
 
