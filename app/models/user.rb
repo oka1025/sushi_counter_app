@@ -14,6 +14,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 7 }, format: { with: VALID_PASSWORD_REGEX }
   has_many :counters, dependent: :destroy
   has_many :sushi_items, foreign_key: :created_by_user_id, dependent: :nullify
+  has_many :user_sushi_item_images, dependent: :destroy
 
   def create_initial_counter
     counters.create!

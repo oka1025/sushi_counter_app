@@ -4,6 +4,7 @@ class SushiItem < ApplicationRecord
   belongs_to :created_by_user, class_name: "User", optional: true
   has_many :sushi_item_counters, dependent: :destroy
   has_one_attached :image
+  has_many :user_sushi_item_images, dependent: :destroy
   attr_accessor :reset_to_default_image
   attr_accessor :remove_image
 
