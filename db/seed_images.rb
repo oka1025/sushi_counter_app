@@ -32,4 +32,5 @@ end
 # 必要な寿司を順に登録
 attach_image(name: "まぐろ", filename: "maguro.png")
 attach_image(name: "とろびんちょう", filename: "bincho.png")
+attach_image(name: "サーモン", filename: "salmon.png")
 # 他の寿司も必要に応じて追加
