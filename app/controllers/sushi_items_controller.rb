@@ -2,24 +2,24 @@ class SushiItemsController < ApplicationController
   before_action :selected_category, only: %i[index new create edit update]
 
   def index
-    @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
-      .where(category_id: @selected_category.id)
-      .where("created_by_user_id = ? OR created_by_user_id IS NULL", current_user.id)
-    
-    respond_to do |format|
-      format.turbo_stream if turbo_frame_request?
-      format.html
-    end
-
     if user_signed_in?
+      @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
+        .where(category_id: @selected_category.id)
+        .where("created_by_user_id = ? OR created_by_user_id IS NULL", current_user.id)
+      
+      respond_to do |format|
+        format.turbo_stream if turbo_frame_request?
+        format.html
+      end
+
       @counter = current_counter || current_user.counters.create!(eaten_at: Time.current)
       set_current_counter(@counter)
+
     else
       @counter = nil
       redirect_to root_path
     end
   end
-  
 
   def new
     @sushi_item = SushiItem.new
@@ -79,6 +79,12 @@ class SushiItemsController < ApplicationController
     unless @sushi_item.created_by_user_id == current_user.id || @sushi_item.created_by_user_id.nil?
       redirect_to sushi_items_path, alert: "更新権限がありません"
       return
+    end
+
+    if @sushi_item.created_by_user_id.nil?
+      user_image = @sushi_item.user_sushi_item_images.find_or_initialize_by(user_id: current_user.id)
+      user_image.image.attach(params[:sushi_item][:image])
+      user_image.save
     end
 
     if params[:sushi_item][:reset_to_default_image] == "1"
@@ -162,13 +168,10 @@ class SushiItemsController < ApplicationController
     return unless default_filename
 
     path = Rails.root.join("app/assets/images/seeds/#{default_filename}")
-    if File.exist?(path)
-      sushi.image.purge
-      sushi.image.attach(
-        io: File.open(path),
-        filename: default_filename,
-        content_type: "image/png"
-      ) 
-    end
+    return unless File.exist?(path)
+
+    user_image = sushi.user_sushi_item_images.find_or_initialize_by(user_id: current_user.id)
+    user_image.image.purge if user_image.image.attached?
+    user_image.image.attach(io: File.open(path), filename: default_filename, content_type: "image/png")
   end
 end

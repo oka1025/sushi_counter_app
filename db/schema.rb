@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_06_13_101107) do
+ActiveRecord::Schema[7.0].define(version: 2025_06_16_025147) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -74,6 +74,15 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_13_101107) do
     t.index ["category_id"], name: "index_sushi_items_on_category_id"
   end
 
+  create_table "user_sushi_item_images", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "sushi_item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sushi_item_id"], name: "index_user_sushi_item_images_on_sushi_item_id"
+    t.index ["user_id"], name: "index_user_sushi_item_images_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", default: "", null: false
@@ -98,4 +107,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_13_101107) do
   add_foreign_key "sushi_item_counters", "counters"
   add_foreign_key "sushi_item_counters", "sushi_items"
   add_foreign_key "sushi_items", "categories"
+  add_foreign_key "user_sushi_item_images", "sushi_items"
+  add_foreign_key "user_sushi_item_images", "users"
 end
