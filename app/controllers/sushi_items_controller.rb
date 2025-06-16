@@ -81,9 +81,9 @@ class SushiItemsController < ApplicationController
       return
     end
 
-    if @sushi_item.created_by_user_id.nil?
+    if @sushi_item.created_by_user_id.nil? && params[:user_sushi_item_image].present?
       user_image = @sushi_item.user_sushi_item_images.find_or_initialize_by(user_id: current_user.id)
-      user_image.image.attach(params[:sushi_item][:image])
+      user_image.image.attach(params[:user_sushi_item_image][:image])
       user_image.save
     end
 
@@ -162,7 +162,8 @@ class SushiItemsController < ApplicationController
   def reset_default_image(sushi)
     default_filename = {
       "まぐろ" => "maguro.png",
-      "とろびんちょう" => "bincho.png"
+      "とろびんちょう" => "bincho.png",
+      "サーモン" => "salmon.png"
     }[sushi.name]
 
     return unless default_filename

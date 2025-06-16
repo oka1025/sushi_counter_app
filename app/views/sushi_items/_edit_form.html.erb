@@ -1,5 +1,5 @@
 <div class="container my-4" style="max-width: 500px;">
-  <%= form_with model: sushi, data: { turbo_frame: "modal_frame" }, html: { class: "p-4 border rounded bg-white" } do |f| %>
+  <%= form_with model: sushi, data: { turbo_frame: "modal_frame" }, html: { class: "p-4 border rounded bg-white", multipart: true } do |f| %>
     <%= hidden_field_tag :category_id, @selected_category.id %>
     <%= render "shared/errors_messages", resource: sushi %>
     <% if sushi.created_by_user_id == current_user.id %>
@@ -32,7 +32,7 @@
     <% if sushi.created_by_user_id.nil? %>
       <div class="mb-3">
         <%= f.label :image, class: "form-label mb-1" %>
-        <%= f.file_field :image, class: "form-control" %>
+        <%= file_field_tag "user_sushi_item_image[image]", class: "form-control" %>
 
         <div class="mt-3">
         <% user_image = sushi.user_sushi_item_images.find_by(user_id: current_user.id) %>
