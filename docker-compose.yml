@@ -14,6 +14,8 @@ services:
       - db-data:/var/lib/mysql
   web:
     build: .
+    env_file:
+      - .env
     environment:
       TZ: Asia/Tokyo
       RAILS_ENV: development
