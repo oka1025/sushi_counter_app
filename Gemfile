@@ -89,3 +89,5 @@ gem "aws-sdk-s3", require: false
 gem 'image_processing', '~> 1.12'
 
 gem 'mini_magick', '~> 4.12'
+
+gem 'sassc-rails'
