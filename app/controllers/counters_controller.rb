@@ -35,10 +35,15 @@ class CountersController < ApplicationController
   end
 
   def index
-    @counters = current_user.counters
-                            .includes(:sushi_item_counters)
-                            .where(saved: true)
-                            .order(eaten_at: :desc, created_at: :desc)
+    base_scope = current_user.counters
+                      .includes(:sushi_item_counters)
+                      .left_joins(:sushi_item_counters)
+                      .where(saved: true)
+                      .select("counters.*, COALESCE(SUM(sushi_item_counters.count), 0) as total_count")
+                      .group("counters.id")
+
+    @q = base_scope.ransack(params[:q])
+    @counters = @q.result.order(sort_order(params[:sort]))
   end
 
   def edit
@@ -66,5 +71,24 @@ class CountersController < ApplicationController
 
   def counter_params
     params.require(:counter).permit( :eaten_at, :store_name, :user_id, :update_source )
+  end
+
+  def search_params
+    params.fetch(:q, {}).permit(:eaten_at_gteq, :eaten_at_lteq, :store_name_cont, :total_count_gteq, :total_count_lteq)
+  end
+
+  def sort_order(param)
+    case param
+    when "date_asc"
+      "eaten_at ASC, created_at ASC"
+    when "date_desc"
+      "eaten_at DESC, created_at DESC"
+    when "count_asc"
+      "total_count ASC, created_at ASC"
+    when "count_desc"
+      "total_count DESC, created_at DESC"
+    else
+      "eaten_at DESC, created_at DESC"
+    end
   end
 end
