@@ -9,4 +9,10 @@ class Counter < ApplicationRecord
   def total_count
     sushi_item_counters.sum{|sic| sic.count }
   end
+
+  ransacker :total_count do
+    Arel.sql("COALESCE((SELECT SUM(sushi_item_counters.count)
+                        FROM sushi_item_counters
+                        WHERE sushi_item_counters.counter_id = counters.id), 0)")
+  end
 end

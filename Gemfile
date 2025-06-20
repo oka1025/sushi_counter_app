@@ -91,3 +91,5 @@ gem 'image_processing', '~> 1.12'
 gem 'mini_magick', '~> 4.12'
 
 gem 'sassc-rails'
+
+gem 'ransack', '3.2.1' 
