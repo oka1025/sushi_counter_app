@@ -173,6 +173,6 @@ class SushiItemsController < ApplicationController
 
     user_image = sushi.user_sushi_item_images.find_or_initialize_by(user_id: current_user.id)
     user_image.image.purge if user_image.image.attached?
-    user_image.image.attach(io: File.open(path), filename: default_filename, content_type: "image/png")
+    sushi.image.attach(io: File.open(path), filename: default_filename, content_type: "image/png")
   end
 end
