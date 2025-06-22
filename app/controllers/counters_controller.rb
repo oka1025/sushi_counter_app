@@ -43,7 +43,7 @@ class CountersController < ApplicationController
                       .group("counters.id")
 
     @q = base_scope.ransack(params[:q])
-    @counters = @q.result.order(sort_order(params[:sort]))
+    @counters = @q.result.order(sort_order(params[:sort])).page(params[:page]).per(2)
   end
 
   def edit

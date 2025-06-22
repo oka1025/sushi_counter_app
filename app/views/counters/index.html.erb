@@ -6,6 +6,10 @@
   <%= render 'search_form', q: @q %>
 </div>
 
+
 <div class="list-group mb-5" style="max-width: 800px; margin: 0 auto;">
   <%= render @counters %>
+  <div class="my-3 d-flex justify-content-center">
+    <%= paginate @counters %>
+  </div>
 </div>

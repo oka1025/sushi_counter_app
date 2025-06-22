@@ -14,3 +14,10 @@ ja:
         name: 名前
         image: 画像
         category: カテゴリー
+  views:
+    pagination:
+      first: <i class="fa-solid fa-angles-left"></i>
+      last: <i class="fas fa-angle-double-right"></i>
+      previous: <i class="fas fa-angle-left"></i>
+      next: <i class="fas fa-angle-right"></i>
+      truncate: "..."
