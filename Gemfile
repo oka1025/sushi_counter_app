@@ -50,7 +50,6 @@ gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 
-
 gem 'devise'
 
 gem 'devise-i18n'
@@ -93,3 +92,5 @@ gem 'mini_magick', '~> 4.12'
 gem 'sassc-rails'
 
 gem 'ransack', '3.2.1' 
+
+gem 'kaminari'
