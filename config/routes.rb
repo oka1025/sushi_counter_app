@@ -12,6 +12,9 @@ Rails.application.routes.draw do
       delete :reset_items
       post :use
     end
+    collection do
+      get :summary
+    end
   end
 
   devise_for :users
