@@ -6,11 +6,11 @@ class Counter < ApplicationRecord
 
   attribute :saved, :boolean, default: false
 
-  def total_count
+  def total_sushi_count
     sushi_item_counters.sum{|sic| sic.count }
   end
 
-  ransacker :total_count do
+  ransacker :counter_total_count do
     Arel.sql("COALESCE((SELECT SUM(sushi_item_counters.count)
                         FROM sushi_item_counters
                         WHERE sushi_item_counters.counter_id = counters.id), 0)")

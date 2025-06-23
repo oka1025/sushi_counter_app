@@ -1,0 +1,83 @@
+<div class="text-center my-3">
+  <h2>寿司データベース</h2>
+</div>
+
+<div class="mb-3" style="max-width: 800px; margin-left: auto; margin-right: auto;">
+  <!-- 食べた寿司TOP3 -->
+  <div class="mb-4">
+    <div class="bg-navy text-white fw-bold text-center py-2 rounded-top">
+      食べた寿司TOP3
+    </div>
+    <ul class="list-group no-top-rounded border-top-0 rounded-bottom">
+      <% @popular_sushis.each do |sushi, count, rank| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="fw-bold fs-5">
+            <span><%= rank %>位</span>
+            <span class="ms-3"><%= sushi %></span>
+          </div>
+          <span class="fs-5 fw-bold"><%= count %>貫</span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <!-- よく行った店舗TOP3 -->
+  <div class="mb-3">
+    <div class="bg-navy text-white fw-bold text-center py-2 rounded-top">
+      よく行った店舗TOP3
+    </div>
+    <ul class="list-group no-top-rounded border-top-0 rounded-bottom">
+      <% @popular_stores.each do |store, count, rank| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="fw-bold fs-5">
+            <span><%= rank %>位</span>
+            <span class="ms-3"><%= store %></span>
+          </div>
+          <span class="fs-5 fw-bold"><%= count %>回</span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="mb-4 fs-5">
+    <strong>総貫数:</strong> <%= @total_sushi %> 貫
+  </div>
+</div>
+
+<div data-controller="reset-form">
+  <%= render 'summary_search_form', q: @q %>
+</div>
+
+<div class="mb-6">
+  <div class="card" style="max-width: 800px; margin: 0 auto;">
+    <div class="card-header bg-navy text-white fw-bold position-relative">
+      <div class="w-100 text-center">寿司データ</div>
+    </div>
+
+    <table class="table mb-0 custom-sushi-table">
+      
+      <thead>
+        <tr class="table-primary">
+          <th class="text-end no-padding-left">No.</th>
+          <th class="ps-3">名前</th>
+          <th class="text-end pe-3">貫数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @sushi_ranks.each do |rank, name, count| %>
+          <tr>
+            <td class="text-end no-padding-left"><%= rank %></td>
+            <td class="ps-3"><%= name %></td>
+            <td class="text-end pe-3"><%= count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr class="table-primary fw-bold">
+          <td colspan="2" class="text-end">合計</td>
+          <td class="text-end pe-3"><%= @total_sushi_count %></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>  
