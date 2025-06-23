@@ -8,11 +8,13 @@ import ModalCloseHookController from "./modal_close_hook_controller"
 import HelloController from "./hello_controller"
 import FlashController from "./flash_controller"
 import ResetFormController from "./reset_form_controller"
+import CollapsePersistController from "./collapse_persist_controller"
 
 application.register("hello", HelloController)
 application.register("modal", ModalController)
 application.register("modal-close-hook", ModalCloseHookController)
 application.register("reset-form", ResetFormController)
+application.register("collapse-persist", CollapsePersistController)
 
 Stimulus.register("flash", FlashController)
 

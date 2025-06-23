@@ -6,8 +6,13 @@ class CountersController < ApplicationController
     redirect_back fallback_location: sushi_items_path, notice: "カウントをリセットしました"
   end
 
-  def new
-    @counter = current_counter || current_user.counters.create!(eaten_at: Time.current)
+  def new 
+    if current_counter
+      @counter = current_counter
+      @counter.update!(eaten_at: Time.current)
+    else
+      current_user.counters.create!(eaten_at: Time.current)
+    end
     session[:counter_update_source] = "new"
   end
 
@@ -19,8 +24,8 @@ class CountersController < ApplicationController
     if @counter.update(counter_params.except(:update_source))
       if params[:counter][:update_source] == "new"
         clear_current_counter
-        current_user.increment!(:coin, @counter.total_count)
-        redirect_to counters_path, notice: "#{@counter.total_count}コイン獲得しました"
+        current_user.increment!(:coin, @counter.sushi_total_count)
+        redirect_to counters_path, notice: "#{@counter.sushi_total_count}コイン獲得しました"
         counter = current_user.counters.create!(eaten_at: Time.current)
         set_current_counter(counter)
       elsif params[:counter][:update_source] == "edit"
@@ -39,11 +44,11 @@ class CountersController < ApplicationController
                       .includes(:sushi_item_counters)
                       .left_joins(:sushi_item_counters)
                       .where(saved: true)
-                      .select("counters.*, COALESCE(SUM(sushi_item_counters.count), 0) as total_count")
+                      .select("counters.*, COALESCE(SUM(sushi_item_counters.count), 0) as counter_total_count")
                       .group("counters.id")
 
     @q = base_scope.ransack(params[:q])
-    @counters = @q.result.order(sort_order(params[:sort])).page(params[:page]).per(2)
+    @counters = @q.result.order(sort_order(params[:sort])).page(params[:page]).per(20)
   end
 
   def edit
@@ -63,6 +68,104 @@ class CountersController < ApplicationController
     redirect_to counters_path, notice: "削除しました"
   end
 
+  def summary
+    counters = current_user.counters
+      .where(saved: true)
+
+    base_scope = counters
+      .joins(sushi_item_counters: :sushi_item)
+
+    sushi_grouped = base_scope
+      .group("sushi_items.name")
+
+    @q = base_scope.ransack(params[:q])
+    filtered_scope = @q.result
+
+    @total_sushi = counters.joins(:sushi_item_counters).sum("sushi_item_counters.count")
+
+    store_counts = counters
+      .where.not(store_name: [nil, ""])
+      .group(:store_name)
+      .count
+
+    sorted_counts = store_counts.sort_by { |_, count| -count }
+
+    ranked_stores = []
+    rank = 0
+    position = 0
+    last_count = nil
+
+    sorted_counts.each do |store, count|
+      position += 1
+      rank = position if count != last_count
+      last_count = count
+
+      break if rank > 3
+      ranked_stores << [store, count, rank]
+    end
+
+    @popular_stores = ranked_stores
+
+    sushi_counts_3 = counters
+      .joins(sushi_item_counters: :sushi_item)
+      .where.not(sushi_item_counters: { count: [nil, "0"] })
+      .group("sushi_items.name")
+      .sum("sushi_item_counters.count")
+
+    sorted_sushi_counts = sushi_counts_3.sort_by { |_, count| -count }
+
+    ranked_sushis = []
+    rank = 0
+    position = 0
+    last_count = nil
+
+    sorted_sushi_counts.each do |sushi, count|
+      position += 1
+      rank = position if count != last_count
+      last_count = count
+      break if rank > 3
+      ranked_sushis << [sushi, count, rank]
+    end
+    @popular_sushis = ranked_sushis
+
+    sushi_counts = filtered_scope
+      .joins(sushi_item_counters: :sushi_item)
+      .where.not(sushi_item_counters: { count: [nil, "0"] })
+      .group("sushi_items.name")
+      .select("sushi_items.name, SUM(sushi_item_counters.count) AS total_count")
+
+    if params.dig(:q, :total_count_gteq).present?
+      sushi_counts = sushi_counts.having("SUM(sushi_item_counters.count) >= ?", params[:q][:total_count_gteq])
+    end
+    if params.dig(:q, :total_count_lteq).present?
+      sushi_counts = sushi_counts.having("SUM(sushi_item_counters.count) <= ?", params[:q][:total_count_lteq])
+    end
+
+    order_sql = case sushi_sort_order(params[:sort])
+              when /total_count ASC/ then "total_count ASC"
+              when /total_count DESC/ then "total_count DESC"
+              when /name ASC/ then "sushi_items.name ASC"
+              when /name DESC/ then "sushi_items.name DESC"
+              else "total_count DESC"
+              end
+
+    sushi_counts = sushi_counts.order(order_sql)
+
+    @sushi_ranks = []
+    rank = 0
+    position = 0
+    last_count = nil
+
+    sushi_counts.each do |record|
+      position += 1
+      count = record.total_count.to_i
+      rank = position if count != last_count
+      last_count = count
+      @sushi_ranks << [rank, record.name, count]
+    end
+    @total_sushi_count = @sushi_ranks.sum { |_, _, c| c }
+  end
+
   private
 
   def action_from_source(source)
@@ -74,7 +177,7 @@ class CountersController < ApplicationController
   end
 
   def search_params
-    params.fetch(:q, {}).permit(:eaten_at_gteq, :eaten_at_lteq, :store_name_cont, :total_count_gteq, :total_count_lteq)
+    params.fetch(:q, {}).permit(:eaten_at_gteq, :eaten_at_lteq, :store_name_cont, :counter_total_count_gteq, :counter_total_count_lteq, :name_cont)
   end
 
   def sort_order(param)
@@ -84,11 +187,26 @@ class CountersController < ApplicationController
     when "date_desc"
       "eaten_at DESC, created_at DESC"
     when "count_asc"
-      "total_count ASC, created_at ASC"
+      "counter_total_count ASC, created_at ASC"
     when "count_desc"
-      "total_count DESC, created_at DESC"
+      "counter_total_count DESC, created_at DESC"
     else
       "eaten_at DESC, created_at DESC"
+    end
+  end
+
+  def sushi_sort_order(param)
+    case param
+    when "count_asc"
+      "total_count ASC, name ASC"
+    when "count_desc"
+      "total_count DESC, name DESC"
+    when "name_asc"
+      "name ASC"
+    when "name_desc"
+      "name DESC"
+    else
+      "total_count DESC"
     end
   end
 end

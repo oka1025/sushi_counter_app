@@ -257,7 +257,6 @@ body {
   margin-bottom: 3.5rem; 
 }
 
-
 .mb-7 {
   margin-bottom: 6rem; /* 例えば 64px */
 }
@@ -297,4 +296,30 @@ body {
 
 .pagination>.active>a {		
   background: #93c9ff;	   /*背景の色を変える*/	
+}
+
+.list-group.no-top-rounded li:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.no-padding-left {
+  padding-left: 0 !important;
+}
+
+.custom-sushi-table {
+  table-layout: fixed;
+  width: 100%;
+
+  th:nth-child(1), td:nth-child(1) { // No.列
+    width: 10%;
+  }
+
+  th:nth-child(2), td:nth-child(2) { // 名前
+    width: 60%;
+  }
+
+  th:nth-child(3), td:nth-child(3) { // 貫数
+    width: 20%;
+  }
 }
