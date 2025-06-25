@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'gachas/show'
+  get 'gachas/draw'
   root to: "home#index"
   resources :sushi_items, only: [:new, :create, :index, :edit, :destroy, :update] do
     member do
@@ -15,6 +17,11 @@ Rails.application.routes.draw do
     collection do
       get :summary
     end
+  end
+
+  resource :gachas, only: [:show] do
+    post :draw, on: :collection
+    get :result
   end
 
   devise_for :users

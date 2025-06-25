@@ -64,20 +64,25 @@
         </tr>
       </thead>
       <tbody>
-        <% @sushi_ranks.each do |rank, name, count| %>
+        <% @paginated_sushi_counts.each do |item| %>
           <tr>
-            <td class="text-end no-padding-left"><%= rank %></td>
-            <td class="ps-3"><%= name %></td>
-            <td class="text-end pe-3"><%= count %></td>
+            <td class="text-end no-padding-left"><%= item[:rank] %></td>
+            <td class="ps-3"><%= item[:name] %></td>
+            <td class="text-end pe-3"><%= item[:count] %></td>
           </tr>
         <% end %>
       </tbody>
       <tfoot>
-        <tr class="table-primary fw-bold">
-          <td colspan="2" class="text-end">合計</td>
-          <td class="text-end pe-3"><%= @total_sushi_count %></td>
-        </tr>
+        <% if @paginated_sushi_counts.current_page == @paginated_sushi_counts.total_pages %>
+          <tr class="table-primary fw-bold">
+            <td colspan="2" class="text-end">合計</td>
+            <td class="text-end pe-3"><%= @total_sushi_count %></td>
+          </tr>
+        <% end %>
       </tfoot>
     </table>
+  </div>
+  <div class="my-3 d-flex justify-content-center">
+    <%= paginate @paginated_sushi_counts %>
   </div>
 </div>  

@@ -14,6 +14,12 @@ ja:
         name: 名前
         image: 画像
         category: カテゴリー
+      gacha_list:
+        rarity:
+          normal: "N"
+          rare: "R"
+          super_rare: "SR"
+          special: "SP"
   views:
     pagination:
       first: <i class="fa-solid fa-angles-left"></i>

@@ -323,3 +323,97 @@ body {
     width: 20%;
   }
 }
+
+.flash-overlay {
+  background-color: white;
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+  pointer-events: none;
+}
+
+.flash-overlay.fade-out {
+  opacity: 0;
+}
+
+.rarity-badge {
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
+
+.rarity-normal {
+  background-color: #21bd33; // gray
+  color: #fff;
+}
+
+.rarity-rare {
+  background-color: #007bff; // blue
+  color: #fff;
+}
+
+.rarity-super_rare {
+  background-color: #870689; // red
+  color: #fff;
+}
+
+.rarity-special {
+  background-color: #ffc107; // yellow
+  color: #212529;
+}
+
+.btn-warning {
+  font-size: 1.2rem;
+  background: linear-gradient(to bottom, #ffd65c, #febf00);
+  border: none;
+  color: #fff;
+}
+
+.gacha-button {
+  border: none;
+  border-radius: 1rem;
+  padding: 0;
+  overflow: hidden;
+  width: 140px;
+  height: 90px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  color: white;
+  background: none;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.gacha-button-top {
+  height: 60px;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #ffa600, #fcb72c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.gacha-button-bottom {
+  height: 30px;
+  background: linear-gradient(to bottom, #ededed, #d6d6d6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.coin-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.text-smaller {
+  font-size: 0.75rem;
+}
