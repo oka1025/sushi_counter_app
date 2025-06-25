@@ -15,6 +15,8 @@ class User < ApplicationRecord
   has_many :counters, dependent: :destroy
   has_many :sushi_items, foreign_key: :created_by_user_id, dependent: :nullify
   has_many :user_sushi_item_images, dependent: :destroy
+  has_many :user_gacha_lists, dependent: :destroy
+  has_many :gacha_lists, through: :user_gacha_lists
 
   def create_initial_counter
     counters.create!

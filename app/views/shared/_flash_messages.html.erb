@@ -1,5 +1,5 @@
 <div id="flash_messages" 
-    class="flash-overlay position-fixed top-0 start-50 translate-middle-x mt-1 z-1050" 
+    class="position-fixed top-0 start-50 translate-middle-x mt-1 z-1050" 
     style="min-width: 300px; z-index: 9999;">
   <% flash.each do |key, message| %>
     <div class="alert alert-<%= key == "notice" ? "success" : "danger" %> flash-message" data-controller="flash">

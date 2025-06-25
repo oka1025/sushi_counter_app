@@ -16,5 +16,12 @@ application.register("modal-close-hook", ModalCloseHookController)
 application.register("reset-form", ResetFormController)
 application.register("collapse-persist", CollapsePersistController)
 
+import ScrollController from "./scroll_controller"
+application.register("scroll", ScrollController)
+
+import GachaResultController from "./gacha_result_controller"
+application.register("gacha-result", GachaResultController)
+
+
 Stimulus.register("flash", FlashController)
 
