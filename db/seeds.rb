@@ -100,3 +100,31 @@ others = Category.find_or_create_by!(name: "その他")
     puts sushi.errors.full_messages
   end
 end
+
+
+puts "🌱 Seeding GachaList..."
+
+def attach_image(record, filename)
+  filepath = Rails.root.join("db/seeds/images/#{filename}")
+  return unless File.exist?(filepath)
+
+  record.image.attach(io: File.open(filepath), filename: filename, content_type: "image/png")
+end
+
+gachas = [
+  { name: "地球スシ", rarity: :normal, image: "chikyu.PNG", weight: 60 },
+  { name: "マグロライダー", rarity: :rare, image: "maguro_biker.PNG", weight: 30 },
+  { name: "えび天キッド", rarity: :super_rare, image: "ebiten_kid.PNG", weight: 9 }
+]
+
+gachas.each do |attrs|
+  existing = GachaList.find_by(name: attrs[:name])
+  if existing
+    puts "⏩ #{attrs[:name]} は既に存在します。スキップします"
+    next
+  end
+
+  gacha = GachaList.create!(name: attrs[:name], rarity: attrs[:rarity], weight: attrs[:weight])
+  attach_image(gacha, attrs[:image])
+  puts "✅ #{gacha.name} を作成しました"
+end

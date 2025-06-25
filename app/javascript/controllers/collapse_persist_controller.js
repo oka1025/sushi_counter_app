@@ -5,13 +5,11 @@ export default class extends Controller {
   static values = { id: String }
 
   connect() {
-    console.log("✅ collapse-persist connected!")
 
     this.panel = document.getElementById(this.idValue)
 
     // 保存された状態を反映（open or closed）
     const savedState = localStorage.getItem(`collapse-${this.idValue}`)
-    console.log("📦 loaded state:", savedState)
     if (savedState === "open") {
       this.panel.classList.add("show")
     } else {
@@ -25,12 +23,10 @@ export default class extends Controller {
 
     this.panel.addEventListener("shown.bs.collapse", () => {
       localStorage.setItem(`collapse-${this.idValue}`, "open")
-      console.log("💾 saved state: open")
     })
 
     this.panel.addEventListener("hidden.bs.collapse", () => {
       localStorage.setItem(`collapse-${this.idValue}`, "closed")
-      console.log("💾 saved state: closed")
     })
   }
 }

@@ -12,7 +12,7 @@
     <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css", media: "all", "data-turbo-track": "reload" %>
   </head>
 
-  <body>
+  <body data-controller="<%= 'scroll' unless controller_name == 'gachas' && action_name == 'result' %>">
     <%= render 'shared/header' %>
     <%= render 'shared/flash_messages' %>
     <div class="main-container">

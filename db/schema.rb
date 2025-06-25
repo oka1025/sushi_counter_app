@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_06_16_025147) do
+ActiveRecord::Schema[7.0].define(version: 2025_06_24_135005) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -55,6 +55,14 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_16_025147) do
     t.index ["user_id"], name: "index_counters_on_user_id"
   end
 
+  create_table "gacha_lists", charset: "utf8mb3", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "rarity", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "weight", default: 1, null: false
+  end
+
   create_table "sushi_item_counters", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "sushi_item_id", null: false
     t.bigint "counter_id", null: false
@@ -72,6 +80,15 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_16_025147) do
     t.datetime "updated_at", null: false
     t.integer "created_by_user_id"
     t.index ["category_id"], name: "index_sushi_items_on_category_id"
+  end
+
+  create_table "user_gacha_lists", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "gacha_list_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gacha_list_id"], name: "index_user_gacha_lists_on_gacha_list_id"
+    t.index ["user_id"], name: "index_user_gacha_lists_on_user_id"
   end
 
   create_table "user_sushi_item_images", charset: "utf8mb3", force: :cascade do |t|
@@ -107,6 +124,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_16_025147) do
   add_foreign_key "sushi_item_counters", "counters"
   add_foreign_key "sushi_item_counters", "sushi_items"
   add_foreign_key "sushi_items", "categories"
+  add_foreign_key "user_gacha_lists", "gacha_lists"
+  add_foreign_key "user_gacha_lists", "users"
   add_foreign_key "user_sushi_item_images", "sushi_items"
   add_foreign_key "user_sushi_item_images", "users"
 end

@@ -24,8 +24,8 @@ class CountersController < ApplicationController
     if @counter.update(counter_params.except(:update_source))
       if params[:counter][:update_source] == "new"
         clear_current_counter
-        current_user.increment!(:coin, @counter.sushi_total_count)
-        redirect_to counters_path, notice: "#{@counter.sushi_total_count}コイン獲得しました"
+        current_user.increment!(:coin, @counter.total_sushi_count)
+        redirect_to counters_path, notice: "#{@counter.total_sushi_count}コイン獲得しました"
         counter = current_user.counters.create!(eaten_at: Time.current)
         set_current_counter(counter)
       elsif params[:counter][:update_source] == "edit"
@@ -161,9 +161,10 @@ class CountersController < ApplicationController
       count = record.total_count.to_i
       rank = position if count != last_count
       last_count = count
-      @sushi_ranks << [rank, record.name, count]
+      @sushi_ranks << { rank: rank, name: record.name, count: count }
     end
-    @total_sushi_count = @sushi_ranks.sum { |_, _, c| c }
+    @total_sushi_count = sushi_counts.sum { |r| r.total_count.to_i }
+    @paginated_sushi_counts = Kaminari.paginate_array(@sushi_ranks).page(params[:page]).per(50)
   end
 
   private
