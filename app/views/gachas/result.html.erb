@@ -1,0 +1,28 @@
+<div data-controller="gacha-result" class="gacha-result-screen position-relative">
+  <div data-gacha-result-target="flash" class="flash-overlay"></div>
+
+  <div data-gacha-result-target="result" class="result-items text-center opacity-20">
+    <div class="d-flex flex-wrap justify-content-center">
+      <% @results.each do |item| %>
+        <div class="m-3 text-center">
+          <% rarity_class = case item.rarity
+            when 'normal' then "rarity-#{item.rarity}"
+            when 'rare' then 'bg-primary text-white'
+            when 'super_rare' then "rarity-#{item.rarity}"
+            when 'special' then 'bg-warning text-dark'
+          end %>
+          <div class="position-relative d-inline-block">
+            <%= image_tag item.image, size: "400x400", class: "img-thumbnail" if item.image.attached? %>
+            <div class="rarity-badge position-absolute top-0 end-0 px-2 py-1 small rounded <%= rarity_class %>">
+              <%= I18n.t("activerecord.attributes.gacha_list.rarity.#{item.rarity}") %>
+            </div>
+          </div>
+          <strong class="d-block mt-2"><%= item.name %></strong>
+        </div>
+      <% end %>
+    </div>
+    <div class="mb-6">
+      <%= link_to "OK", gachas_path, class: "btn btn-navy mt-4 d-none", id: "back-button" %>
+    </div>
+  </div>
+</div>
