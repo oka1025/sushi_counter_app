@@ -33,6 +33,8 @@ Rails.application.routes.draw do
     get '/users', to: redirect("/users/sign_up")
   end
 
+  resource :user, only: [:show, :update]
+
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
