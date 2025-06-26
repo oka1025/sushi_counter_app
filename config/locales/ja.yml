@@ -16,10 +16,10 @@ ja:
         category: カテゴリー
       gacha_list:
         rarity:
-          normal: "N"
-          rare: "R"
-          super_rare: "SR"
-          special: "SP"
+          normal: "ノーマル"
+          rare: "レア"
+          super_rare: "スーパーレア"
+          special: "スペシャル"
   views:
     pagination:
       first: <i class="fa-solid fa-angles-left"></i>

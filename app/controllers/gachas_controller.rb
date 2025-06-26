@@ -36,9 +36,14 @@ class GachasController < ApplicationController
   end
 
   def result
-    ids = session.delete(:latest_gacha_items) || []
+    ids = session[:latest_gacha_items] || []
     id_counts = ids.tally
     all_items = GachaList.where(id: ids).index_by(&:id)
     @results = ids.map { |id| all_items[id] }
+  end
+
+  def destroy_session
+    session.delete(:gacha_result_ids)
+    redirect_to gachas_path
   end
 end

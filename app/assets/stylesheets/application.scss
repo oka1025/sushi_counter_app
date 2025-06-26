@@ -277,7 +277,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 2rem;
+  padding: 1rem;
   z-index: 1050;
   max-width: 500px;
   width: 90%;
@@ -339,7 +339,7 @@ body {
 }
 
 .rarity-badge {
-  font-size: 1.5rem;
+  font-size: 1rem;
   opacity: 0.9;
 }
 
@@ -437,9 +437,4 @@ body {
 .card {
   background-color: rgba(255, 255, 255, 0); /* 半透明の白背景（任意） */
   border-radius: 8px;
-}
-
-.rainbow-border {
-  background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
-  color: white;
 }

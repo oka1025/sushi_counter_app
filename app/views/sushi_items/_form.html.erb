@@ -1,4 +1,5 @@
-<div class="container my-4" style="max-width: 500px;">
+<div class="mb-2" style="max-width: 500px;">
+  <h1 class="text-center mb-3">新規寿司作成</h1>
   <%= form_with model: sushi, data: { turbo_frame: "modal_frame" }, html: { class: "p-4 border rounded bg-white" } do |f| %>
     <%= hidden_field_tag :return_category_id, params[:return_category_id] || @selected_category.id %>
     <%= render "shared/errors_messages", resource: sushi %>
@@ -24,7 +25,7 @@
     </div>
   
     <div class="d-grid mt-4">
-      <%= f.submit "保存", class: "btn btn-navy" %>
+      <%= f.submit "寿司を保存", class: "btn btn-navy" %>
     </div>
   <% end %>
 </div>
