@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
-  validates :password, presence: true, length: { minimum: 7 }, format: { with: VALID_PASSWORD_REGEX }
+  validates :password, presence: true, length: { minimum: 7 }, format: { with: VALID_PASSWORD_REGEX }, if: :password_required?
   has_many :counters, dependent: :destroy
   has_many :sushi_items, foreign_key: :created_by_user_id, dependent: :nullify
   has_many :user_sushi_item_images, dependent: :destroy
@@ -20,5 +20,11 @@ class User < ApplicationRecord
 
   def create_initial_counter
     counters.create!
+  end
+
+  private
+
+  def password_required?
+    new_record? || password.present?
   end
 end
