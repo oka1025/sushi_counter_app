@@ -47,6 +47,7 @@
       <h5 class="offcanvas-title text-navy2" id="offcanvasSidebarLabel">ユーザーメニュー</h5>
       <li class="nav-item mb-2">
         <% if user_signed_in? %>
+          <%= link_to 'ユーザー設定', user_path, class: 'nav-link text-navy' %>
           <%= link_to 'ログアウト', destroy_user_session_path, class: 'text-navy nav-link bi bi-box-arrow-right', data: { turbo_method: :delete } %>
         <% else %>
           <%= link_to 'ログイン', new_user_session_path, class: 'nav-link text-navy' %>
