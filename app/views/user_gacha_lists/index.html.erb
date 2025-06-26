@@ -1,0 +1,29 @@
+<div class="mt-2">
+  <%= render 'shared/gacha_status' %>
+</div>
+
+<div class="mb-6">
+  <h2 class="mb-4 text-center">ガチャコレクション</h2>
+  <div class="gacha-collection-bg">
+    <div class="row row-cols-3 g-3 ms-2 me-2">
+      <% @all_gacha_lists.each do |gacha| %>
+        <div class="col">
+          <div class="card text-center bg-transparent border-0">
+            <% if @owned_gacha_list_ids.include?(gacha.id) %>
+              <%= image_tag gacha.image, class: "card-img-top p-2", alt: gacha.name %>
+            <% else %>
+              <% sara_image_path = case gacha.rarity
+                when "normal" then "/images/N_sara.png"
+                when "rare" then "/images/R_sara.png"
+                when "super_rare" then "/images/SR_sara.png"
+                when "special" then "/images/SP_sara.png"
+                else "bg-light text-muted"
+              end %>
+              <%= image_tag sara_image_path, class: "card-img-top p-2", alt: "未獲得アイテム（#{gacha.rarity}）" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

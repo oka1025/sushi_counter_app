@@ -423,3 +423,23 @@ body {
 .text-smaller {
   font-size: 0.75rem;
 }
+
+.gacha-collection-bg {
+  background-image: url('/images/tana.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  aspect-ratio: 7 / 10.8; /* ← モダンブラウザ対応の比率指定 */
+  width: 100%;
+  max-width: 800px;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0); /* 半透明の白背景（任意） */
+  border-radius: 8px;
+}
+
+.rainbow-border {
+  background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+  color: white;
+}
