@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     get :result
   end
 
+  delete "gachas/result", to: "gachas#destroy_session", as: :destroy_session
+
   resources :user_gacha_lists, only: [:index]
 
   devise_for :users

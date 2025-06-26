@@ -2,26 +2,26 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
+// app/javascript/controllers/index.js
+
 import { application } from "./application"
+
+// 各コントローラをインポート
 import ModalController from "./modal_controller"
 import ModalCloseHookController from "./modal_close_hook_controller"
 import HelloController from "./hello_controller"
 import FlashController from "./flash_controller"
 import ResetFormController from "./reset_form_controller"
 import CollapsePersistController from "./collapse_persist_controller"
+import ScrollController from "./scroll_controller"
+import GachaResultController from "./gacha_result_controller"
 
+// Stimulus にコントローラを登録
 application.register("hello", HelloController)
 application.register("modal", ModalController)
 application.register("modal-close-hook", ModalCloseHookController)
+application.register("flash", FlashController)
 application.register("reset-form", ResetFormController)
 application.register("collapse-persist", CollapsePersistController)
-
-import ScrollController from "./scroll_controller"
 application.register("scroll", ScrollController)
-
-import GachaResultController from "./gacha_result_controller"
 application.register("gacha-result", GachaResultController)
-
-
-Stimulus.register("flash", FlashController)
-
