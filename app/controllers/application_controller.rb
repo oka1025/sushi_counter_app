@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :auto_guest_sign_in
 
   def current_counter
     @current_counter ||= begin
@@ -23,5 +24,17 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     added_attrs = [ :name, :email, :password, ]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
+  end
+
+  private
+
+  def auto_guest_sign_in
+    return if user_signed_in?
+    user = User.find_or_create_by!(email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "ゲスト"
+      user.guest = true
+    end
+    sign_in(user)
   end
 end

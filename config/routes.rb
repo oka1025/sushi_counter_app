@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   get 'gachas/show'
   get 'gachas/draw'
-  root to: "home#index"
+  root to: "homes#index"
+
   resources :sushi_items, only: [:new, :create, :index, :edit, :destroy, :update] do
     member do
       patch :update_count
@@ -28,7 +29,11 @@ Rails.application.routes.draw do
 
   resources :user_gacha_lists, only: [:index]
 
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+
   devise_scope :users do
     get '/users', to: redirect("/users/sign_up")
   end

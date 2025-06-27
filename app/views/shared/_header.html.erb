@@ -8,14 +8,6 @@
       <div class="mx-auto">
         <%= link_to '寿司カウンター', root_path, class: 'navbar-brand text-center text-navy fw-bold' %>
       </div>
-      <div>
-        <% if user_signed_in? %>
-          <%= link_to 'ログアウト', destroy_user_session_path, class: 'bi bi-box-arrow-right nav-link text-navy', data: { turbo_method: :delete } %>
-        <% else %>
-          <%= link_to "ログイン", new_user_session_path, class: 'text-navy' %>
-          <%= link_to "新規登録", new_user_registration_path, class: 'text-navy' %>
-        <% end %>
-      </div>
     </div>
   </nav>
 </header>
@@ -46,32 +38,16 @@
       <br>
       <h5 class="offcanvas-title text-navy2" id="offcanvasSidebarLabel">ユーザーメニュー</h5>
       <li class="nav-item mb-2">
-        <% if user_signed_in? %>
-          <%= link_to 'ユーザー設定', user_path, class: 'nav-link text-navy' %>
-          <%= link_to 'ログアウト', destroy_user_session_path, class: 'text-navy nav-link bi bi-box-arrow-right', data: { turbo_method: :delete } %>
-        <% else %>
+        <% if current_user&.guest? || current_user.nil? %>
           <%= link_to 'ログイン', new_user_session_path, class: 'nav-link text-navy' %>
           <%= link_to '新規登録', new_user_registration_path, class: 'nav-link text-navy' %>
+        <% else %>
+          <%= link_to 'ユーザー設定', user_path, class: 'nav-link text-navy' %>
+          <%= link_to 'ログアウト', destroy_user_session_path, class: 'text-navy nav-link bi bi-box-arrow-right', data: { turbo_method: :delete } %>
         <% end %>
       </li>
     </ul>
   </div>
 </div>
 
-<% if !user_signed_in? && request.path != "/users/sign_in" && request.path != "/users/sign_up" && request.path != user_registration_path %>
-  <div class="d-flex justify-content-center mt-4 mb-4">
-    <div class="border-navy rounded p-4 text-center bg-white" style="max-width: 500px;">
-      <h5 class="smahosize fw-bold mb-3">ゲストユーザーで利用中です。</h5>
-      <p class="mb-4">
-      ゲストユーザーのデータは一定時間で削除されます。<br>
-      継続的にご利用いただくにはユーザー登録が必要です。
-      </p>
-
-      <div class="d-flex justify-content-center gap-3">
-        <a class="btn btn-navy rouded-pill px-4 fw-bold" href="/users/sign_in" role="button">ログイン</a>
-        <a class="btn btn-navy rouded-pill px-4 fw-bold" href="/users/sign_up" role="button">新規登録</a>
-      </div>
-    </div>
-  </div>
-<% end %>
-
+<%= render 'shared/guest_user_message' %>
