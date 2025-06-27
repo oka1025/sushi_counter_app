@@ -8,17 +8,27 @@
     <div class="bg-navy text-white fw-bold text-center py-2 rounded-top">
       食べた寿司TOP3
     </div>
-    <ul class="list-group no-top-rounded border-top-0 rounded-bottom">
-      <% @popular_sushis.each do |sushi, count, rank| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <div class="fw-bold fs-5">
-            <span><%= rank %>位</span>
-            <span class="ms-3"><%= sushi %></span>
+    <% if @popular_sushis.present? %>
+      <ul class="list-group no-top-rounded border-top-0 rounded-bottom">
+        <% @popular_sushis.each do |sushi, count, rank| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="fw-bold fs-5">
+              <span><%= rank %>位</span>
+              <span class="ms-3"><%= sushi %></span>
+            </div>
+            <span class="fs-5 fw-bold"><%= count %>貫</span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <ul class="list-group no-top-rounded border-top-0 rounded-bottom">
+        <li class="text-center list-group-item">
+          <div>
+            データがありません。
           </div>
-          <span class="fs-5 fw-bold"><%= count %>貫</span>
         </li>
-      <% end %>
-    </ul>
+      </ul>
+    <% end %>
   </div>
 
   <!-- よく行った店舗TOP3 -->
@@ -26,23 +36,41 @@
     <div class="bg-navy text-white fw-bold text-center py-2 rounded-top">
       よく行った店舗TOP3
     </div>
-    <ul class="list-group no-top-rounded border-top-0 rounded-bottom">
-      <% @popular_stores.each do |store, count, rank| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <div class="fw-bold fs-5">
-            <span><%= rank %>位</span>
-            <span class="ms-3"><%= store %></span>
+    <% if @popular_stores.present? %>
+      <ul class="list-group no-top-rounded border-top-0 rounded-bottom">
+        <% @popular_stores.each do |store, count, rank| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="fw-bold fs-5">
+              <span><%= rank %>位</span>
+              <span class="ms-3"><%= store %></span>
+            </div>
+            <span class="fs-5 fw-bold"><%= count %>回</span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <ul class="list-group no-top-rounded border-top-0 rounded-bottom">
+        <li class="text-center list-group-item">
+          <div>
+            データがありません。
           </div>
-          <span class="fs-5 fw-bold"><%= count %>回</span>
         </li>
-      <% end %>
-    </ul>
+      </ul>
+    <% end %>
   </div>
 
-  <div class="mb-4 fs-5">
-    <strong>総貫数:</strong> <%= @total_sushi %> 貫
+  <div class="mb-4">
+    <div class="bg-navy text-white fw-bold text-center py-2 rounded-top">
+      総貫数
+    </div>
+    <ul class="list-group no-top-rounded border-top-0 rounded-bottom">
+      <li class="text-center list-group-item">
+        <div class="fw-bold fs-5 ">
+          <%= @total_sushi %> 貫
+        </div>
+      </li>
+    </ul>
   </div>
-</div>
 
 <div data-controller="reset-form">
   <%= render 'summary_search_form', q: @q %>

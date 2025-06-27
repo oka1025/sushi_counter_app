@@ -1,5 +1,6 @@
 class GachasController < ApplicationController
   before_action :authenticate_user!
+  before_action :reject_guest_user, only: [:draw, :result]
 
   def show
     @user = current_user
@@ -45,5 +46,13 @@ class GachasController < ApplicationController
   def destroy_session
     session.delete(:gacha_result_ids)
     redirect_to gachas_path
+  end
+
+  private
+
+  def reject_guest_user
+    if current_user&.guest?
+      redirect_to gachas_path, alert: "ゲストユーザーはプレイできません。"
+    end
   end
 end
