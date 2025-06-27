@@ -94,3 +94,5 @@ gem 'sassc-rails'
 gem 'ransack', '3.2.1' 
 
 gem 'kaminari'
+
+gem 'whenever', require: false

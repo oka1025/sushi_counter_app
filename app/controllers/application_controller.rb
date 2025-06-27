@@ -30,11 +30,11 @@ class ApplicationController < ActionController::Base
 
   def auto_guest_sign_in
     return if user_signed_in?
-    user = User.find_or_create_by!(email: 'guest@example.com') do |user|
-      user.password = SecureRandom.urlsafe_base64
-      user.name = "ゲスト"
-      user.guest = true
-    end
+    user = User.create!(
+      email: "guest_#{SecureRandom.uuid}@example.com",
+      password: "#{SecureRandom.alphanumeric(5)}1a",
+      name: "ゲスト",
+      guest: true)
     sign_in(user)
   end
 end
