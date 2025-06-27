@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    if @user.update_without_password(user_params) 
+    if @user.update(user_params) 
       redirect_to user_path, notice: "ユーザー名を更新しました"
     else
       render :show, status: :unprocessable_entity
