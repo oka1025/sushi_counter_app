@@ -6,6 +6,7 @@ class SushiItemsController < ApplicationController
       @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
         .where(category_id: @selected_category.id)
         .where("created_by_user_id = ? OR created_by_user_id IS NULL", current_user.id)
+        .order("id ASC")
       
       respond_to do |format|
         format.turbo_stream if turbo_frame_request?

@@ -1,4 +1,8 @@
 <%= turbo_frame_tag 'modal_frame' do %>
   <%= render 'edit_form', sushi: @sushi_item %>
-  <button type="button" class="btn btn-secondary" data-action="click->modal#close">キャンセル</button>
+  <div class="text-center">
+    <button type="button" class="btn btn-secondary" data-action="click->modal#close">
+      キャンセル
+    </button>
+  </div>
 <% end %>
