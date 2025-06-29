@@ -1,6 +1,6 @@
 <div class="mb-2" style="max-width: 500px;">
   <h1 class="text-center mb-3">新規寿司作成</h1>
-  <%= form_with model: sushi, data: { turbo_frame: "modal_frame" }, html: { class: "p-4 border rounded bg-white" } do |f| %>
+  <%= form_with model: sushi, data: { turbo_frame: "modal_frame" }, html: { class: "p-2 border rounded bg-white" } do |f| %>
     <%= hidden_field_tag :return_category_id, params[:return_category_id] || @selected_category.id %>
     <%= render "shared/errors_messages", resource: sushi %>
     <div class="mb-3">
@@ -19,7 +19,7 @@
   
       <% if sushi.image.attached? %>
         <div class="mt-3">
-          <%= image_tag sushi.image.variant(resize_to_limit: [200, 200]), class: "img-thumbnail mb-3" %>
+          <%= image_tag sushi.image.variant(resize_to_limit: [150, 150]), class: "img-thumbnail mb-3" %>
         </div>
       <% end %>
     </div>
