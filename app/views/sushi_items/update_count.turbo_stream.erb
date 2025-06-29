@@ -1,7 +1,7 @@
 <%= turbo_stream.replace "count_#{@sushi_item.id}",
       partial: "sushi_items/sushi_item",
       locals: { sushi_item: @sushi_item, counter: @counter  } do %>
-  <div id="count_<%= @sushi_item.id %>">
+  <div class="sushi-count" id="count_<%= @sushi_item.id %>">
     <%= @sushi_item.sushi_item_counters.find_by(counter_id: @counter.id)&.count || 0 %>
   </div>
 <% end %>

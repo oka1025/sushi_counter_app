@@ -1,5 +1,5 @@
 <% if sushi_item.created_by_user_id == current_user.id || sushi_item.created_by_user_id == nil %>
-  <div class="sushi-card" id="sushi_item_<%= sushi_item.id %>">
+  <div class="sushi-card position-relative d-flex flex-column justify-content-between" id="sushi_item_<%= sushi_item.id %>">
     <div class="count-display">
       <% user_image = sushi_item.user_sushi_item_images.find_by(user_id: current_user.id) %>
 
@@ -12,24 +12,50 @@
       <% elsif sushi_item.created_by_user_id == current_user.id && sushi_item.image.attached? %>
         <%= image_tag sushi_item.image, class: "sushi-img" %>
       <% end %>
+    </div>
 
-      <div class="sushi-count" id="count_<%= sushi_item.id %>">
-        <%= sushi_item.sushi_item_counters.find_by(counter_id: @counter.id)&.count || 0 %>
+    <div class="sushi-footer mt-auto text-center">
+      <div class="sushi-name fw-bold">
+        <%= sushi_item.name %>
+      </div>
+  
+      <div class="count-buttons d-flex justify-content-center align-items-center gap-2">
+        <%= button_to update_count_sushi_item_path(sushi_item, direction: "decrement"),
+              method: :patch,
+              form: { data: { turbo_stream: true } },
+              class: "count-btn minus" do %>
+          <i class="bi bi-dash"></i>
+        <% end %>
+      
+        <div class="sushi-count" id="count_<%= sushi_item.id %>">
+          <%= sushi_item.sushi_item_counters.find_by(counter_id: @counter.id)&.count || 0 %>
+        </div>
+      
+        <%= button_to update_count_sushi_item_path(sushi_item, direction: "increment"),
+              method: :patch,
+              form: { data: { turbo_stream: true } },
+              class: "count-btn plus" do %>
+          <i class="bi bi-plus"></i>
+        <% end %>
       </div>
     </div>
 
-    <div class="count-buttons">
-      <%= button_to "-", update_count_sushi_item_path(sushi_item, direction: "decrement"), method: :patch, form: { data: { turbo_stream: true }}, class: "count-btn minus" %>
-      <%= button_to "+", update_count_sushi_item_path(sushi_item, direction: "increment"), method: :patch, form: { data: { turbo_stream: true }}, class: "count-btn plus" %>
-    </div>
-
-    <p class="sushi-name"><%= sushi_item.name %></p>
-
-    <% if sushi_item.created_by_user_id == current_user.id %>
-      <%= link_to "編集", edit_sushi_item_path(sushi_item, category_id: @selected_category.id), data: { turbo_frame: "modal_frame" } %>
-      <%= button_to "削除", sushi_item_path(sushi_item), method: :delete, data: { turbo_stream: true, confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
-    <% elsif sushi_item.created_by_user_id.nil? %>
-      <%= link_to "編集", edit_sushi_item_path(sushi_item, category_id: @selected_category.id), data: { turbo_frame: "modal_frame" } %>
+    <% if sushi_item.created_by_user_id == current_user.id || sushi_item.created_by_user_id.nil? %>
+      <div class="action-buttons rounded"
+          style="position: absolute; top: 0.4rem; right: 0.4rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+        <%= link_to "", edit_sushi_item_path(sushi_item, category_id: @selected_category.id), 
+            data: { turbo_frame: "modal_frame" }, 
+            class: "nav-link far fa-edit text-navy"%>
+        <% if sushi_item.created_by_user_id == current_user.id %>
+          <%= form_with url: sushi_item_path(sushi_item), method: :delete,
+              data: { turbo_stream: true },
+              class: "btn-icon-form", local: true do %>
+            <button type="submit" class="btn-icon text-navy" data-confirm="本当に削除しますか？">
+              <i class="far fa-trash-alt"></i>
+            </button>
+          <% end %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 <% end %>
