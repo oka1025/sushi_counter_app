@@ -1,6 +1,6 @@
 <%= search_form_for q, url: summary_counters_path, method: :get, html: { id: "search-form", data: { controller: "reset-form", reset_form_target: "form" } } do |f| %>
-  <div class="my-3 bg-white" style="max-width: 800px; margin-left: auto; margin-right: auto;">
-    <div class="card shadow-sm">
+  <div class="my-3" style="max-width: 800px; margin-left: auto; margin-right: auto;">
+    <div class="card shadow-sm bg-white rounded">
       <div class="card-header d-flex justify-content-between align-items-center bg-white">
         <div class="d-flex align-items-center">
           <%= label_tag :sort, "", class: "me-2 mb-0 fw-bold" %>
@@ -29,33 +29,31 @@
 
           <div class="mb-4">
             <label class="form-label mb-1">日付</label>
-            <div class="d-flex align-items-center gap-2">
-              <%= f.date_field :eaten_at_gteq, class: "form-control" %>
+            <div class="d-flex align-items-md-center gap-2">
+              <%= f.date_field :eaten_at_gteq, class: "form-control form-control-sm" %>
               <span class="mx-1">〜</span>
-              <%= f.date_field :eaten_at_lteq, class: "form-control" %>
+              <%= f.date_field :eaten_at_lteq, class: "form-control form-control-sm" %>
             </div>
           </div>
 
           <div class="mb-4">
             <%= f.label :sushi_item_counters_sushi_item_name_cont, "寿司名", class: "form-label mb-1" %>
-            <%= f.text_field :sushi_item_counters_sushi_item_name_cont, class: "form-control" %>
+            <%= f.text_field :sushi_item_counters_sushi_item_name_cont, class: "form-control form-control-sm" %>
           </div>
 
           <div class="mb-4">
             <%= f.label :store_name_cont, "店名", class: "form-label mb-1" %>
-            <%= f.text_field :store_name_cont, class: "form-control" %>
+            <%= f.text_field :store_name_cont, class: "form-control form-control-sm" %>
           </div>
 
           <div class="mb-5">
             <label class="form-label mb-1">貫数</label>
-            <div class="d-flex align-items-center gap-2">
-              <%= number_field_tag "q[total_count_gteq]", params.dig(:q, :total_count_gteq), class: "form-control", placeholder: "以上" %>
+            <div class="d-flex align-items-md-center gap-2">
+              <%= number_field_tag "q[total_count_gteq]", params.dig(:q, :total_count_gteq), class: "form-control form-control-sm", placeholder: "以上" %>
               <span class="mx-1">〜</span>
-              <%= number_field_tag "q[total_count_lteq]", params.dig(:q, :total_count_lteq), class: "form-control", placeholder: "以下" %>
+              <%= number_field_tag "q[total_count_lteq]", params.dig(:q, :total_count_lteq), class: "form-control form-control-sm", placeholder: "以下" %>
             </div>
           </div>
-
-          
 
           <div class="text-center mb-2">
             <%= f.submit "検索", class: "btn btn-navy w-100" %>

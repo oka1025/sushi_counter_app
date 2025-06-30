@@ -1,6 +1,6 @@
 <% if current_user&.guest? && request.path != "/users/sign_in" && request.path != "/users/sign_up" && request.path != user_registration_path %>
-  <div class="d-flex justify-content-center mt-4 mb-4">
-    <div class="border-navy rounded p-3 text-center bg-white" style="max-width: 500px;">
+  <div class="d-flex justify-content-center my-4 ms-2 me-2">
+    <div class="border-navy rounded p-2 text-center bg-white" style="max-width: 500px;">
       <h5 class="smahosize fw-bold mb-3">ゲストユーザーで利用中です。</h5>
       <p class="mb-4">
       ゲストユーザーのデータは一定時間で削除されます。<br>
