@@ -3,6 +3,6 @@
     <% is_selected = @selected_category.id == category.id %>
     <%= link_to category.name, sushi_items_path(category_id: category.id),
         data: { turbo_frame: "category_nav" }, 
-        class: "btn #{is_selected ? 'btn-navy' : 'text-navy'} fw-bold spsize-category" %>
+        class: "btn #{is_selected ? 'btn-navy' : 'text-navy'} fw-bold spsize-category pe-2 ps-2" %>
   <% end %>
 </div>

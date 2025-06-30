@@ -83,7 +83,6 @@
     </div>
 
     <table class="table mb-0 custom-sushi-table">
-      
       <thead>
         <tr class="table-primary">
           <th class="text-end no-padding-left">No.</th>
@@ -100,15 +99,15 @@
           </tr>
         <% end %>
       </tbody>
-      <tfoot>
-        <% if @paginated_sushi_counts.current_page == @paginated_sushi_counts.total_pages %>
-          <tr class="table-primary fw-bold">
-            <td colspan="2" class="text-end">合計</td>
-            <td class="text-end pe-3"><%= @total_sushi_count %></td>
-          </tr>
-        <% end %>
-      </tfoot>
     </table>
+
+    <% if @paginated_sushi_counts.current_page == @paginated_sushi_counts.total_pages %>
+      <div class="table-summary-total fw-bold text-end py-2 px-3 rounded-bottom" 
+          style="max-width: 100%; border-top: 1px solid #ccc;">
+        <span>合計</span>
+        <span class="ms-4"><%= @total_sushi_count %></span>
+      </div>
+    <% end %>
   </div>
   <div class="my-3 d-flex justify-content-center">
     <%= paginate @paginated_sushi_counts %>

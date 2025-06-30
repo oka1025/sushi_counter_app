@@ -1,5 +1,5 @@
 <% if sushi_item.created_by_user_id == current_user.id || sushi_item.created_by_user_id == nil %>
-  <div class="sushi-card position-relative d-flex flex-column justify-content-between" id="sushi_item_<%= sushi_item.id %>">
+  <div class="sushi-card position-relative d-flex flex-column justify-content-between" style="min-width: 160px;" id="sushi_item_<%= sushi_item.id %>">
     <div class="count-display">
       <% user_image = sushi_item.user_sushi_item_images.find_by(user_id: current_user.id) %>
 
@@ -15,7 +15,7 @@
     </div>
 
     <div class="sushi-footer mt-auto text-center">
-      <div class="sushi-name fw-bold">
+      <div class="sushi-name fw-bold fs-6">
         <%= sushi_item.name %>
       </div>
   
@@ -42,7 +42,7 @@
 
     <% if sushi_item.created_by_user_id == current_user.id || sushi_item.created_by_user_id.nil? %>
       <div class="action-buttons rounded"
-          style="position: absolute; top: 0.4rem; right: 0.4rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+          style="position: absolute; top: 0.4rem; right: 0.4rem; display: inline-flex; align-items: center; gap: 0.6rem;">
         <%= link_to "", edit_sushi_item_path(sushi_item, category_id: @selected_category.id), 
             data: { turbo_frame: "modal_frame" }, 
             class: "nav-link far fa-edit text-navy"%>

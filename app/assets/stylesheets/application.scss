@@ -73,29 +73,50 @@ body {
   background: #fff;
   border-top: 1px solid #ccc;
   z-index: 1030;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 
-  .icon-invert {
-    width: 21.69px;
-    height: 21.69px;
-    filter: invert(13%) sepia(51%) saturate(5143%) hue-rotate(221deg) brightness(86%) contrast(96%);
+  li {
+    flex: 1;
+    text-align: center;
+    height: 100%;
   }
 
-  .nav-item {
-    .nav-link {
-      color: #0A2D88; // 通常の文字色
+  .nav-link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 0.75rem;
+    color: #0A2D88;
+    text-decoration: none;
 
-      &:hover {
-        background-color: #eef2ff; // 背景色を薄く
-        color: #0a2e88da;            // テキストとアイコンの色変更
-
-        i,
-        small {
-          color: #0a2e88da;
-        }
-      }
+    &:hover {
+      background-color: #eef2ff;
+      color: #0a2e88da;
     }
   }
+
+  .icon-invert {
+    width: 21.82px;
+    height: 21.82px;
+    filter: invert(13%) sepia(51%) saturate(5143%) hue-rotate(221deg) brightness(86%) contrast(96%);
+    margin-bottom: 8px;
+    margin-top: 8px;
+  }
+
+  .nav-link i {
+    margin-bottom: 3px;
+    
+    font-size: 1.3rem;
+  }
 }
+
+
+
 
 .menu-card {
   display: block;
@@ -193,8 +214,8 @@ body {
 }
 
 .count-btn {
-  width: 40px;
-  height: 40px;
+  width: 46px;
+  height: 46px;
   background-color: #0A2D88;
   color: white;
   border: none;
@@ -474,7 +495,18 @@ body {
   max-width: 800px;
 }
 
-.card {
-  background-color: rgba(255, 255, 255, 0); /* 半透明の白背景（任意） */
-  border-radius: 8px;
+.navbar-brand {
+  font-family: 'M PLUS 1p', sans-serif;
+  font-weight: 900;
+}
+
+body {
+  font-family: 'Noto Sana JP', sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+}
+
+.table-summary-total {
+  background-color: #CFE2FF;
+  color: #000;
 }
