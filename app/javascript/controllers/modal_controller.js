@@ -5,7 +5,6 @@ export default class extends Controller {
   static targets = ["overlay", "frame"]
 
   connect() {
-    console.log("modal controller connected")
     this.startObserver()
   }
 

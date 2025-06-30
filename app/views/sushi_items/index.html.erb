@@ -5,9 +5,9 @@
 
 <div class="btn-nav3">
   <% if session[:counter_update_source] == "edit" %>
-    <%= link_to "保存画面へ", edit_counter_path(@counter),class: "btn btn-navy btn-shadow fw-bold" %>
+    <%= link_to "保存画面へ", edit_counter_path(@counter),class: "btn btn-navy btn-shadow" %>
   <% else %>
-    <%= link_to "保存画面へ", new_counter_path,class: "btn btn-navy btn-shadow fw-bold" %>
+    <%= link_to "保存画面へ", new_counter_path,class: "btn btn-navy btn-shadow" %>
   <% end %>
 </div>
 
@@ -15,7 +15,7 @@
   <%= button_to "カウントリセット", reset_items_counter_path(@counter),
             method: :delete,
             data: { confirm: "本当にこのカウントをリセットしますか？" },
-            class: "btn btn-danger btn-shadow fw-bold" %>
+            class: "btn btn-danger btn-shadow" %>
 </div>
 
 <!-- モーダル１つにまとめる -->

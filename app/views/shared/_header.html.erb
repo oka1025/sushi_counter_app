@@ -1,19 +1,19 @@
 <header>
-  <nav class="navbar navbar-white bg-white">
+  <nav class="navbar navbar-white bg-white position-relative">
     <!-- ハンバーガーボタン -->
     <div class="container-fluid">
       <button class="btn btn-navy custom-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="mx-auto">
-        <%= link_to '寿司カウンター', root_path, class: 'navbar-brand text-center text-navy fw-bold' %>
+      <div class="mx-auto position-absolute top-50 start-50 translate-middle">
+        <%= link_to '寿司カウンター', root_path, class: 'navbar-brand text-center text-navy fw-bold me-0' %>
       </div>
     </div>
   </nav>
 </header>
 
 <!-- オフキャンバスサイドバー -->
-<div class="offcanvas offcanvas-start bg-white text-navy" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+<div class="offcanvas offcanvas-start bg-white text-navy" style="width: 240px;" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
   <div class="offcanvas-header">
     <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
