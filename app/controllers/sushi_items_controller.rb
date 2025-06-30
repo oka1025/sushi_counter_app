@@ -41,10 +41,13 @@ class SushiItemsController < ApplicationController
     if @sushi_item.save
       @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
         .where(category_id: @return_category_id)
+        .order("id ASC")
+
       respond_to do |format|
         format.html { redirect_to sushi_items_path(category_id: @return_category_id), notice: "寿司を作成しました" }
         format.turbo_stream 
       end
+
     else
       @categories = Category.all
       respond_to do |format|
@@ -95,6 +98,7 @@ class SushiItemsController < ApplicationController
     if @sushi_item.update(sushi_item_params)
       @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
                               .where(category_id: @selected_category.id)
+                              .order("id ASC")
 
       respond_to do |format|
           format.turbo_stream 

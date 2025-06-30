@@ -8,7 +8,7 @@
     <div class="row row-cols-3 g-3 ms-2 me-2">
       <% @all_gacha_lists.each do |gacha| %>
         <div class="col">
-          <div class="card text-center bg-transparent border-0">
+          <div class="card-gacha text-center bg-transparent border-0">
             <% if @owned_gacha_list_ids.include?(gacha.id) %>
               <div data-controller="modal">
                 <div
