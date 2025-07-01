@@ -12,4 +12,9 @@ module ApplicationHelper
     path == controller_path ? 'active' : ''
         #条件式　？　条件が正しいときの値　：　条件が間違っているときの値
   end
+
+  def page_title(title = '')
+    base_title = '寿司カウンター'
+    title.present? ? "#{title} | #{base_title}" : base_title
+  end
 end

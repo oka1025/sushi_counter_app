@@ -15,6 +15,7 @@ import ResetFormController from "./reset_form_controller"
 import CollapsePersistController from "./collapse_persist_controller"
 import ScrollController from "./scroll_controller"
 import GachaResultController from "./gacha_result_controller"
+import SushiCardController from "./sushi_card_controller"
 
 // Stimulus にコントローラを登録
 application.register("hello", HelloController)
@@ -25,3 +26,4 @@ application.register("reset-form", ResetFormController)
 application.register("collapse-persist", CollapsePersistController)
 application.register("scroll", ScrollController)
 application.register("gacha-result", GachaResultController)
+application.register("sushi-card", SushiCardController)

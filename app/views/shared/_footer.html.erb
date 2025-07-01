@@ -1,31 +1,30 @@
-
 <ul class="bottom-nav fixed-bottom">
   <li class="nav-item text-center">
-    <%= link_to root_path, class: "nav-link text-navy" do %>
+    <%= link_to root_path, class: "nav-link text-navy #{'active' if current_page?(root_path)}" do %>
       <i class="bi bi-house fs-4"></i>
       <small>ホーム</small>
     <% end %>
   </li>
   <li class="nav-item text-center">
-    <%= link_to sushi_items_path, class: "nav-link text-navy" do %>
+    <%= link_to sushi_items_path, class: "nav-link text-navy #{'active' if current_page?(sushi_items_path)}" do %>
       <i class="bi bi-plus-slash-minus fs-4"></i>
       <small>カウンター</small>
     <% end %>
   </li>
   <li class="nav-item text-center">
-    <%= link_to counters_path, class: "nav-link text-navy" do %>
+    <%= link_to counters_path, class: "nav-link text-navy #{'active' if current_page?(counters_path)}" do %>
       <i class="bi bi-clock-history fs-4"></i>
       <small>履歴</small>
     <% end %>
   </li>
   <li class="nav-item text-center">
-    <%= link_to summary_counters_path, class: "nav-link text-navy" do %>
+    <%= link_to summary_counters_path, class: "nav-link text-navy #{'active' if current_page?(summary_counters_path)}" do %>
       <i class="bi bi-clipboard-data fs-4"></i>
       <small>寿司DB</small>
     <% end %>
   </li>
   <li class="nav-item text-center">
-    <%= link_to gachas_path, class: "nav-link text-navy" do %>
+    <%= link_to gachas_path, class: "nav-link text-navy #{'active' if current_page?(gachas_path)}" do %>
       <%= image_tag "icons/46369.svg", class: "icon-invert", alt: "ガチャ" %>
       <small>ガチャ</small>
     <% end %>
