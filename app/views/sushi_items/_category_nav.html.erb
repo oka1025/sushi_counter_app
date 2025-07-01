@@ -1,4 +1,4 @@
-<div class="text-center category-nav">
+<div class="category-nav d-flex flex-wrap justify-content-between px-2">
   <% @categories.each do |category| %>
     <% is_selected = @selected_category.id == category.id %>
     <%= link_to category.name, sushi_items_path(category_id: category.id),

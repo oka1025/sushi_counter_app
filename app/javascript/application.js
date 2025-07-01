@@ -7,7 +7,6 @@ window.Rails = Rails
 
 import "./controllers"
 import * as bootstrap from "bootstrap"
-import "./sushi_zoom_blocker";
 
 
 document.addEventListener("turbo:load", () => {

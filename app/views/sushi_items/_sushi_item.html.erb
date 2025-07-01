@@ -1,5 +1,5 @@
 <% if sushi_item.created_by_user_id == current_user.id || sushi_item.created_by_user_id == nil %>
-  <div class="sushi-card position-relative d-flex flex-column justify-content-between" style="min-width: 160px;" id="sushi_item_<%= sushi_item.id %>">
+  <div class="sushi-card position-relative d-flex flex-column justify-content-between" data-controller="sushi-card" style="min-width: 160px;" id="sushi_item_<%= sushi_item.id %>">
     <div class="count-display">
       <% user_image = sushi_item.user_sushi_item_images.find_by(user_id: current_user.id) %>
 
