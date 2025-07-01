@@ -1,14 +1,14 @@
 <% if current_user&.guest? && request.path != "/users/sign_in" && request.path != "/users/sign_up" && request.path != user_registration_path %>
   <div class="d-flex justify-content-center my-4 ms-2 me-2">
     <div class="border-navy rounded p-2 text-center bg-white" style="max-width: 500px;">
-      <h5 class="smahosize fw-bold mb-3">ゲストユーザーで利用中です。</h5>
+      <h5 class="smahosize fw-bold my-2">ゲストユーザーで利用中です。</h5>
       <p class="mb-4">
       ゲストユーザーのデータは一定時間で削除されます。<br>
       また、一部の機能は利用することができません。<br>
       継続的にご利用いただくにはユーザー登録が必要です。
       </p>
 
-      <div class="d-flex justify-content-center gap-3">
+      <div class="d-flex justify-content-center gap-3 mb-2">
         <a class="btn btn-navy rouded-pill px-4 fw-bold" href="/users/sign_in" role="button">ログイン</a>
         <a class="btn btn-navy rouded-pill px-4 fw-bold" href="/users/sign_up" role="button">新規登録</a>
       </div>
