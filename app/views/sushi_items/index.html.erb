@@ -1,3 +1,4 @@
+<% content_for :title, "カウンター" %>
 
 <turbo-frame id="category_nav" data-selected-category-id="<%= @selected_category.id %>">
   <%= render partial: "sushi_items/category_and_list", locals: { categories: @categories, selected_category: @selected_category, sushi_items: @sushi_items, counter: @counter } %>
