@@ -9,7 +9,7 @@ def attach_image(name:, filename:)
     puts "スキップ（既に画像あり）: #{name}"
     return
   end
-  #sushi.image.purge if sushi.image.attached?
+#sushi.image.purge if sushi.image.attached?
 
   image_path = Rails.root.join("app/assets/images/seeds/#{filename}")
   unless File.exist?(image_path)
@@ -34,4 +34,5 @@ end
 attach_image(name: "まぐろ", filename: "maguro.png")
 attach_image(name: "とろびんちょう", filename: "bincho.png")
 attach_image(name: "サーモン", filename: "salmon.png")
+attach_image(name: "いなり", filename: "inari.png")
 # 他の寿司も必要に応じて追加

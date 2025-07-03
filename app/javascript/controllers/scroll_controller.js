@@ -19,3 +19,8 @@ document.addEventListener("turbo:before-visit", () => {
   const key = `scrollY:${location.pathname}`;
   localStorage.setItem(key, window.scrollY);
 });
+
+document.addEventListener("turbo:submit-start", () => {
+  const key = `scrollY:${location.pathname}`;
+  localStorage.setItem(key, window.scrollY);
+});
