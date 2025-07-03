@@ -75,7 +75,7 @@ export default class extends Controller {
   
     this.frameTarget.innerHTML = `
       <div class="text-center position-relative d-inline-block">
-        <img src="${imageUrl}" alt="${name}" class="img-fluid" style="max-height: 310px;" />
+        <img src="${imageUrl}" alt="${name}" class="img-fluid" style="max-height: 600px;" />
         <div class="position-absolute top-0 end-0 px-2 py-1 mt-1 small rounded ${rarityClass}" style="z-index: 10;">
           ${rarityLabel}
         </div>

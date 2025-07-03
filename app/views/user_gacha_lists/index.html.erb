@@ -1,48 +1,50 @@
 <% content_for :title, "ガチャコレクション" %>
 
-<div class="mt-2">
+<div class="mt-2 ms-2 me-2">
   <%= render 'shared/gacha_status' %>
 </div>
 
 <div class="mb-3">
   <h2 class="mb-4 text-center">ガチャコレクション</h2>
-  <div class="gacha-collection-bg mx-auto">
-    <div class="row row-cols-3 g-3 ms-2 me-2">
+  <div class="gacha-collection-bg container px-0 mx-auto">
+    <div class="row row-cols-3 g-3 list-p">
       <% @all_gacha_lists.each do |gacha| %>
-        <div class="col">
-          <div class="card-gacha text-center bg-transparent border-0">
-            <% if @owned_gacha_list_ids.include?(gacha.id) %>
-              <div data-controller="modal">
-                <div
-                  data-action="click->modal#setContent"
-                  data-image="<%= url_for(gacha.image) %>"
-                  data-name="<%= gacha.name %>"
-                  data-rarity="<%= gacha.rarity %>"
-                  style="cursor: pointer;"
-                >
-                  <%= image_tag gacha.image, class: "card-img-top p-2", alt: gacha.name %>
-                </div>
-                <div 
-                  data-action="click->modal#outsideClick"
-                  class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-none"
-                  data-modal-target="overlay"
-                  style="z-index: 1050;">
-                  <div class="position-absolute top-50 start-50 translate-middle bg-white p-2 rounded shadow d-none"
-                        data-modal-target="frame"
-                        style="max-width: 360px; width: 90%;">
+        <div class="gacha-pm">
+          <div class="ratio ratio-1x1">
+            <div class="card-gacha text-center bg-transparent border-0">
+              <% if @owned_gacha_list_ids.include?(gacha.id) %>
+                <div data-controller="modal">
+                  <div
+                    data-action="click->modal#setContent"
+                    data-image="<%= url_for(gacha.image) %>"
+                    data-name="<%= gacha.name %>"
+                    data-rarity="<%= gacha.rarity %>"
+                    style="cursor: pointer;"
+                  >
+                    <%= image_tag gacha.image, class: "card-img-top", alt: gacha.name %>
+                  </div>
+                  <div 
+                    data-action="click->modal#outsideClick"
+                    class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-none"
+                    data-modal-target="overlay"
+                    style="z-index: 1050;">
+                    <div class="position-absolute top-50 start-50 translate-middle bg-white p-2 rounded shadow d-none"
+                          data-modal-target="frame"
+                          style="max-width: 600px; width: 90%;">
+                    </div>
                   </div>
                 </div>
-              </div>
-            <% else %>
-              <% sara_image_path = case gacha.rarity
-                when "normal" then "/images/N_sara.png"
-                when "rare" then "/images/R_sara.png"
-                when "super_rare" then "/images/SR_sara.png"
-                when "special" then "/images/SP_sara.png"
-                else "bg-light text-muted"
-              end %>
-              <%= image_tag sara_image_path, class: "card-img-top p-2", alt: "未獲得アイテム（#{gacha.rarity}）" %>
-            <% end %>
+              <% else %>
+                <% sara_image_path = case gacha.rarity
+                  when "normal" then "/images/N_sara.png"
+                  when "rare" then "/images/R_sara.png"
+                  when "super_rare" then "/images/SR_sara.png"
+                  when "special" then "/images/SP_sara.png"
+                  else "bg-light text-muted"
+                end %>
+                <%= image_tag sara_image_path, class: "card-img-top", alt: "未獲得アイテム（#{gacha.rarity}）" %>
+              <% end %>
+            </div>
           </div>
         </div>
       <% end %>
@@ -50,8 +52,6 @@
   </div>
 </div>
 
-<div class="text-center mb-6">
+<div class="text-center mb-7">
   <%= link_to "戻る", gachas_path, class: "btn btn-navy"%>
 </div>
-
->
