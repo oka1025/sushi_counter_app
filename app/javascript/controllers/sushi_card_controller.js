@@ -1,29 +1,21 @@
-// app/javascript/controllers/sushi_card_controller.js
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   connect() {
-    console.log("sushi_card controller connected")
+    this.lastTouchTime = 0
 
-    // gesture イベントを無効化
-    this.element.addEventListener('gesturestart', this.prevent)
-    this.element.addEventListener('gesturechange', this.prevent)
-    this.element.addEventListener('gestureend', this.prevent)
-
-    // 連続タップによる挙動無効化
-    this.lastTouch = 0
-    this.element.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false })
+    // ダブルタップだけ無効化（passive: false を指定）
+    this.element.addEventListener('touchstart', this.preventDoubleTapZoom.bind(this), { passive: false })
   }
 
-  prevent(e) {
-    e.preventDefault()
-  }
+  preventDoubleTapZoom(e) {
+    // 2本指以上ならズームを許可（ピンチズーム）
+    if (e.touches.length > 1) return
 
-  handleTouchStart(e) {
     const now = new Date().getTime()
-    if (now - this.lastTouch <= 300) {
-      e.preventDefault()
+    if (now - this.lastTouchTime <= 300) {
+      e.preventDefault() // ダブルタップを無効化
     }
-    this.lastTouch = now
+    this.lastTouchTime = now
   }
 }

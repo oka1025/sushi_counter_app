@@ -3,7 +3,7 @@ class UserGachaListsController < ApplicationController
   before_action :reject_guest_user, only: [:index]
 
   def index
-    @all_gacha_lists = GachaList.all.with_attached_image.order(:id)
+    @all_gacha_lists = GachaList.all.with_attached_image.order("rarity DESC")
     @owned_gacha_list_ids = current_user.user_gacha_lists
       .select(:gacha_list_id)
       .distinct.pluck(:gacha_list_id)

@@ -4,7 +4,7 @@
     <strong class="text-dark"><%= current_user.coin %></strong>
   </div>
   <div>
-    ガチャ数 <%= current_user.user_gacha_lists.count %> 回
+    ガチャ数 <%= current_user.user_gacha_lists.count %> 回　
     収集率 <%= (GachaList.count > 0 ? (current_user.user_gacha_lists.distinct.count(:gacha_list_id).to_f / GachaList.count * 100).floor : 0) %>%
   </div>
 </div>
