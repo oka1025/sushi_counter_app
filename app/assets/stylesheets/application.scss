@@ -165,15 +165,14 @@ body {
   }
 }
 
+
 .bottom-nav .nav-link.active {
   color: #15ef05; /* 青色などに変更 */
 }
 
-
 .bottom-nav .nav-link.active img {
   filter: invert(62%) sepia(77%) saturate(1921%) hue-rotate(70deg) brightness(103%) contrast(117%);
 }
-
 
 .sushi-grid {
   display: grid;
@@ -199,8 +198,8 @@ body {
   padding: 8px;
   padding-top: 1.3rem;
   touch-action: manipulation; /* ← ズーム無効 + タップ操作を許可 */
-  touch-action: pan-x pan-y;
 }
+
 
 .count-display {
   position: relative;
@@ -502,11 +501,11 @@ body {
 }
 
 .gacha-collection-bg {
-  background-image: url('/images/tana.png');
+  background-image: url('/images/tana3.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  aspect-ratio: 7 / 10.8; /* ← モダンブラウザ対応の比率指定 */
+  aspect-ratio: 7 / 11.5; /* ← モダンブラウザ対応の比率指定 */
   width: 100%;
   max-width: 800px;
 }
@@ -525,4 +524,15 @@ body {
 .table-summary-total {
   background-color: #CFE2FF;
   color: #000;
+}
+
+.gacha-pm {
+  padding-right: 2%;
+  padding-left: 2%;
+  margin-top: 4.9%;
+}
+
+.list-p {
+  margin-left: 3%;
+  margin-right: 3%;
 }

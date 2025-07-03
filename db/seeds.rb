@@ -105,26 +105,42 @@ end
 puts "🌱 Seeding GachaList..."
 
 def attach_image(record, filename)
+  if record.image.attached?
+    puts "画像あり: #{filename}"
+    return
+  end
+
   filepath = Rails.root.join("db/seeds/images/#{filename}")
-  return unless File.exist?(filepath)
+  unless File.exist?(filepath)
+    puts "⚠️ 画像ファイルが見つかりません: #{filename}"
+    return
+  end
 
   record.image.attach(io: File.open(filepath), filename: filename, content_type: "image/png")
+  puts "📎 画像を添付しました: #{filename}"
 end
 
 gachas = [
   { name: "地球スシ", rarity: :normal, image: "chikyu.PNG", weight: 60 },
   { name: "マグロライダー", rarity: :rare, image: "maguro_biker.PNG", weight: 30 },
-  { name: "えび天キッド", rarity: :super_rare, image: "ebiten_kid.PNG", weight: 9 }
+  { name: "えび天キッド", rarity: :super_rare, image: "ebiten_kid.PNG", weight: 9 },
+  { name: "不死鳥のギフケン", rarity: :normal, image: "fusityouno_gifuken.png", weight: 60 },
+  { name: "幸運の四葉軍艦", rarity: :normal, image: "kounno_yotubagunnkann.png", weight: 60 },
+  { name: "フライドポテト寿司", rarity: :normal, image: "poteto_sushi.png", weight: 60 },
+  { name: "ダシマキ・トム", rarity: :rare, image: "dasimaki_tom.png", weight: 30 },
+  { name: "けん玉巻", rarity: :rare, image: "gendamamaki.png", weight: 30 },
+  { name: "うさぎ大福", rarity: :super_rare, image: "usagidaihuku.png", weight: 9 },
+  { name: "イクラメガネ", rarity: :special, image: "ikura_megane.png", weight: 1 }
 ]
 
 gachas.each do |attrs|
-  existing = GachaList.find_by(name: attrs[:name])
-  if existing
-    puts "⏩ #{attrs[:name]} は既に存在します。スキップします"
-    next
-  end
+  gacha = GachaList.find_or_initialize_by(name: attrs[:name])
+  gacha.rarity = attrs[:rarity]
+  gacha.weight = attrs[:weight]
+  gacha.save!
 
-  gacha = GachaList.create!(name: attrs[:name], rarity: attrs[:rarity], weight: attrs[:weight])
+  # 画像アタッチ
   attach_image(gacha, attrs[:image])
-  puts "✅ #{gacha.name} を作成しました"
+  puts "✅ #{gacha.name} を作成または更新しました"
 end
+
