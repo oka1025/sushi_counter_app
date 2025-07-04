@@ -3,6 +3,8 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   connect() {
+    if (window.location.pathname.includes("/gachas/result")) return;
+    if (window.location.pathname.includes("/user_gacha_lists")) return;
     const key = `scrollY:${location.pathname}`;
     const y = sessionStorage.getItem(key);
 
