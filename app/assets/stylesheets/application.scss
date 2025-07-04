@@ -401,17 +401,28 @@ body {
 }
 
 .flash-overlay {
-  background-color: white;
   position: fixed;
-  inset: 0;
-  z-index: 1050;
-  opacity: 1;
-  transition: opacity 1s ease-out;
-  pointer-events: none;
+  top: 55.65px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255,);
+  z-index: 10;
+  transition: opacity 1.3s ease;
 }
 
 .flash-overlay.fade-out {
   opacity: 0;
+  pointer-events: none;
+}
+
+.result-items.opacity-20 {
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.result-items.opacity-100 {
+  opacity: 1;
 }
 
 .rarity-badge {
@@ -535,4 +546,9 @@ body {
 .list-p {
   margin-left: 3%;
   margin-right: 3%;
+}
+
+.form-control-sm,
+.form-select-sm {
+  font-size: 16px !important;
 }
