@@ -26,3 +26,22 @@ document.addEventListener("turbo:load", () => {
     }, 3000); // 3秒後にフェード開始
   });
 });
+
+document.addEventListener("turbo:before-fetch-request", () => {
+  if (window.location.pathname.includes("/gachas/result")) return;
+  if (window.location.pathname.includes("/user_gacha_lists")) return;
+  const key = `scrollY:${location.pathname}`;
+  sessionStorage.setItem(key, window.scrollY);
+});
+
+document.addEventListener("turbo:load", () => {
+  if (window.location.pathname.includes("/gachas/result")) return;
+  if (window.location.pathname.includes("/user_gacha_lists")) return;
+  const key = `scrollY:${location.pathname}`;
+  const y = sessionStorage.getItem(key);
+
+  if (y !== null) {
+    window.scrollTo(0, parseInt(y, 10));
+    sessionStorage.removeItem(key);
+  }
+});
