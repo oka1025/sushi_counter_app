@@ -3,7 +3,8 @@
       id: "search-form", 
       data: { 
         turbo: "true",
-        controller: "reset-form scroll", 
+        controller: "reset-form search-form", 
+        action: "submit->search-form#submit",
         reset_form_target: "form" } } do |f| %>
   <div class="my-3" style="max-width: 800px; margin-left: auto; margin-right: auto;">
     <div class="card shadow-sm bg-white rounded">
