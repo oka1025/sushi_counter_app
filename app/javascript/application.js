@@ -44,8 +44,10 @@ document.addEventListener("turbo:load", () => {
 
   if (scrollAfter !== null) {
     // 検索後の強制スクロールが指定されているとき
-    window.scrollTo({ top: parseInt(scrollAfter, 10), behavior: "smooth" });
-    sessionStorage.removeItem("scrollAfterSearchY");
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: parseInt(scrollAfter, 10), behavior: "auto" });
+      sessionStorage.removeItem("scrollAfterSearchY");
+    });
     return;
   }
 
