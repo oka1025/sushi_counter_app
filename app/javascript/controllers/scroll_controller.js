@@ -1,26 +1,22 @@
+// controllers/scroll_persist_controller.js
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   connect() {
     const key = `scrollY:${location.pathname}`;
-    const y = localStorage.getItem(key);
+    const y = sessionStorage.getItem(key);
 
-    if (y) {
+    if (y !== null) {
       requestAnimationFrame(() => {
-        window.scrollTo(0, parseInt(y));
-        localStorage.removeItem(key);
+        window.scrollTo(0, parseInt(y, 10));
+        sessionStorage.removeItem(key);
       });
     }
   }
 }
 
-// グローバルイベントリスナー
-document.addEventListener("turbo:before-visit", () => {
+// 保存処理：before unload や submit 時
+document.addEventListener("turbo:before-fetch-request", () => {
   const key = `scrollY:${location.pathname}`;
-  localStorage.setItem(key, window.scrollY);
-});
-
-document.addEventListener("turbo:submit-start", () => {
-  const key = `scrollY:${location.pathname}`;
-  localStorage.setItem(key, window.scrollY);
+  sessionStorage.setItem(key, window.scrollY);
 });
