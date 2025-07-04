@@ -168,7 +168,8 @@ class SushiItemsController < ApplicationController
     default_filename = {
       "まぐろ" => "maguro.png",
       "とろびんちょう" => "bincho.png",
-      "サーモン" => "salmon.png"
+      "サーモン" => "salmon.png",
+      "いなり" => "inari.png"
     }[sushi.name]
 
     return unless default_filename
