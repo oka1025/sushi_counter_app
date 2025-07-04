@@ -17,11 +17,8 @@ export default class extends Controller {
     url.search = params.toString();
 
     // ✅ 任意のスクロール位置に移動（例: 500px）
-    window.scrollTo({ top: 1130, behavior: "smooth" });
-
-    setTimeout(() => {
-      Turbo.visit(url.toString());
-    }, 600);
+    sessionStorage.setItem("scrollAfterSearchY", 1130);
+    Turbo.visit(url.toString());
   }
 
   submitcounter(event) {
