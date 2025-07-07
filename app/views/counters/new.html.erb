@@ -1,7 +1,7 @@
 <% content_for :title, "カウント保存" %>
 <h2 class="text-center my-3">カウント保存</h2>
-<div class="my-3 bg-white" style="max-width: 800px; margin-left: auto; margin-right: auto;">
-  <div class="card shadow-sm">
+<div class="my-3" style="max-width: 800px; margin-left: auto; margin-right: auto;">
+  <div class="card shadow-sm bg-white">
     <div class="card-body">
       <%= form_with model: @counter, url: counter_path(@counter), method: :patch, local: true do |f| %>
         <%= f.hidden_field :update_source, value: "new" %>
