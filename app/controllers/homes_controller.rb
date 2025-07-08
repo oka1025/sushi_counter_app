@@ -24,7 +24,11 @@ class HomesController < ApplicationController
       ranked_sushis << [sushi, count, rank]
     end
     @popular_sushis = ranked_sushis
+  end
 
-    
+  def terms
+  end
+
+  def privacy
   end
 end
