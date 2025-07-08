@@ -70,6 +70,10 @@
               新規登録
             <% end %>
           </li>
+          <li class="nav-item mt-4 small">
+            <%= link_to "利用規約", terms_path, class: "text-muted nav-link" %>
+            <%= link_to "プライバシーポリシー", privacy_path, class: "text-muted nav-link" %>
+          </li>
         <% else %>
           <li class="nav-item">
             <%= link_to user_path, class: 'nav-link text-navy' do %>
@@ -83,10 +87,15 @@
               ログアウト
             <% end %>
           </li>
+          <li class="nav-item mt-4 small">
+            <%= link_to "利用規約", terms_path, class: "text-muted nav-link" %>
+            <%= link_to "プライバシーポリシー", privacy_path, class: "text-muted nav-link" %>
+          </li>
         <% end %>
       </li>
     </ul>
   </div>
 </div>
 
+<%= render 'shared/gacha_status' %>
 <%= render 'shared/guest_user_message' %>
