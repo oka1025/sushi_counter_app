@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get 'gachas/show'
   get 'gachas/draw'
   root to: "homes#index"
+  get "terms", to: "homes#terms"
+  get "privacy", to: "homes#privacy"
 
   resources :sushi_items, only: [:new, :create, :index, :edit, :destroy, :update] do
     member do
