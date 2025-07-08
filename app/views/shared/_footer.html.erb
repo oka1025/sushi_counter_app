@@ -1,3 +1,12 @@
+<% unless controller_name == "sushi_items" %>
+  <div class="d-flex justify-content-center gap-3 mb-6 small">
+    <%= link_to "利用規約", terms_path, class: "text-muted text-decoration-none" %>
+    <span class="text-muted">|</span>
+    <%= link_to "プライバシーポリシー", privacy_path, class: "text-muted text-decoration-none" %>
+  </div>
+<% end %>
+
+
 <ul class="bottom-nav fixed-bottom">
   <li class="nav-item text-center">
     <%= link_to root_path, class: "nav-link text-navy #{'active' if current_page?(root_path)}" do %>
