@@ -552,3 +552,24 @@ body {
 .form-select-sm {
   font-size: 16px !important;
 }
+
+.autocomplete-results {
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  border-top: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 999;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.autocomplete-item {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+.autocomplete-item:hover {
+  background-color: #f8f9fa;
+}

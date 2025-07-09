@@ -69,6 +69,7 @@ class CountersController < ApplicationController
   end
 
   def summary
+
     counters = current_user.counters
       .where(saved: true)
 
@@ -166,6 +167,32 @@ class CountersController < ApplicationController
     @total_sushi_count = sushi_counts.sum { |r| r.total_count.to_i }
     @paginated_sushi_counts = Kaminari.paginate_array(@sushi_ranks).page(params[:page]).per(50)
   end
+
+  def autocomplete_store_name
+    term = params[:term].tr("ぁ-ん", "ァ-ン")
+
+    store_names = current_user.counters
+      .where("CONVERT(store_name USING utf8mb4) LIKE ?", "%#{params[:term]}%")
+      .distinct
+      .limit(10)
+      .pluck(:store_name)
+
+    render json: store_names
+  end
+
+  def autocomplete_sushi_name
+    term = params[:term].tr("ぁ-ん", "ァ-ン")
+
+    names = current_user.counters
+      .joins(sushi_item_counters: :sushi_item)
+      .where("CONVERT(sushi_items.name USING utf8mb4) LIKE ?", "%#{params[:term]}%")
+      .distinct
+      .limit(10)
+      .pluck("sushi_items.name")
+
+    render json: names
+  end
+
 
   private
 

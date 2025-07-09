@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     end
     collection do
       get :summary
+      get :autocomplete_store_name
+      get :autocomplete_sushi_name
     end
   end
 
