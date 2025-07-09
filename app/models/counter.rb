@@ -3,6 +3,7 @@ class Counter < ApplicationRecord
   belongs_to :user
   has_many :sushi_item_counters, dependent: :destroy
   has_many :sushi_items, through: :sushi_item_counters
+  before_validation :set_store_name_kana
 
   attribute :saved, :boolean, default: false
 
@@ -14,5 +15,11 @@ class Counter < ApplicationRecord
     Arel.sql("COALESCE((SELECT SUM(sushi_item_counters.count)
                         FROM sushi_item_counters
                         WHERE sushi_item_counters.counter_id = counters.id), 0)")
+  end
+
+  private
+
+  def set_store_name_kana
+    self.store_name_kana = store_name.tr("ぁ-ん", "ァ-ン") if store_name.present?
   end
 end
