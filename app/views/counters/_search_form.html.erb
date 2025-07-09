@@ -37,9 +37,22 @@
             </div>
           </div>
 
-          <div class="mb-4">
+          <div class="mb-4" data-controller="autocomplete">
             <%= f.label :store_name_cont, "店名", class: "form-label mb-1" %>
-            <%= f.text_field :store_name_cont, class: "form-control form-control-sm" %>
+            <div class="position-relative">
+              <%= f.text_field :store_name_cont, 
+                  class: "form-control form-control-sm", 
+                  autocomplete: "off",
+                  data: {
+                    autocomplete_target: "input",
+                    autocomplete_url: autocomplete_store_name_counters_path,
+                    action: "input->autocomplete#search"
+                  } %>
+              <ul data-autocomplete-target="results"
+                class="autocomplete-results list-group position-absolute w-100 z-3"
+                style="top: 100%; left: 0;">
+              </ul>
+            </div>
           </div>
 
           <div class="mb-5">
