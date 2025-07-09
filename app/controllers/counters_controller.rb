@@ -169,7 +169,9 @@ class CountersController < ApplicationController
   end
 
   def autocomplete_store_name
-    term = params[:term].tr("ぁ-ん", "ァ-ン")
+    term = params[:term].to_s.tr("ぁ-ん", "ァ-ン")
+    logger.info "🔍 autocomplete term: #{term}"
+
 
     store_names = current_user.counters
       .where("CONVERT(store_name USING utf8mb4) LIKE ?", "%#{term}%")
@@ -181,7 +183,9 @@ class CountersController < ApplicationController
   end
 
   def autocomplete_sushi_name
-    term = params[:term].tr("ぁ-ん", "ァ-ン")
+    term = params[:term].to_s.tr("ぁ-ん", "ァ-ン")
+    logger.info "🔍 autocomplete term: #{term}"
+
 
     names = current_user.counters
       .joins(sushi_item_counters: :sushi_item)
