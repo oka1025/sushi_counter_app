@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: "homes#index"
   get "terms", to: "homes#terms"
   get "privacy", to: "homes#privacy"
+  get "/admin/normalize_kana", to: "admin#normalize_kana"
 
   resources :sushi_items, only: [:new, :create, :index, :edit, :destroy, :update] do
     member do
@@ -49,10 +50,4 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-
-  get "/run_script", to: proc {
-    require Rails.root.join("scripts/normalize_kana.rb")
-    [200, {}, ["✅ スクリプト実行完了"]]
-  }
-
 end
