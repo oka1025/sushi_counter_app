@@ -174,7 +174,7 @@ class CountersController < ApplicationController
 
 
     store_names = current_user.counters
-      .where("CONVERT(store_name USING utf8mb4) LIKE ?", "%#{term}%")
+      .where("store_name_kana LIKE ?", "%#{term}%")
       .distinct
       .limit(10)
       .pluck(:store_name)
@@ -189,7 +189,7 @@ class CountersController < ApplicationController
 
     names = current_user.counters
       .joins(sushi_item_counters: :sushi_item)
-      .where("CONVERT(sushi_items.name USING utf8mb4) LIKE ?", "%#{term}%")
+      .where("sushi_items.name_kana LIKE ?", "%#{term}%")
       .distinct
       .limit(10)
       .pluck("sushi_items.name")

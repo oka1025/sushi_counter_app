@@ -11,6 +11,7 @@ class SushiItem < ApplicationRecord
   before_destroy :prevent_system_item_deletion
   before_update :prevent_system_item_editing
   before_save :purge_image_if_requested
+  before_validation :set_name_kana
 
   private
 
@@ -33,5 +34,9 @@ class SushiItem < ApplicationRecord
 
   def purge_image_if_requested
     image.purge if remove_image == "1"
+  end
+
+  def set_name_kana
+    self.name_kana = name.tr("ぁ-ん", "ァ-ン") if name.present?
   end
 end

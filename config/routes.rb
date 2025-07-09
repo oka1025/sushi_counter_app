@@ -49,4 +49,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  get "/run_script", to: proc {
+    require Rails.root.join("scripts/normalize_kana.rb")
+    [200, {}, ["✅ スクリプト実行完了"]]
+  }
+
 end
