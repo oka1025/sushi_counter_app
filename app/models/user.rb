@@ -30,7 +30,7 @@ class User < ApplicationRecord
       user.email = auth.info.email
       user.name = auth.info.name
       user.password = Devise.friendly_token[0, 20]
-      user.save(validate: false) # 🔸 バリデーション無視で保存
+      user.save(validate: false) # バリデーション無視で保存
     end
 
     user
