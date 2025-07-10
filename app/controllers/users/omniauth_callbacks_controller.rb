@@ -1,5 +1,4 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  puts "✅ OmniauthCallbacksController loaded!"
   skip_before_action :auto_guest_sign_in
   skip_before_action :verify_authenticity_token, only: [:google_oauth2]
 
