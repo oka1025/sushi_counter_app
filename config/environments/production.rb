@@ -92,6 +92,8 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.active_storage.resolve_model_to_route = :rails_storage_proxy
+
+  config.hosts << 'www.example.com'
 end
 
 
