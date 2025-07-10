@@ -52,8 +52,4 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-<<<<<<< HEAD
-
-=======
->>>>>>> 09d3882b8134f23f57d62005ff19a263eaa64766
 end
