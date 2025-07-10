@@ -573,3 +573,14 @@ body {
 .autocomplete-item:hover {
   background-color: #f8f9fa;
 }
+
+.google-login-link {
+  display: inline-block;
+  line-height: 0; // 画像以外の余白を消す
+}
+
+.google-login-img {
+  display: block;
+  height: auto;
+  width: 200px;
+}

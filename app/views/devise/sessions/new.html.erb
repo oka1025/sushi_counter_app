@@ -28,8 +28,14 @@
         </div>
       <% end %>
 
-      <div class="text-center">
+      <div class="text-center mb-4">
         <%= render "devise/shared/links" %>
+      </div>
+
+      <div class="text-center">
+        <%= link_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: "google-login-link" do %>
+          <%= image_tag "ios_light_sq_SI@3x.png", alt: "Googleでログイン", class: "google-login-img" %>
+        <% end %>
       </div>
     </div>
   </div>
