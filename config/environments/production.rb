@@ -93,7 +93,8 @@ Rails.application.configure do
 
   config.active_storage.resolve_model_to_route = :rails_storage_proxy
 
-  config.hosts << 'www.example.com'
+  config.hosts << 'www.sushi-counter.com'
+  config.hosts << 'sushi-counter.com'
 end
 
 
