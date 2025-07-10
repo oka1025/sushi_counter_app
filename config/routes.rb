@@ -7,7 +7,6 @@ Rails.application.routes.draw do
 
   #get "/admin/normalize_kana", to: "admin#normalize_kana"
 
-
   resources :sushi_items, only: [:new, :create, :index, :edit, :destroy, :update] do
     member do
       patch :update_count
