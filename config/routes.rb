@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   root to: "homes#index"
   get "terms", to: "homes#terms"
   get "privacy", to: "homes#privacy"
-  get "/admin/normalize_kana", to: "admin#normalize_kana"
+
+  #get "/admin/normalize_kana", to: "admin#normalize_kana"
+
 
   resources :sushi_items, only: [:new, :create, :index, :edit, :destroy, :update] do
     member do
@@ -36,7 +38,8 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
   devise_scope :users do
@@ -50,4 +53,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+<<<<<<< HEAD
+
+=======
+>>>>>>> 09d3882b8134f23f57d62005ff19a263eaa64766
 end
