@@ -59,3 +59,45 @@ document.addEventListener("turbo:load", () => {
     sessionStorage.removeItem(key);
   }
 });
+
+document.addEventListener('turbo:load', function () {
+  const target = document.getElementById('coin-tooltip-target');
+  if (!target) return;
+
+  const tooltip = new bootstrap.Tooltip(target, {
+    trigger: 'manual',
+    placement: 'bottom'
+  });
+
+  let isTooltipVisible = false;
+
+  target.addEventListener('click', function (e) {
+    e.stopPropagation();
+
+    if (isTooltipVisible) {
+      tooltip.hide();
+      isTooltipVisible = false;
+    } else {
+      tooltip.show();
+      isTooltipVisible = true;
+    }
+  });
+
+  document.addEventListener('click', function () {
+    if (isTooltipVisible) {
+      tooltip.hide();
+      isTooltipVisible = false;
+    }
+  });
+
+  // PCのみ hover 表示
+  if (window.matchMedia('(hover: hover)').matches) {
+    target.addEventListener('mouseenter', function () {
+      tooltip.show();
+    });
+
+    target.addEventListener('mouseleave', function () {
+      tooltip.hide();
+    });
+  }
+});
