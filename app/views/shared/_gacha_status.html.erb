@@ -1,6 +1,9 @@
-<% if controller_name != "sushi_items" && request.path != "/users/sign_in" && request.path != "/users/sign_up" && request.path != user_registration_path %>
+<% if controller_name != "sushi_items" && request.path != "/users/sign_in" && request.path != "/users/sign_up" && request.path != user_registration_path && request.path != explanation_path %>
   <div class="d-flex justify-content-between align-items-center my-2 ms-2 me-2">
-    <div class="d-flex align-items-center bg-white border rounded-pill px-2 shadow-sm" style="min-width: 60px;">
+    <div id="coin-tooltip-target"
+        class="d-flex align-items-center bg-white border rounded-pill px-2 shadow-sm" 
+        style="min-width: 60px;"
+        title="コインを使ってガチャを引くことができます。コインはカウント保存時に、一貫につき1コイン獲得できます。">
       <%= image_tag("icons/coin.svg", size: "20x20", class: "me-2") %>
       <strong class="text-dark"><%= current_user.coin %></strong>
     </div>

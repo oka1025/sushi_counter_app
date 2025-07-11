@@ -31,4 +31,7 @@ class HomesController < ApplicationController
 
   def privacy
   end
+
+  def explanation
+  end
 end
