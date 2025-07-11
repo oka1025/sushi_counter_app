@@ -70,6 +70,12 @@
               新規登録
             <% end %>
           </li>
+          <li class="nav-item">
+            <%= link_to explanation_path, class: 'nav-link text-navy' do %>
+              <i class="bi bi-info-circle me-2"></i>
+              アプリの使い方
+            <% end %>
+          </li>
           <li class="nav-item mt-4 small">
             <%= link_to "利用規約", terms_path, class: "text-muted nav-link" %>
             <%= link_to "プライバシーポリシー", privacy_path, class: "text-muted nav-link" %>
@@ -85,6 +91,12 @@
             <%= link_to destroy_user_session_path, class: 'text-navy nav-link', data: { turbo_method: :delete } do %>
               <i class="bi bi-box-arrow-right me-2"></i>
               ログアウト
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to explanation_path, class: 'nav-link text-navy' do %>
+              <i class="bi bi-info-circle me-2"></i>
+              アプリの使い方
             <% end %>
           </li>
           <li class="nav-item mt-4 small">
