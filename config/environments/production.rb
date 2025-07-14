@@ -95,7 +95,6 @@ Rails.application.configure do
 
   config.hosts << 'www.sushi-counter.com'
   config.hosts << 'sushi-counter.com'
-  config.hosts << "sushi-counter-app.onrender.com"
 end
 
 
