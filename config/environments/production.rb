@@ -95,6 +95,8 @@ Rails.application.configure do
 
   config.hosts << 'www.sushi-counter.com'
   config.hosts << 'sushi-counter.com'
+
+  Rails.application.routes.default_url_options[:host] = 'https://sushi-counter.com'
 end
 
 
