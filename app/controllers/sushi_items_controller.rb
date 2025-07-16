@@ -31,6 +31,24 @@ class SushiItemsController < ApplicationController
     end
   end
 
+  def edit
+    @sushi_item = SushiItem.find_by(id: params[:id])
+    @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
+      .where(category_id: @selected_category.id)
+
+    unless @sushi_item && (
+    @sushi_item.created_by_user_id == current_user.id ||
+    @sushi_item.created_by_user_id.nil?
+    )
+      redirect_to sushi_items_path, alert: t('sushi_items.edit_alert')
+      return
+    end
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
+  end
   def create
     @return_category_id = params[:return_category_id] || sushi_item_params[:category_id]
 
@@ -44,7 +62,7 @@ class SushiItemsController < ApplicationController
         .order("id ASC")
 
       respond_to do |format|
-        format.html { redirect_to sushi_items_path(category_id: @return_category_id), notice: "寿司を作成しました" }
+        format.html { redirect_to sushi_items_path(category_id: @return_category_id), notice: t('sushi_items.create_notice') }
         format.turbo_stream 
       end
 
@@ -57,31 +75,13 @@ class SushiItemsController < ApplicationController
     end
   end
 
-  def edit
-    @sushi_item = SushiItem.find_by(id: params[:id])
-    @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
-      .where(category_id: @selected_category.id)
-
-    unless @sushi_item && (
-    @sushi_item.created_by_user_id == current_user.id ||
-    @sushi_item.created_by_user_id.nil?
-    )
-      redirect_to sushi_items_path, alert: "編集権限がありません"
-      return
-    end
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
-  end
 
   def update
     @sushi_item = SushiItem.find_by(id: params[:id])
     @counter = current_user.counters.order(created_at: :desc).first_or_create!(eaten_at: Time.current)
 
     unless @sushi_item.created_by_user_id == current_user.id || @sushi_item.created_by_user_id.nil?
-      redirect_to sushi_items_path, alert: "更新権限がありません"
+      redirect_to sushi_items_path, alert: t('sushi_items.update_alert')
       return
     end
 
@@ -102,7 +102,7 @@ class SushiItemsController < ApplicationController
 
       respond_to do |format|
           format.turbo_stream 
-          format.html { redirect_to sushi_items_path(category_id: category_id), notice: "更新しました" }
+          format.html { redirect_to sushi_items_path(category_id: category_id), notice: t('sushi_items.update_notice') }
       end
     else
       respond_to do |format|
@@ -125,7 +125,7 @@ class SushiItemsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to sushi_items_path(category_id: @selected_category.id), notice: '削除しました' }
+      format.html { redirect_to sushi_items_path(category_id: @selected_category.id), notice: t('sushi_items.destroy_notice') }
     end
   end
 

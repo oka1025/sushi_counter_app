@@ -1,7 +1,7 @@
 set :environment, 'production'  # 本番環境では 'production' に
 
 # cron環境変数の指定
-env :PATH, ENV['PATH']
+env :PATH, ENV.fetch('PATH', nil)
 env :BUNDLE_GEMFILE, "/myapp/Gemfile"
 env :BUNDLE_PATH, "/usr/local/bundle"
 env :GEM_HOME, '/usr/local/bundle'
@@ -14,5 +14,5 @@ CMD
 
 every 1.hour do
   rake "guest_user:cleanup"
-  command "echo '✅ CRON CHECK: #{Time.now}' >> log/cron.log 2>&1"
+  command "echo '✅ CRON CHECK: #{Time.zone.now}' >> log/cron.log 2>&1"
 end

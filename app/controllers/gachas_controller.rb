@@ -9,8 +9,10 @@ class GachasController < ApplicationController
 
   def draw
     draw_count = params[:times].to_i == 10 ? 10 : 1
-    if current_user.coin < 5 * draw_count
-      redirect_to gachas_path, alert: "コインが足りません"
+    required_coin = 5 * draw_count
+
+    if current_user.coin < required_coin
+      redirect_to gachas_path, alert: t('gachas.coin_alert')
       return
     end
 
@@ -30,7 +32,7 @@ class GachasController < ApplicationController
     results.each do |selected|
       current_user.user_gacha_lists.create!(gacha_list: selected)
     end
-    current_user.update_column(:coin, current_user.coin - (5 * draw_count))
+    current_user.update(coin: current_user.coin - required_coin)
 
     session[:latest_gacha_items] = results.map(&:id)
     redirect_to result_gachas_path
@@ -52,7 +54,7 @@ class GachasController < ApplicationController
 
   def reject_guest_user
     if current_user&.guest?
-      redirect_to gachas_path, alert: "ゲストユーザーはプレイできません。"
+      redirect_to gachas_path, alert: t('counters.guest_alert')
     end
   end
 end

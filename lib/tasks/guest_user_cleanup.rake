@@ -4,7 +4,7 @@ namespace :guest_user do
     # 例：1時間以上前に作られたゲストを削除
     expiration_time = 1.hour.ago
 
-    users = User.where(guest: true).where("created_at < ?", expiration_time)
+    users = User.where(guest: true).where(created_at: ...expiration_time)
 
     puts "🧹 削除対象ゲストユーザー数: #{users.count}"
     users.find_each do |user|
