@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params) 
-      redirect_to user_path, notice: "ユーザー名を更新しました"
+      redirect_to user_path, notice: t('users.update_notice')
     else
       render :show, status: :unprocessable_entity
     end
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def reject_guest_user
     if current_user&.guest?
-      redirect_to root_path, alert: "ゲストユーザーはアクセスできません。"
+      redirect_to root_path, alert: t('users.guest_alert')
     end
   end
 end

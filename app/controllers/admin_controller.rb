@@ -7,14 +7,14 @@ class AdminController < ApplicationController
     Counter.find_each do |counter|
       next if counter.store_name.blank?
       kana = counter.store_name.tr("ぁ-ん", "ァ-ン")
-      counter.update_column(:store_name_kana, kana)
+      counter.update(store_name_kana: kana)
       updated_count += 1
     end
 
     SushiItem.find_each do |item|
       next if item.name.blank?
       kana = item.name.tr("ぁ-ん", "ァ-ン")
-      item.update_column(:name_kana, kana)
+      item.update(name_kana: kana)
       updated_count += 1
     end
 

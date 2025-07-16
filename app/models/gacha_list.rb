@@ -4,7 +4,7 @@ class GachaList < ApplicationRecord
 
   has_one_attached :image
 
-  enum rarity: {
+  enum :rarity, {
     normal: 0,
     rare: 1,
     super_rare: 2,

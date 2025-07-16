@@ -1,19 +1,19 @@
 # db/seed_images.rb
-puts "=== 画像登録開始 ==="
+Rails.logger.debug "=== 画像登録開始 ==="
 
 def attach_image(name:, filename:)
   sushi = SushiItem.find_by(name: name, created_by_user_id: nil)
-  return puts "見つかりません: #{name}" unless sushi
+  return Rails.logger.debug { "見つかりません: #{name}" } unless sushi
 
   if sushi.image.attached?
-    puts "スキップ（既に画像あり）: #{name}"
+    Rails.logger.debug { "スキップ（既に画像あり）: #{name}" }
     return
   end
   #sushi.image.purge if sushi.image.attached?
 
   image_path = Rails.root.join("app/assets/images/seeds/#{filename}")
   unless File.exist?(image_path)
-    puts "画像ファイルが存在しません: #{filename}"
+    Rails.logger.debug { "画像ファイルが存在しません: #{filename}" }
     return
   end
 
@@ -24,9 +24,9 @@ def attach_image(name:, filename:)
   )
 
   if sushi.image.attached?
-    puts "画像登録成功: #{name}"
+    Rails.logger.debug { "画像登録成功: #{name}" }
   else
-    puts "画像登録失敗: #{name}"
+    Rails.logger.debug { "画像登録失敗: #{name}" }
   end
 end
 

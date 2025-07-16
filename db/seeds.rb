@@ -85,7 +85,7 @@ others = Category.find_or_create_by!(name: "その他")
 ].each do |data|
   existing = SushiItem.find_by(name: data[:name], created_by_user_id: nil)
   if existing
-    puts "スキップ: #{existing.name}（すでに初期データあり）"
+    Rails.logger.debug { "スキップ: #{existing.name}（すでに初期データあり）" }
     next
   end
 
@@ -94,30 +94,30 @@ others = Category.find_or_create_by!(name: "その他")
   sushi.category = data[:category]
 
   if sushi.save
-    puts "保存成功: #{sushi.name}"
+    Rails.logger.debug { "保存成功: #{sushi.name}" }
   else
-    puts "保存失敗: #{sushi.name}"
-    puts sushi.errors.full_messages
+    Rails.logger.debug { "保存失敗: #{sushi.name}" }
+    Rails.logger.debug sushi.errors.full_messages
   end
 end
 
 
-puts "🌱 Seeding GachaList..."
+Rails.logger.debug "🌱 Seeding GachaList..."
 
 def attach_image(record, filename)
   if record.image.attached?
-    puts "画像あり: #{filename}"
+    Rails.logger.debug { "画像あり: #{filename}" }
     return
   end
 
   filepath = Rails.root.join("db/seeds/images/#{filename}")
   unless File.exist?(filepath)
-    puts "⚠️ 画像ファイルが見つかりません: #{filename}"
+    Rails.logger.debug { "⚠️ 画像ファイルが見つかりません: #{filename}" }
     return
   end
 
   record.image.attach(io: File.open(filepath), filename: filename, content_type: "image/png")
-  puts "📎 画像を添付しました: #{filename}"
+  Rails.logger.debug { "📎 画像を添付しました: #{filename}" }
 end
 
 gachas = [
@@ -141,6 +141,6 @@ gachas.each do |attrs|
 
   # 画像アタッチ
   attach_image(gacha, attrs[:image])
-  puts "✅ #{gacha.name} を作成または更新しました"
+  Rails.logger.debug { "✅ #{gacha.name} を作成または更新しました" }
 end
 

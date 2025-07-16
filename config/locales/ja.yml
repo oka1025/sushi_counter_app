@@ -27,3 +27,20 @@ ja:
       previous: <i class="fas fa-angle-left"></i>
       next: <i class="fas fa-angle-right"></i>
       truncate: "..."
+  counters:
+    reset_notice: カウントをリセットしました
+    update_notice: カウントを更新しました
+    edit_notice: カウントを編集します
+    destroy_notice: 削除しました
+  gachas: 
+    coin_alert: コインが足りません
+    guest_alert: ゲストユーザーはプレイできません
+  sushi_items:
+    create_notice: 作成しました
+    edit_alert: 編集権限がありません
+    update_alert: 更新権限がありません
+    update_notice: 更新しました
+    destroy_notice: 削除しました
+  users:
+    update_notice: ユーザー名を更新しました
+    guest_alert: ゲストユーザーはアクセスできません

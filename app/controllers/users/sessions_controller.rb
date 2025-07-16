@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  skip_before_action :auto_guest_sign_in, only: [:new, :create]
+  skip_before_action :auto_guest_sign_in, only: [:new]
   skip_before_action :require_no_authentication, only: [:new]
 
   def new
