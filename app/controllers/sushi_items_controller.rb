@@ -49,6 +49,7 @@ class SushiItemsController < ApplicationController
       format.turbo_stream
     end
   end
+
   def create
     @return_category_id = params[:return_category_id] || sushi_item_params[:category_id]
 
@@ -102,7 +103,7 @@ class SushiItemsController < ApplicationController
 
       respond_to do |format|
           format.turbo_stream 
-          format.html { redirect_to sushi_items_path(category_id: category_id), notice: t('sushi_items.update_notice') }
+          format.html { redirect_to sushi_items_path(category_id: @selected_category.id), notice: t('sushi_items.update_notice') }
       end
     else
       respond_to do |format|
