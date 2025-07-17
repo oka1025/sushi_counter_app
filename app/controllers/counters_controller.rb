@@ -23,7 +23,7 @@ class CountersController < ApplicationController
       @counter = current_counter
       @counter.update!(eaten_at: Time.current)
     else
-      current_user.counters.create!(eaten_at: Time.current)
+      @counter = current_user.counters.create!(eaten_at: Time.current)
     end
     session[:counter_update_source] = "new"
   end
@@ -50,6 +50,8 @@ class CountersController < ApplicationController
         set_current_counter(@new_counter)
         session.delete(:counter_update_source)
         redirect_to counters_path, notice: t('counters.update_notice')
+      else 
+        redirect_to counters_path, notice: "保存しました"
       end
     else
       render action_from_source(params[:counter][:update_source]), status: :unprocessable_entity
