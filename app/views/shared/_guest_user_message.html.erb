@@ -1,4 +1,4 @@
-<% if current_user&.guest? && request.path != "/users/sign_in" && request.path != "/users/sign_up" && request.path != user_registration_path && request.path != explanation_path%>
+<% if current_user&.guest? && request.path != "/users/sign_in" && request.path != "/users/sign_up" && request.path != user_registration_path && request.path != explanation_path && request.path != ping_path %>
   <div class="d-flex justify-content-center my-4 ms-2 me-2">
     <div class="border-navy rounded p-2 text-center bg-white" style="max-width: 500px;">
       <h5 class="smahosize fw-bold my-2">ゲストユーザーで利用中です。</h5>

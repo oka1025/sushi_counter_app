@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "terms", to: "homes#terms"
   get "privacy", to: "homes#privacy"
   get "explanation", to: "homes#explanation" 
+  get '/ping', to: 'health_check#ping'
 
   #get "/admin/normalize_kana", to: "admin#normalize_kana"
 
