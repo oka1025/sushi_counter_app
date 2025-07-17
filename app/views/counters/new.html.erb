@@ -3,7 +3,7 @@
 <div class="my-3" style="max-width: 800px; margin-left: auto; margin-right: auto;">
   <div class="card shadow-sm bg-white">
     <div class="card-body">
-      <%= form_with model: @counter, url: counter_path(@counter), method: :patch, local: true do |f| %>
+      <%= form_with model: @counter, method: :patch, local: true do |f| %>
         <%= f.hidden_field :update_source, value: "new" %>
         <div class="mb-3">
           <%= f.label :eaten_at, "日付" %>
