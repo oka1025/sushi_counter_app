@@ -41,6 +41,12 @@ jobs:
         with:
           ruby-version: 3.2.3
 
+      - name: Install JavaScript dependencies
+        run: yarn install
+
+      - name: Build CSS
+        run: yarn build:css
+
       - name: Install dependencies
         run: |
           gem install bundler

@@ -1,4 +1,4 @@
-@import "bootstrap/scss/bootstrap";
+@use "bootstrap/scss/bootstrap" as *;
 
 body {
   font-size: 1rem; // 通常サイズ（PCなど）
