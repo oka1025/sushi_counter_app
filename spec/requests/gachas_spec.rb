@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Gachas", type: :request do
   let(:user) { create(:user, coin: 10) }
+  let!(:gacha_list) { create(:gacha_list) }
 
   before { sign_in user }
 
