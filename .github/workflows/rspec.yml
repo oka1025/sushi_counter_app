@@ -47,6 +47,9 @@ jobs:
       - name: Build CSS
         run: yarn build:css
 
+      - name: Build JavaScript
+        run: yarn build
+
       - name: Install dependencies
         run: |
           gem install bundler
