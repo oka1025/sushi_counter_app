@@ -12,7 +12,7 @@ job_type :rake, <<~CMD.strip
   cd :path && bundle exec rake :task RAILS_ENV=:environment >> log/cron.log 2>&1
 CMD
 
-every 1.hour do
+every 4.hour do
   rake "guest_user:cleanup"
   command "echo '✅ CRON CHECK: #{Time.zone.now}' >> log/cron.log 2>&1"
 end

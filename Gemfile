@@ -85,6 +85,8 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem 'rspec_junit_formatter'
+  gem 'simplecov', require: false
 end
 
 group :production do
@@ -108,7 +110,5 @@ gem 'whenever', require: false
 gem 'omniauth'
 
 gem 'omniauth-google-oauth2'
-
-gem 'dotenv-rails'
 
 gem 'meta-tags'

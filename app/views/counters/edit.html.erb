@@ -10,9 +10,22 @@
           <%= f.date_field :eaten_at, class: "form-control" %>
         </div>
       
-        <div class="mb-4">
+        <div class="mb-4" data-controller="autocomplete">
           <%= f.label :store_name, "店名(任意)" %>
-          <%= f.text_field :store_name, class: "form-control" %>
+          <div class="position-relative">
+            <%= f.text_field :store_name, 
+                class: "form-control",
+                autocomplete: "off",
+                data: {
+                  autocomplete_target: "input",
+                  autocomplete_url: autocomplete_store_name_counters_path,
+                  action: "input->autocomplete#search"
+                } %>
+            <ul data-autocomplete-target="results"
+              class="autocomplete-results list-group position-absolute w-100 z-3"
+              style="top: 100%; left: 0;">
+            </ul>
+          </div>
         </div>
 
         <p>以下の寿司をカウントしました：</p>
