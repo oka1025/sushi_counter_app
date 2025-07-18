@@ -61,4 +61,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   config.hosts.clear
+
+  config.assets.compile = true
+  config.assets.paths << Rails.root.join("app/assets/builds")
 end
