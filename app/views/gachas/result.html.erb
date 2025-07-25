@@ -21,6 +21,13 @@
             
           </div>
           <strong class="d-block mt-2"><h2><%= item.name %></h2></strong>
+          <div class="d-flex justify-content-center gap-3 mt-3">
+            <%= link_to "https://twitter.com/share?url=https://sushi-counter.com/&text=「#{item.name}」を獲得！", title: 'X', target: '_blank', class: 'btn btn-dark text-white btn-sm' do %>
+              <i class="bi bi-twitter-x"></i>
+            <% end %>
+            <div class="line-it-button" data-lang="ja" data-type="share-b" data-env="REAL" data-url="https://sushi-counter.com" data-color="default" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
+            <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
+          </div>
         </div>
       <% end %>
     </div>
@@ -29,3 +36,15 @@
     </div>
   </div>
 </div>
+
+<% main_result = @results.last %>
+
+<% content_for :og_tags do %>
+  <meta property="og:title" content="「<%= main_result.name %>」を獲得！" />
+  <meta property="og:description" content="寿司カウンターで「<%= main_result.name %>」を引きました。" />
+  <meta property="og:image" content="<%= url_for(main_result.image) %>" />
+  <meta property="og:url" content="<%= request.original_url %>" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+<% end %>
+
