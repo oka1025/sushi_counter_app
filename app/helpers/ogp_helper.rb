@@ -16,7 +16,7 @@ module OgpHelper
       },
       twitter: {
         card: "summary_large_image",
-        image: content_for?(:image) ? content_for(:image) : image_url("/ogp_default.png"),
+        image: content_for?(:image) ? content_for(:image) : image_url("/ogp_default.png")
       }
     }
   end
