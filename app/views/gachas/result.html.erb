@@ -1,8 +1,13 @@
 <% if @results.last %>
-  <% content_for :title, "「#{@results.last.name}」を獲得！" %>
-  <% content_for :description, "寿司カウンターで「#{@results.last.name}」を引きました。" %>
-  <% content_for :image, @results.last.image.attached? ? rails_blob_url(@results.last.image, host: request.base_url) : image_url("ogp_default.png") %>
+  <% content_for :title, "「#{@results.last.gacha_list.name}」を獲得！" %>
+  <% content_for :description, "寿司カウンターで「#{@results.last.gacha_list.name}」を引きました。" %>
+  <% content_for :image, @results.last.gacha_list.image.attached? ? rails_blob_url(@results.last.gacha_list.image, host: request.base_url) : image_url("ogp_default.png") %>
+<% else %>
+  <% content_for :title, "ガチャ結果" %>
+  <% content_for :description, "寿司カウンターのガチャ結果を表示します。" %>
+  <% content_for :image, image_url("ogp_default.png") %>
 <% end %>
+
 
 
 <% content_for :title, "ガチャ結果" %>
@@ -14,26 +19,26 @@
     <div class="d-flex flex-wrap justify-content-center">
       <% @results.each do |item| %>
         <div class="m-3 text-center">
-          <% rarity_class = case item.rarity
-            when 'normal' then "rarity-#{item.rarity}"
+          <% rarity_class = case item.gacha_list.rarity
+            when 'normal' then "rarity-#{item.gacha_list.rarity}"
             when 'rare' then 'bg-primary text-white'
-            when 'super_rare' then "rarity-#{item.rarity}"
+            when 'super_rare' then "rarity-#{item.gacha_list.rarity}"
             when 'special' then 'bg-warning text-dark'
           end %>
           <div class="position-relative d-inline-block">
-            <%= image_tag item.image, size: "400x400", class: "img-thumbnail" if item.image.attached? %>
+            <%= image_tag item.gacha_list.image, size: "400x400", class: "img-thumbnail" if item.gacha_list.image.attached? %>
             <div class="rarity-badge position-absolute top-0 end-0 px-2 py-1 mt-2 me-2 small rounded <%= rarity_class %>">
-              <%= I18n.t("activerecord.attributes.gacha_list.rarity.#{item.rarity}") %>
+              <%= I18n.t("activerecord.attributes.gacha_list.rarity.#{item.gacha_list.rarity}") %>
             </div>
             
           </div>
-          <strong class="d-block mt-2"><h2><%= item.name %></h2></strong>
+          <strong class="d-block mt-2"><h2><%= item.gacha_list.name %></h2></strong>
           <div class="d-flex justify-content-center gap-3 mt-3">
-            <%= link_to "https://twitter.com/intent/tweet?text=#{ERB::Util.url_encode("「#{item.name}」を獲得！ #寿司カウンター")}&url=https://sushi-counter.com/",
+            <%= link_to "https://twitter.com/intent/tweet?text=#{ERB::Util.url_encode("「#{item.gacha_list.name}」を獲得！ #寿司カウンター")}&url=#{CGI.escape(public_result_gachas_url(public_token: item.public_token))}",
                 title: 'Xでシェア', target: '_blank', class: 'btn btn-dark text-white btn-sm' do %>
               <i class="bi bi-twitter-x"></i>
             <% end %>
-            <div class="line-it-button" data-lang="ja" data-type="share-b" data-env="REAL" data-url="https://sushi-counter.com" data-color="default" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
+            <div class="line-it-button" data-lang="ja" data-type="share-b" data-env="REAL" data-url="<%= public_result_gachas_url(public_token: item.public_token) %>" data-color="default" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
             <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
           </div>
         </div>

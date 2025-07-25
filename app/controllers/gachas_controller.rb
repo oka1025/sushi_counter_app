@@ -29,27 +29,45 @@ class GachasController < ApplicationController
       results << weighted_pool.sample
     end
 
-    results.each do |selected|
+    user_gacha_records = results.map do |selected|
       current_user.user_gacha_lists.create!(gacha_list: selected)
     end
     current_user.update(coin: current_user.coin - required_coin)
 
-    session[:latest_gacha_items] = results.map(&:id)
+    session[:latest_gacha_items] = [user_gacha_records.last.id]
     redirect_to result_gachas_path
   end
 
   def result
     ids = session[:latest_gacha_items] || []
-    id_counts = ids.tally
-    all_items = GachaList.where(id: ids).index_by(&:id)
-    @results = ids.map { |id| all_items[id] }
-
-    if @results.last&.image&.attached?
-      image = url_for(@results.last.image)
+    @results = UserGachaList.includes(:gacha_list).where(id: ids)
+  
+    if (last_item = @results.last)&.gacha_list&.image&.attached?
+      @og_image = url_for(last_item.gacha_list.image)
     else
-      image = view_context.image_url("ogp_default.png")
+      @og_image = view_context.image_url("ogp_default.png")
     end
   end
+
+  def public_result
+    @public_token = params[:public_token]
+    first_item = UserGachaList.find_by!(public_token: @public_token)
+    @user = first_item.user
+  
+    # 同一トークンの全ガチャ結果を取得（複数件共有も可能にするならスコープで制御）
+    @results = UserGachaList.where(user: @user, created_at: first_item.created_at.all_day).includes(:gacha_list)
+  
+    if @results.last&.gacha_list&.image&.attached?
+      @ogp_image = url_for(@results.last.gacha_list.image)
+    else
+      @ogp_image = view_context.image_url("ogp_default.png")
+    end
+  
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: "共有されたガチャ結果が見つかりません"
+  end
+  
+
 
   def destroy_session
     session.delete(:gacha_result_ids)

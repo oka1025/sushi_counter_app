@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_07_16_085202) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_25_100957) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -89,7 +89,9 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_16_085202) do
     t.bigint "gacha_list_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "public_token"
     t.index ["gacha_list_id"], name: "index_user_gacha_lists_on_gacha_list_id"
+    t.index ["public_token"], name: "index_user_gacha_lists_on_public_token", unique: true
     t.index ["user_id"], name: "index_user_gacha_lists_on_user_id"
   end
 

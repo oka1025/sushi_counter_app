@@ -1,0 +1,31 @@
+<% if @results.last %>
+  <% content_for :title, "「#{@results.last.gacha_list.name}」を獲得！" %>
+  <% content_for :description, "寿司カウンターで「#{@results.last.gacha_list.name}」を引きました。" %>
+  <% content_for :image, @results.last.gacha_list.image.attached? ? rails_blob_url(@results.last.gacha_list.image, host: request.base_url) : image_url("ogp_default.png") %>
+<% else %>
+  <% content_for :title, "ガチャ結果" %>
+  <% content_for :description, "寿司カウンターのガチャ結果を表示します。" %>
+  <% content_for :image, image_url("ogp_default.png") %>
+<% end %>
+
+<h2><%= @user.name %>さんのガチャ結果</h2>
+
+<div class="row">
+  <% if @results.last %>
+    <% record = @results.last %>
+    <div class="col-4 mb-3">
+      <div class="card">
+        <% if record.gacha_list.image.attached? %>
+          <%= image_tag record.gacha_list.image.variant(resize_to_limit: [300, 300]) %>
+        <% else %>
+          <%= image_tag "default_gacha.png", size: "300x300" %>
+        <% end %>
+        <div class="card-body text-center">
+          <h5 class="card-title"><%= record.gacha_list.name %></h5>
+          <p><%= I18n.t("activerecord.attributes.gacha_list.rarity.#{record.gacha_list.rarity}") %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
