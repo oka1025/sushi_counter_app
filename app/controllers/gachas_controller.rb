@@ -43,6 +43,16 @@ class GachasController < ApplicationController
     id_counts = ids.tally
     all_items = GachaList.where(id: ids).index_by(&:id)
     @results = ids.map { |id| all_items[id] }
+
+    if @results.last&.image&.attached?
+      image = url_for(@results.last.image)
+    else
+      image = view_context.image_url("ogp_default.png")
+    end
+
+    view_context.content_for(:title, "「#{@results.last.name}」を獲得！")
+    view_context.content_for(:description, "寿司カウンターで「#{@results.last.name}」を引きました。")
+    view_context.content_for(:image, image)
   end
 
   def destroy_session

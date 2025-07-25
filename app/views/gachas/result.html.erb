@@ -37,9 +37,3 @@
     </div>
   </div>
 </div>
-
-<% main_result = @results.last %>
-
-<% content_for :title, "「#{main_result.name}」を獲得！" %>
-<% content_for :description, "寿司カウンターで「#{main_result.name}」を引きました。" %>
-<% content_for :image, main_result.image.attached? ? rails_blob_url(main_result.image, only_path: false) : image_url("ogp_default.png") %>
