@@ -9,14 +9,14 @@ module OgpHelper
         title: :title,
         type: "website",
         url: request.original_url,
-        image: image_url("/ogp_default.png"),
+        image: content_for?(:image) ? content_for(:image) : image_url("/ogp_default.png"),
         site_name: :site,
         description: :description,
         locale: "ja_JP"
       },
       twitter: {
         card: "summary_large_image",
-        image: image_url("/ogp_default.png")
+        image: content_for?(:image) ? content_for(:image) : image_url("/ogp_default.png")
       }
     }
   end
