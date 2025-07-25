@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= display_meta_tags(default_meta_tags) %>
+
     <% if content_for?(:og_tags) %>
       <%= yield :og_tags %>
+    <% else %>
+      <%= display_meta_tags(default_meta_tags) %>
     <% end %>
 
 

@@ -22,7 +22,8 @@
           </div>
           <strong class="d-block mt-2"><h2><%= item.name %></h2></strong>
           <div class="d-flex justify-content-center gap-3 mt-3">
-            <%= link_to "https://twitter.com/share?url=https://sushi-counter.com/&text=「#{item.name}」を獲得！", title: 'X', target: '_blank', class: 'btn btn-dark text-white btn-sm' do %>
+            <%= link_to "https://twitter.com/intent/tweet?text=#{ERB::Util.url_encode("「#{item.name}」を獲得！ #寿司カウンター")}&url=https://sushi-counter.com/", 
+                class: "btn btn-dark text-white btn-sm", target: "_blank", rel: "noopener" do %>
               <i class="bi bi-twitter-x"></i>
             <% end %>
             <div class="line-it-button" data-lang="ja" data-type="share-b" data-env="REAL" data-url="https://sushi-counter.com" data-color="default" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
