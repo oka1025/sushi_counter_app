@@ -49,10 +49,6 @@ class GachasController < ApplicationController
     else
       image = view_context.image_url("ogp_default.png")
     end
-
-    view_context.content_for(:title, "「#{@results.last.name}」を獲得！")
-    view_context.content_for(:description, "寿司カウンターで「#{@results.last.name}」を引きました。")
-    view_context.content_for(:image, image)
   end
 
   def destroy_session
