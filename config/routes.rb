@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   resource :gachas, only: [:show] do
     post :draw, on: :collection
     get :result
+    get 'public_result/:public_token', to: 'gachas#public_result', as: :public_result
   end
 
   delete "gachas/result", to: "gachas#destroy_session", as: :destroy_session
