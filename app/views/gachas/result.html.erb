@@ -22,7 +22,7 @@
           </div>
           <strong class="d-block mt-2"><h2><%= item.name %></h2></strong>
           <div class="d-flex justify-content-center gap-3 mt-3">
-            <%= link_to "https://twitter.com/intent/tweet?text=#{ERB::Util.url_encode("「#{item.name}」を獲得！ #寿司カウンター")}&url=https://sushi-counter.com/", 
+            <%= link_to "https://twitter.com/intent/tweet?text=#{ERB::Util.url_encode("「#{item.name}」を獲得！ #寿司カウンター")}&url=https://sushi-counter.com/",
                 title: 'Xでシェア', target: '_blank', class: 'btn btn-dark text-white btn-sm' do %>
               <i class="bi bi-twitter-x"></i>
             <% end %>
