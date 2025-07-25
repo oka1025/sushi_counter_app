@@ -1,7 +1,7 @@
 <% if @results.last %>
   <% content_for :title, "「#{@results.last.name}」を獲得！" %>
   <% content_for :description, "寿司カウンターで「#{@results.last.name}」を引きました。" %>
-  <% content_for :image, @results.last.image.attached? ? url_for(@results.last.image) : image_url("ogp_default.png") %>
+  <% content_for :image, @results.last.image.attached? ? rails_blob_url(@results.last.image, host: request.base_url) : image_url("ogp_default.png") %>
 <% end %>
 
 
