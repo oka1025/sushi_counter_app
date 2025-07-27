@@ -1,31 +1,18 @@
-<% if @results.last %>
-  <% content_for :title, "「#{@results.last.gacha_list.name}」を獲得！" %>
-  <% content_for :description, "寿司カウンターで「#{@results.last.gacha_list.name}」を引きました。" %>
-  <% content_for :image, @results.last.gacha_list.image.attached? ? rails_blob_url(@results.last.gacha_list.image, host: request.base_url) : image_url("ogp_default.png") %>
-<% else %>
-  <% content_for :title, "ガチャ結果" %>
-  <% content_for :description, "寿司カウンターのガチャ結果を表示します。" %>
-  <% content_for :image, image_url("ogp_default.png") %>
-<% end %>
-
-<h2><%= @user.name %>さんのガチャ結果</h2>
-
-<div class="row">
-  <% if @results.last %>
-    <% record = @results.last %>
-    <div class="col-4 mb-3">
-      <div class="card">
-        <% if record.gacha_list.image.attached? %>
-          <%= image_tag record.gacha_list.image.variant(resize_to_limit: [300, 300]) %>
-        <% else %>
-          <%= image_tag "default_gacha.png", size: "300x300" %>
-        <% end %>
-        <div class="card-body text-center">
-          <h5 class="card-title"><%= record.gacha_list.name %></h5>
-          <p><%= I18n.t("activerecord.attributes.gacha_list.rarity.#{record.gacha_list.rarity}") %></p>
-        </div>
+<h2 class="text-center mt-3"><%= @user.name %>さんのガチャ結果</h2>
+<div class="d-flex flex-wrap justify-content-center mb-4 mt-2">
+  <div class="m-3 text-center">
+    <% rarity_class = case @gacha_item.rarity
+      when 'normal' then "rarity-#{@gacha_item.rarity}"
+      when 'rare' then 'bg-primary text-white'
+      when 'super_rare' then "rarity-#{@gacha_item.rarity}"
+      when 'special' then 'bg-warning text-dark'
+    end %>
+    <div class="position-relative d-inline-block">
+      <%= image_tag @gacha_item.image, size: "400x400", class: "img-thumbnail" if @gacha_item.image.attached? %>
+      <div class="rarity-badge position-absolute top-0 end-0 px-2 py-1 mt-2 me-2 small rounded <%= rarity_class %>">
+        <%= I18n.t("activerecord.attributes.gacha_list.rarity.#{@gacha_item.rarity}") %>
       </div>
     </div>
-  <% end %>
+    <strong class="d-block mt-2"><h2><%= @gacha_item.name %></h2></strong>
+  </div>
 </div>
-

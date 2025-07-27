@@ -30,11 +30,13 @@ class GachasController < ApplicationController
     end
 
     user_gacha_records = results.map do |selected|
-      current_user.user_gacha_lists.create!(gacha_list: selected)
+      current_user.user_gacha_lists.create!(gacha_list: selected).tap do |record|
+        record.update(public_token: SecureRandom.uuid)
+      end
     end
     current_user.update(coin: current_user.coin - required_coin)
 
-    session[:latest_gacha_items] = [user_gacha_records.last.id]
+    session[:latest_gacha_items] = user_gacha_records.map(&:id)
     redirect_to result_gachas_path
   end
 
@@ -53,21 +55,14 @@ class GachasController < ApplicationController
     @public_token = params[:public_token]
     first_item = UserGachaList.find_by!(public_token: @public_token)
     @user = first_item.user
+
+    @result = UserGachaList.find_by!(public_token: params[:public_token])
   
-    # 同一トークンの全ガチャ結果を取得（複数件共有も可能にするならスコープで制御）
-    @results = UserGachaList.where(user: @user, created_at: first_item.created_at.all_day).includes(:gacha_list)
-  
-    if @results.last&.gacha_list&.image&.attached?
-      @ogp_image = url_for(@results.last.gacha_list.image)
-    else
-      @ogp_image = view_context.image_url("ogp_default.png")
-    end
+    @gacha_item = @result.gacha_list
   
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path, alert: "共有されたガチャ結果が見つかりません"
   end
-  
-
 
   def destroy_session
     session.delete(:gacha_result_ids)
@@ -78,7 +73,7 @@ class GachasController < ApplicationController
 
   def reject_guest_user
     if current_user&.guest?
-      redirect_to gachas_path, alert: t('counters.guest_alert')
+      redirect_to gachas_path, alert: t('gachas.guest_alert')
     end
   end
 end

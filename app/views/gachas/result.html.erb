@@ -7,14 +7,10 @@
   <% content_for :description, "寿司カウンターのガチャ結果を表示します。" %>
   <% content_for :image, image_url("ogp_default.png") %>
 <% end %>
-
-
-
 <% content_for :title, "ガチャ結果" %>
 
 <div data-controller="gacha-result" class="gacha-result-screen position-relative">
   <div data-gacha-result-target="flash" class="flash-overlay"></div>
-
   <div data-gacha-result-target="result" class="result-items text-center opacity-20">
     <div class="d-flex flex-wrap justify-content-center">
       <% @results.each do |item| %>

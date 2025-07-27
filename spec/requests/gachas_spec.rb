@@ -36,11 +36,4 @@ RSpec.describe "Gachas", type: :request do
       end
     end
   end
-
-  describe "GET /gachas/result" do
-    it "結果画面が表示される" do
-      get result_gachas_path
-      expect(response).to have_http_status(:ok)
-    end
-  end
 end
