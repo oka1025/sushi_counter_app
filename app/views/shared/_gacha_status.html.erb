@@ -1,6 +1,8 @@
 <% if controller_name != "sushi_items" && 
       request.path != "/users/sign_in" && 
       request.path != "/users/sign_up" && 
+      request.path != "/users/password/new" && 
+      request.path != "/users/password/edit" &&
       request.path != user_registration_path && 
       request.path != explanation_path && 
       action_name != "public_result" && %>

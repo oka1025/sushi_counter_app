@@ -1,3 +1,13 @@
+<% if @gacha_item %>
+  <% content_for :title, "「#{@gacha_item.name}」を獲得！" %>
+  <% content_for :description, "寿司カウンターで「#{@gacha_item.name}」を引きました。" %>
+  <% content_for :image, @gacha_item.image.attached? ? rails_blob_url(@gacha_item.image, host: request.base_url) : image_url("ogp_default.png") %>
+<% else %>
+  <% content_for :title, "ガチャ結果" %>
+  <% content_for :description, "寿司カウンターのガチャ結果を表示します。" %>
+  <% content_for :image, image_url("ogp_default.png") %>
+<% end %>
+
 <h2 class="text-center mt-3"><%= @user.name %>さんのガチャ結果</h2>
 <div class="d-flex flex-wrap justify-content-center mb-4 mt-2">
   <div class="m-3 text-center">

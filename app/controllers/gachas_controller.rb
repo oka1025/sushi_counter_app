@@ -60,8 +60,8 @@ class GachasController < ApplicationController
   
     @gacha_item = @result.gacha_list
   
-  rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, alert: "共有されたガチャ結果が見つかりません"
+    rescue ActiveRecord::RecordNotFound
+      redirect_to root_path, alert: "共有されたガチャ結果が見つかりません"
   end
 
   def destroy_session
