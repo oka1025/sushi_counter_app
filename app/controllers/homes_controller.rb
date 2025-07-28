@@ -34,4 +34,7 @@ class HomesController < ApplicationController
 
   def explanation
   end
+
+  def password_reset_done
+  end
 end

@@ -29,8 +29,10 @@
       <% end %>
 
       <div class="text-center mb-4">
-        <%= render "devise/shared/links" %>
-        <%= link_to "パスワードをお忘れですか？", new_user_password_path %>
+        <div class="mb-3">
+          <%= render "devise/shared/links" %>
+        </div>
+        <%= link_to "パスワードを忘れた方はこちら", new_user_password_path %>
       </div>
 
       <div class="text-center">
