@@ -8,6 +8,14 @@
       <div class="mx-auto position-absolute top-50 start-50 translate-middle">
         <%= link_to '寿司カウンター', root_path, class: 'navbar-brand text-center text-navy fw-bold me-0' %>
       </div>
+      <div>
+        <small style="font-size: 0.75rem;">
+          <%= link_to explanation_path, class: 'nav-link text-navy' do %>
+            <i class="bi bi-info-circle"></i>
+            アプリの使い方
+          <% end %>
+        </small>
+      </div>
     </div>
   </nav>
 </header>

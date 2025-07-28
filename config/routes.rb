@@ -41,8 +41,11 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    passwords: 'users/passwords'
   }
+
+  get 'password_reset_done', to: 'homes#password_reset_done', as: :password_reset_done
 
   devise_scope :users do
     get '/users', to: redirect("/users/sign_up")

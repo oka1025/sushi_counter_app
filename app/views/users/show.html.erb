@@ -3,16 +3,24 @@
     <div class="card-body">
       <h2 class="card-title mb-4 text-center">ユーザー情報</h2>
       <%= render "devise/shared/error_messages", resource: @user %>
-      <div class="fw-bold">
-        メールアドレス
-      </div>
+
+      <div class="fw-bold"> メールアドレス</div>
       <div class="mb-4">
         <%= current_user.email %>
       </div>
+
+
+      
       <%= form_with model: @user, url: user_path, method: :patch, local: true do |f| %>
-        <div class="mb-4 mt-2">
+        <div class="mb-4">
           <%= f.label :name, "ユーザー名", class: "form-label fw-bold" %>
           <%= f.text_field :name, class: "form-control", autofocus: true %>
+        </div>
+
+        <div class="mb-4">
+        <div>
+          <%= link_to "パスワードを変更する", new_user_password_path, class: "nav-link text-navy" %>
+        </div>
         </div>
         <div class="text-center d-grid">
           <%= f.submit "保存", class: "btn btn-navy" %>
