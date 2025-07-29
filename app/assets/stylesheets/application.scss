@@ -604,3 +604,7 @@ body {
     font-size: 1.25rem;
   }
 }
+
+.field_with_errors {
+  display: contents; /* Bootstrapフォームの崩れを防ぐ */
+}
