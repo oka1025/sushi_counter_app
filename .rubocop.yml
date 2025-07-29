@@ -15,3 +15,6 @@ AllCops:
 require:
   - rubocop-rails
 
+Style/ClassAndModuleChildren:
+  Enabled: false
+

@@ -1,6 +1,7 @@
 <% if current_user&.guest? && 
       request.path != "/users/sign_in" && 
       request.path != "/users/sign_up" && 
+      request.path != "/users/password/new" && 
       request.path != user_registration_path && 
       request.path != explanation_path && 
       request.path != password_reset_done_path &&

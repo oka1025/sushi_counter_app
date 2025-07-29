@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :counter do
-    eaten_at { Date.today }
+    eaten_at { Time.zone.today }
     store_name { "スシロー" }
     user
   end
