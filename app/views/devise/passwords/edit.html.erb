@@ -16,10 +16,9 @@
           <div class="input-group">
             <%= f.password_field :password, 
                 autofocus: true, 
-                autocomplete: "off", 
                 class: "form-control", 
                 data: { "password-toggle-target": "input" } %>
-              <i class="bi bi-eye password-toggle-icon" 
+              <i class="bi bi-eye-slash password-toggle-icon" 
                   data-password-toggle-target="icon"
                   data-action="click->password-toggle#toggle"></i>
           </div>
@@ -30,9 +29,8 @@
           <div class="input-group">
             <%= f.password_field :password_confirmation,
                 class: "form-control",
-                autocomplete: "off", 
                 data: { "password-toggle-target": "input" } %>
-              <i class="bi bi-eye password-toggle-icon" 
+              <i class="bi bi-eye-slash password-toggle-icon" 
                   data-password-toggle-target="icon"
                   data-action="click->password-toggle#toggle"></i>
           </div>
