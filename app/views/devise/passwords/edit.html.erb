@@ -24,7 +24,7 @@
           </div>
         </div>
 
-        <div class="mb-4 password-wrapper">
+        <div class="mb-4 password-wrapper" data-controller="password-toggle">
           <%= f.label :新しいパスワード（確認用）, class: "form-label mb-1" %>
           <div class="input-group">
             <%= f.password_field :password_confirmation,
