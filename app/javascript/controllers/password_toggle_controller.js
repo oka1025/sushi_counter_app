@@ -1,22 +1,18 @@
 import { Controller } from "@hotwired/stimulus"
 
+// HTML上で data-controller="password-toggle" を付けた要素に対応
 export default class extends Controller {
   static targets = ["input", "icon"]
-  static classes = ["visible", "hidden"]
-
-  connect() {
-    this.hidden = true
-    this.update()
-  }
 
   toggle() {
-    this.hidden = !this.hidden
-    this.update()
-  }
+    const input = this.inputTarget
+    const icon = this.iconTarget
 
-  update() {
-    this.inputTarget.type = this.hidden ? "password" : "text"
-    this.iconTarget.classList.toggle("bi-eye-slash", this.hidden)
-    this.iconTarget.classList.toggle("bi-eye", !this.hidden)
+    const isHidden = input.type === "password"
+    input.type = isHidden ? "text" : "password"
+
+    // アイコン切り替え（Bootstrap Icons想定）
+    icon.classList.toggle("bi-eye-slash", !isHidden)
+    icon.classList.toggle("bi-eye", isHidden)
   }
 }
