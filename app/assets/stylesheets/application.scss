@@ -584,3 +584,23 @@ body {
   height: auto;
   width: 200px;
 }
+
+.password-wrapper {
+  position: relative;
+
+  .form-control {
+    padding-right: 2.5rem;
+    border-radius: 0.4rem !important; // 全角丸
+  }
+
+  .password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 5;
+    color: #6c757d; // Bootstrapのtext-muted風
+    font-size: 1.25rem;
+  }
+}

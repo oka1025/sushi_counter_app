@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "SushiItems", type: :request do
   let(:user) { create(:user) }
-  let!(:category) { create(:category) } 
+  let!(:category) { create(:category) }
   let!(:other_category) { create(:category) }
 
   before { sign_in user }
@@ -38,7 +38,7 @@ RSpec.describe "SushiItems", type: :request do
       end
 
       it "画像を追加できる" do
-        file = fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'sample.png'), 'image/png')
+        file = fixture_file_upload(Rails.root.join("spec/fixtures/files/sample.png"), 'image/png')
         patch sushi_item_path(sushi_item), params: {
           sushi_item: { image: file },
           category_id: category.id
@@ -51,7 +51,7 @@ RSpec.describe "SushiItems", type: :request do
       it "画像を削除できる" do
         # 事前に画像を添付しておく
         sushi_item.image.attach(
-          io: File.open(Rails.root.join('spec', 'fixtures', 'files', 'sample.png')),
+          io: Rails.root.join("spec/fixtures/files/sample.png").open,
           filename: 'sample.png',
           content_type: 'image/png'
         )

@@ -30,11 +30,13 @@ ja:
   counters:
     reset_notice: カウントをリセットしました
     update_notice: カウントを更新しました
+    update_else_notice: カウントを保存しました
     edit_notice: カウントを編集します
     destroy_notice: 削除しました
   gachas: 
     coin_alert: コインが足りません
     guest_alert: ゲストユーザーはプレイできません
+    public_result_alert: 共有されたガチャ結果が見つかりません
   sushi_items:
     create_notice: 作成しました
     edit_alert: 編集権限がありません

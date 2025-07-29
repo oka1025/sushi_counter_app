@@ -6,7 +6,7 @@ RSpec.describe "Counters", type: :request do
 
   before do
     sign_in user
-    counter = create(:counter, user: user, store_name: "くら寿司", saved: true)
+    create(:counter, user: user, store_name: "くら寿司", saved: true)
   end
 
   describe "GET /counters/new" do
@@ -20,23 +20,22 @@ RSpec.describe "Counters", type: :request do
     it "index画面に遷移し、保存され、コインが増える" do
       get new_counter_path
       counter = user.counters.order(created_at: :desc).first
-  
+
       sushi_item # ← 作成しておく
-  
+
       # カウント情報を追加（nested attributes）
       counter.sushi_item_counters.create!(sushi_item: sushi_item, count: 5)
-  
-      expect {
+
+      expect do
         patch counter_path(counter), params: {
           counter: {
             store_name: "スシロー",
             update_source: "new"
           }
         }
-      }.to change { user.reload.coin }.by(counter.total_sushi_count)
+      end.to change { user.reload.coin }.by(counter.total_sushi_count)
     end
   end
-
 
   describe "GET /counters" do
     it "保存したcounterが表示される" do
@@ -65,9 +64,9 @@ RSpec.describe "Counters", type: :request do
   describe "DELETE /counters/:id" do
     it "Counterを削除できる" do
       counter = create(:counter, user: user)
-      expect {
+      expect do
         delete counter_path(counter)
-      }.to change(Counter, :count).by(-1)
+      end.to change(Counter, :count).by(-1)
 
       expect(response).to redirect_to(counters_path)
     end

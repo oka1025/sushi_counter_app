@@ -25,6 +25,9 @@ application.register("modal-close-hook", ModalCloseHookController)
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)
 
+import PasswordToggleController from "./password_toggle_controller"
+application.register("password-toggle", PasswordToggleController)
+
 import ResetFormController from "./reset_form_controller"
 application.register("reset-form", ResetFormController)
 

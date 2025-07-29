@@ -1,4 +1,3 @@
-
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
@@ -44,7 +43,7 @@ RSpec.describe "Users", type: :request do
   describe "POST /users (sign up)" do
     context "正しい情報が送信された場合" do
       it "ユーザー登録に成功しリダイレクトされる" do
-        expect {
+        expect do
           post user_registration_path, params: {
             user: {
               email: "newuser@example.com",
@@ -53,7 +52,7 @@ RSpec.describe "Users", type: :request do
               name: "新規ユーザー"
             }
           }
-        }.to change(User, :count).by(1)
+        end.to change(User, :count).by(1)
 
         expect(response).to redirect_to(root_path)
         follow_redirect!
@@ -63,7 +62,7 @@ RSpec.describe "Users", type: :request do
 
     context "不正な情報が送信された場合（パスワード不一致など）" do
       it "ユーザー登録に失敗しエラーメッセージが表示される" do
-        expect {
+        expect do
           post user_registration_path, params: {
             user: {
               email: "invalid@example.com",
@@ -72,7 +71,7 @@ RSpec.describe "Users", type: :request do
               name: "エラー"
             }
           }
-        }.not_to change(User, :count)
+        end.not_to change(User, :count)
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.body).to include("パスワード(確認)とパスワードの入力が一致しません") # 日本語訳に応じて調整

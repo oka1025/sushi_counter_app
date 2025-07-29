@@ -18,7 +18,6 @@ Rails.application.configure do
 
   config.action_controller.default_url_options = { host: 'https://sushi-counter.com' }
 
-
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
@@ -74,11 +73,10 @@ Rails.application.configure do
     domain: 'sushi-counter.com',
     authentication: :plain,
     user_name: 'apikey',
-    password: ENV['SENDGRID_API_KEY'],
+    password: ENV.fetch('SENDGRID_API_KEY', nil),
     enable_starttls_auto: true
   }
   config.action_mailer.default_url_options = { host: 'sushi-counter.com', protocol: 'https' }
-
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -111,7 +109,6 @@ Rails.application.configure do
 
   config.hosts << 'www.sushi-counter.com'
   config.hosts << 'sushi-counter.com'
-  
 end
 
 

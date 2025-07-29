@@ -43,12 +43,6 @@ class GachasController < ApplicationController
   def result
     ids = session[:latest_gacha_items] || []
     @results = UserGachaList.includes(:gacha_list).where(id: ids)
-  
-    if (last_item = @results.last)&.gacha_list&.image&.attached?
-      @og_image = url_for(last_item.gacha_list.image)
-    else
-      @og_image = view_context.image_url("ogp_default.png")
-    end
   end
 
   def public_result
@@ -57,11 +51,10 @@ class GachasController < ApplicationController
     @user = first_item.user
 
     @result = UserGachaList.find_by!(public_token: params[:public_token])
-  
+
     @gacha_item = @result.gacha_list
-  
-    rescue ActiveRecord::RecordNotFound
-      redirect_to root_path, alert: "共有されたガチャ結果が見つかりません"
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: t('public_result_alert')
   end
 
   def destroy_session

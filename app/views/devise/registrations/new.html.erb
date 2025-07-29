@@ -17,17 +17,33 @@
           <%= f.email_field :email, class: "form-control", autofocus: true, autocomplete: "email" %>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 password-wrapper" data-controller="password-toggle">
           <%= f.label :password, class: "form-label mb-1" %>
           <% if @minimum_password_length %>
             <small class="text-muted">（<%= @minimum_password_length %>文字以上）</small>
           <% end %>
-          <%= f.password_field :password, class: "form-control", autocomplete: "new-password" %>
+          <div class="input-group">
+            <%= f.password_field :password, 
+                class: "form-control", 
+                autocomplete: "new-password", 
+                data: { "password-toggle-target": "input" } %>
+              <i class="bi bi-eye password-toggle-icon" 
+                  data-password-toggle-target="icon"
+                  data-action="click->password-toggle#toggle"></i>
+          </div>
         </div>
 
-        <div class="mb-5">
+        <div class="mb-5 password-wrapper" data-controller="password-toggle">
           <%= f.label :password_confirmation, class: "form-label mb-1" %>
-          <%= f.password_field :password_confirmation, class: "form-control", autocomplete: "new-password" %>
+          <div class="input-group">
+            <%= f.password_field :password_confirmation, 
+                class: "form-control", 
+                autocomplete: "new-password", 
+                data: { "password-toggle-target": "input" } %>
+              <i class="bi bi-eye password-toggle-icon" 
+                  data-password-toggle-target="icon"
+                  data-action="click->password-toggle#toggle"></i>
+          </div>
         </div>
 
         <div class="d-grid mb-4">

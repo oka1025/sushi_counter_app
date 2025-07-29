@@ -5,7 +5,7 @@ FactoryBot.define do
 
     after(:build) do |gacha|
       gacha.image.attach(
-        io: File.open(Rails.root.join("spec/fixtures/files/sample.png")),
+        io: Rails.root.join("spec/fixtures/files/sample.png").open,
         filename: "sample.png",
         content_type: "image/png"
       )

@@ -27,9 +27,9 @@ RSpec.describe "Gachas", type: :request do
 
     context "コインが十分にある場合" do
       it "ガチャを引いてコインが減り、リダイレクトされる" do
-        expect {
+        expect do
           post draw_gachas_path, params: { times: 1 }
-        }.to change(UserGachaList, :count).by(1)
+        end.to change(UserGachaList, :count).by(1)
 
         expect(user.reload.coin).to eq(5)
         expect(response).to redirect_to(result_gachas_path)

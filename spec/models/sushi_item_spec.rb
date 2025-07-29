@@ -8,7 +8,7 @@ RSpec.describe SushiItem, type: :model do
     end
 
     it "nameがない場合にバリデーションが機能してinvalidになるか" do
-      sushi_without_name = build(:sushi_item, name:"")
+      sushi_without_name = build(:sushi_item, name: "")
       expect(sushi_without_name).to be_invalid
     end
 

@@ -65,9 +65,9 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
 
-  gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -84,8 +84,8 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "selenium-webdriver"
   gem 'rspec_junit_formatter'
+  gem "selenium-webdriver"
   gem 'simplecov', require: false
 end
 

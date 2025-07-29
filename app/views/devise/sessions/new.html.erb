@@ -11,9 +11,17 @@
           <%= f.email_field :email, class: "form-control", autofocus: true, autocomplete: "email" %>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 password-wrapper" data-controller="password-toggle">
           <%= f.label :password, class: "form-label mb-1" %>
-          <%= f.password_field :password, class: "form-control", autocomplete: "current-password" %>
+          <div class="input-group">
+            <%= f.password_field :password,
+                  class: "form-control",
+                  autocomplete: "current-password",
+                  data: { "password-toggle-target": "input" } %>
+              <i class="bi bi-eye password-toggle-icon" 
+                  data-password-toggle-target="icon"
+                  data-action="click->password-toggle#toggle"></i>
+          </div>
         </div>
 
         <% if devise_mapping.rememberable? %>
@@ -32,7 +40,9 @@
         <div class="mb-3">
           <%= render "devise/shared/links" %>
         </div>
-        <%= link_to "パスワードを忘れた方はこちら", new_user_password_path %>
+        <div>
+          <%= link_to "パスワードを忘れた方はこちら", new_user_password_path, class: "text-navy"%>
+        </div>
       </div>
 
       <div class="text-center">
