@@ -608,3 +608,14 @@ body {
 .field_with_errors {
   display: contents; /* Bootstrapフォームの崩れを防ぐ */
 }
+
+.category-nav-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; // iOS向け滑らかスクロール
+  white-space: nowrap;
+}
+
+.category-nav {
+  min-width: max-content; // 必要に応じて
+}
+
