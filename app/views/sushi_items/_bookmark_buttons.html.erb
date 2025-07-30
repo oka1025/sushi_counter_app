@@ -1,9 +1,0 @@
-  <% if current_user.bookmarked_sushi_items.include?(sushi_item) %>
-    <%= link_to sushi_item_bookmark_path(sushi_item), method: :delete, class: 'text-warning' do %>
-      <i class="bi bi-star-fill"></i>
-    <% end %>
-  <% else %>
-    <%= link_to sushi_item_bookmark_path(sushi_item), method: :post, class: 'text-warning' do %>
-      <i class="bi bi-star"></i>
-    <% end %>
-  <% end %>

@@ -5,7 +5,7 @@ class BookmarksController < ApplicationController
   def create
     current_user.bookmarks.create(sushi_item: @sushi_item)
     respond_to do |format|
-      format.html { redirect_to sushi_item_path, notice: t('bookmarks.create_notice')}
+      format.html { redirect_to sushi_item_path(@sushi_item), notice: t('bookmarks.create_notice')}
       format.turbo_stream
     end
   end
@@ -13,13 +13,9 @@ class BookmarksController < ApplicationController
   def destroy
     current_user.bookmarks.find_by(sushi_item: @sushi_item)&.destroy
     respond_to do |format|
-      format.html { redirect_to sushi_item_path, notice: t('bookmarks.destroy_notice')}
+      format.html { redirect_to sushi_item_path(@sushi_item), notice: t('bookmarks.destroy_notice')}
       format.turbo_stream
     end
-  end
-
-  def index
-    @bookmarked_items = current_user.bookmarked_sushi_items.includes(:category)
   end
 
   private
