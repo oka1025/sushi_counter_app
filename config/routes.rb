@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'bookmarks/create'
+  get 'bookmarks/destroy'
   get 'gachas/show'
   get 'gachas/draw'
   root to: "homes#index"
@@ -14,6 +16,7 @@ Rails.application.routes.draw do
       patch :update_count
       delete :remove_image
     end
+    resource :bookmark, only: [:create, :destroy]
   end
 
   resources :counters, only: [:new, :update, :index, :show, :edit, :destroy] do

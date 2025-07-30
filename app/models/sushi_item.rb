@@ -5,6 +5,7 @@ class SushiItem < ApplicationRecord
   has_many :sushi_item_counters, dependent: :destroy
   has_one_attached :image
   has_many :user_sushi_item_images, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
   attr_accessor :reset_to_default_image
   attr_accessor :remove_image
 
