@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :user_sushi_item_images, dependent: :destroy
   has_many :user_gacha_lists, dependent: :destroy
   has_many :gacha_lists, through: :user_gacha_lists
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmarked_sushi_items, through: :bookmarks, source: :sushi_item
 
   def create_initial_counter
     counters.create!

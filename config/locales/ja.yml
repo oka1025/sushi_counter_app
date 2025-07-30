@@ -46,3 +46,6 @@ ja:
   users:
     update_notice: ユーザー名を更新しました
     guest_alert: ゲストユーザーはアクセスできません
+  bookmarks:
+    create_notice: お気に入りに追加しました
+    destroy_notice: お気に入りを解除しました

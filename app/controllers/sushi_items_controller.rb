@@ -3,18 +3,25 @@ class SushiItemsController < ApplicationController
 
   def index
     if user_signed_in?
-      @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
-        .where(category_id: @selected_category.id)
-        .where("created_by_user_id = ? OR created_by_user_id IS NULL", current_user.id)
-        .order("id ASC")
+      @counter = current_counter || current_user.counters.create!(eaten_at: Time.current)
+      set_current_counter(@counter)
+
+      if params[:favorites].present?
+        @sushi_items = current_user.bookmarked_sushi_items
+            .includes(:sushi_item_counters, :category)
+            .order("id ASC")
       
+      else
+        @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
+            .where(category_id: @selected_category.id)
+            .where("created_by_user_id = ? OR created_by_user_id IS NULL", current_user.id)
+            .order("id ASC")
+      end
+
       respond_to do |format|
         format.turbo_stream if turbo_frame_request?
         format.html
       end
-
-      @counter = current_counter || current_user.counters.create!(eaten_at: Time.current)
-      set_current_counter(@counter)
 
     else
       @counter = nil
