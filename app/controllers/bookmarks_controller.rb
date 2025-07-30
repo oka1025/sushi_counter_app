@@ -18,6 +18,10 @@ class BookmarksController < ApplicationController
     end
   end
 
+  def index
+    @bookmarked_items = current_user.bookmarked_sushi_items.includes(:category)
+  end
+
   private
 
   def set_sushi_item

@@ -1,10 +1,16 @@
 <div class="category-nav-wrapper px-2">
   <div class="category-nav d-flex flex-nowrap justify-content-between">
+    
     <% @categories.each do |category| %>
-      <% is_selected = @selected_category.id == category.id %>
+      <% is_selected = @selected_category.id == category.id && !params[:favorites] %>
       <%= link_to category.name, sushi_items_path(category_id: category.id),
           data: { turbo_frame: "category_nav" }, 
           class: "btn #{is_selected ? 'btn-navy' : 'text-navy'} fw-bold spsize-category pe-2 ps-2" %>
     <% end %>
+
+    <% is_selected_favorites = params[:favorites].present? %>
+    <%= link_to "お気に入り", sushi_items_path(favorites: true), 
+        data: { turbo_frame: "category_nav" },
+        class: "btn #{is_selected_favorites ? 'btn-navy' : 'text-navy'} fw-bold spsize-category pe-2 ps-2 me-2" %>
   </div>
 </div>
