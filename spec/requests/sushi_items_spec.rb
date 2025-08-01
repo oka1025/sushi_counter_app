@@ -4,8 +4,12 @@ RSpec.describe "SushiItems", type: :request do
   let(:user) { create(:user) }
   let!(:category) { create(:category) }
   let!(:other_category) { create(:category) }
+  let!(:sushi_item_1) { create(:sushi_item, category: category) }
+  let!(:sushi_item_2) { create(:sushi_item, category: category) }
 
-  before { sign_in user }
+  before do
+    sign_in user
+  end
 
   describe "GET /sushi_items/:id/edit" do
     context "自分が作成した寿司の場合" do
@@ -82,6 +86,21 @@ RSpec.describe "SushiItems", type: :request do
       it "編集ページを表示できる" do
         get edit_sushi_item_path(sushi_without_creator), params: { category_id: category.id }
         expect(response).to have_http_status(:ok)
+      end
+    end
+  end
+
+  describe "GET /sushi_items" do
+    context "お気に入り絞り込み (favorites: true)" do
+      before do
+        create(:bookmark, user: user, sushi_item: sushi_item_1)
+      end
+
+      it "favorites: true のとき、ブックマーク済み寿司のみ表示される" do
+        get sushi_items_path(favorites: true)
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include(sushi_item_1.name)
+        expect(response.body).not_to include(sushi_item_2.name)
       end
     end
   end

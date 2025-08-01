@@ -1,6 +1,6 @@
 <div id="bookmark_button_<%= sushi_item.id %>">
   <% if current_user.bookmarked_sushi_items.include?(sushi_item) %>
-    <%= link_to sushi_item_bookmark_path(sushi_item), method: :delete, data: { turbo_method: :delete, turbo_frame: "bookmark_button_#{sushi_item.id}" }, class: 'text-warning' do %>
+    <%= button_to sushi_item_bookmark_path(sushi_item), method: :delete, data: { turbo_method: :delete, turbo_frame: "bookmark_button_#{sushi_item.id}" }, class: 'text-warning btn btn-link p-0' do %>
       <i class="bi bi-star-fill"></i>
     <% end %>
   <% else %>

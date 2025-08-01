@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :bookmark do
-    user { nil }
-    sushi_item { nil }
+    user
+    sushi_item
   end
 end

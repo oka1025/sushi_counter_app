@@ -43,7 +43,7 @@
     <% if sushi_item.created_by_user_id == current_user.id || sushi_item.created_by_user_id.nil? %>
       <div class="action-buttons rounded"
           style="position: absolute; top: 0.4rem; right: 0.4rem; display: inline-flex; align-items: center; gap: 0.6rem;">
-        <%= link_to "", edit_sushi_item_path(sushi_item, category_id: @selected_category.id), 
+        <%= link_to "", edit_sushi_item_path(sushi_item, category_id: @selected_category&.id), 
             data: { turbo_frame: "modal_frame" }, 
             class: "nav-link far fa-edit text-navy"%>
         <% if sushi_item.created_by_user_id == current_user.id %>
@@ -56,8 +56,8 @@
           <% end %>
         <% end %>
       </div>
-      <div class="position-absolute" style="top: 0.1rem; left: 0.4rem;">
-        <%= render partial: "shared/bookmark_buttons", locals: { sushi_item: sushi_item } %>
+      <div class="position-absolute" style="top: 0rem; left: 0.4rem;">
+        <%= render partial: "bookmark_buttons", locals: { sushi_item: sushi_item } %>
       </div>
     <% end %>
   </div>
