@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   def request_email_change
     new_email = params[:user][:new_email]
     current_user.send_email_change_confirmation(new_email)
-    redirect_to root_path, notice: '確認メールを送信しました。'
+    redirect_to email_change_done_path, notice: '確認メールを送信しました。'
   end
 
   def confirm_email_change

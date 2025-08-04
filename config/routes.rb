@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   }
 
   get 'password_reset_done', to: 'homes#password_reset_done', as: :password_reset_done
+  get 'email_change_done', to: 'homes#email_change_done', as: :email_change_done
 
   devise_scope :users do
     get '/users', to: redirect("/users/sign_up")

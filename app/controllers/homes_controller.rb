@@ -37,4 +37,7 @@ class HomesController < ApplicationController
 
   def password_reset_done
   end
+
+  def email_change_done
+  end
 end
