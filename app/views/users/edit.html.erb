@@ -1,0 +1,18 @@
+<div class="mb-4 bg-white" style="max-width: 600px; margin-left: auto; margin-right: auto;">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h3 class="card-title text-center mb-4">メールアドレスの変更申請</h3>
+      <%= form_with url: request_email_change_path, method: :post, local: true do |f| %>
+
+        <div class="form-group mt-3">
+          <%= label_tag 'user[new_email]', "新しいメールアドレス", class: "form-label mb-1"%>
+          <%= email_field_tag 'user[new_email]', nil, required: true, class: "form-control" %>
+        </div>
+
+        <div class="d-grid mt-4">
+          <%= f.submit "確認メールを送信", class: "btn btn-navy" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
