@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get "privacy", to: "homes#privacy"
   get "explanation", to: "homes#explanation" 
   get '/ping', to: 'health_check#ping'
+  get 'email_change/confirm', to: 'users#confirm_email_change', as: :confirm_email_change
+  post 'email_change/request', to: 'users#request_email_change', as: :request_email_change
+
 
   #get "/admin/normalize_kana", to: "admin#normalize_kana"
 
@@ -45,7 +48,8 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks',
-    passwords: 'users/passwords'
+    passwords: 'users/passwords',
+    confirmations: 'users/confirmations'
   }
 
   get 'password_reset_done', to: 'homes#password_reset_done', as: :password_reset_done
@@ -54,7 +58,8 @@ Rails.application.routes.draw do
     get '/users', to: redirect("/users/sign_up")
   end
 
-  resource :user, only: [:show, :update]
+  resource :user, only: [:show, :update, :edit] 
+
 
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

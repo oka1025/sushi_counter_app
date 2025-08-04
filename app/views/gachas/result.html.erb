@@ -27,7 +27,7 @@
             </div>
             
           </div>
-          <strong class="d-block mt-2"><h2><%= item.gacha_list.name %></h2></strong>
+          <strong class="d-block mt-2"><h3><%= item.gacha_list.name %></h3></strong>
           <div class="d-flex justify-content-center gap-3 mt-3">
             <%= link_to "https://twitter.com/intent/tweet?text=#{ERB::Util.url_encode("「#{item.gacha_list.name}」を獲得！ #寿司カウンター")}&url=#{CGI.escape(public_result_gachas_url(public_token: item.public_token))}",
                 title: 'Xでシェア', target: '_blank', class: 'btn btn-dark text-white btn-sm' do %>

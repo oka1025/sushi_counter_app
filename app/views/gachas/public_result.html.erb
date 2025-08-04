@@ -8,7 +8,7 @@
   <% content_for :image, image_url("ogp_default.png") %>
 <% end %>
 
-<h2 class="text-center mt-3"><%= @user.name %>さんのガチャ結果</h2>
+<h2 class="text-center mt-3"><%= @user.name %>さんのガチャ結果</h3>
 <div class="d-flex flex-wrap justify-content-center mb-4 mt-2">
   <div class="m-3 text-center">
     <% rarity_class = case @gacha_item.rarity
@@ -23,6 +23,6 @@
         <%= I18n.t("activerecord.attributes.gacha_list.rarity.#{@gacha_item.rarity}") %>
       </div>
     </div>
-    <strong class="d-block mt-2"><h2><%= @gacha_item.name %></h2></strong>
+    <strong class="d-block mt-2"><h3><%= @gacha_item.name %></h3></strong>
   </div>
 </div>

@@ -38,6 +38,26 @@ class User < ApplicationRecord
     user
   end
 
+  def send_email_change_confirmation(new_email)
+    self.unconfirmed_email = new_email
+    self.email_change_token = SecureRandom.urlsafe_base64
+    self.email_change_sent_at = Time.current
+    save(validate: false)  # 新しいemailをまだ有効化していないためvalidateはスキップ
+
+    UserMailer.email_change_confirmation(self).deliver_later
+  end
+
+  def confirm_email_change(token)
+    return false unless self.email_change_token == token
+    return false if email_change_sent_at.nil? || email_change_sent_at < 2.hours.ago
+
+    self.email = self.unconfirmed_email
+    self.unconfirmed_email = nil
+    self.email_change_token = nil
+    self.email_change_sent_at = nil
+    save(validate: false)
+  end
+
   private
 
   def password_required?

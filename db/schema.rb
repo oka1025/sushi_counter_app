@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_07_30_071438) do
+ActiveRecord::Schema[7.0].define(version: 2025_08_04_083403) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -132,7 +132,10 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_30_071438) do
     t.boolean "guest", default: false, null: false
     t.string "provider"
     t.string "uid"
+    t.string "email_change_token"
+    t.datetime "email_change_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email_change_token"], name: "index_users_on_email_change_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
