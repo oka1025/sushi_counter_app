@@ -5,6 +5,7 @@ module OgpHelper
       title: content_for?(:title) ? content_for(:title) : "寿司を楽しくカウントしよう！",
       description: content_for?(:description) ? content_for(:description) : "自分の食べた寿司を記録できるアプリ。ガチャやランキングも！",
       keywords: "寿司, カウント, 寿司ガチャ, 寿司ランキング",
+      canonical: request.original_url,
       og: {
         title: :title,
         type: "website",
@@ -16,6 +17,8 @@ module OgpHelper
       },
       twitter: {
         card: "summary_large_image",
+        title: :title,
+        description: :description,
         image: content_for?(:image) ? content_for(:image) : image_url("/ogp_default.png")
       }
     }
