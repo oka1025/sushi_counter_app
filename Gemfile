@@ -112,3 +112,7 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 
 gem 'meta-tags'
+
+gem 'sentry-ruby'
+
+gem 'sentry-rails'
