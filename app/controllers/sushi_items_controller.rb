@@ -183,13 +183,17 @@ class SushiItemsController < ApplicationController
       "たい" => "tai.png"
     }[sushi.name]
 
-    return unless default_filename
-
-    path = Rails.root.join("app/assets/images/seeds/#{default_filename}")
-    return unless File.exist?(path)
-
     user_image = sushi.user_sushi_item_images.find_or_initialize_by(user_id: current_user.id)
-    user_image.image.purge if user_image.image.attached?
-    sushi.image.attach(io: File.open(path), filename: default_filename, content_type: "image/png")
+
+    if default_filename
+      path = Rails.root.join("app/assets/images/seeds/#{default_filename}")
+      return unless File.exist?(path)
+
+      user_image.image.purge if user_image.image.attached?
+      sushi.image.attach(io: File.open(path), filename: default_filename, content_type: "image/png")
+
+    else
+      user_image&.image&.purge
+    end
   end
 end
