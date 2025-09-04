@@ -176,8 +176,8 @@ body {
 
 .sushi-grid {
   display: grid;
-  @media (max-width: 576px) {
-  grid-template-columns: repeat(2, 1fr);
+  @media (min-width: 590px) {
+  grid-template-columns: repeat(3, 1fr);
   }
     @media (min-width: 900px) {
   grid-template-columns: repeat(4, 1fr);
@@ -185,7 +185,7 @@ body {
     @media (min-width: 1200px) {
   grid-template-columns: repeat(5, 1fr);
   }
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   padding: 10px;
 }
