@@ -20,6 +20,13 @@ class UsersController < ApplicationController
 
   def request_email_change
     new_email = params[:user][:new_email]
+    current_password = params[:user][:current_password]
+
+    unless current_user.valid_password?(current_password)
+      flash[:alert] = "パスワードが正しくありません。"
+      redirect_to edit_user_path and return
+    end
+
     current_user.send_email_change_confirmation(new_email)
     redirect_to email_change_done_path, notice: '確認メールを送信しました。'
   end
