@@ -142,15 +142,7 @@ class SushiItemsController < ApplicationController
     @counter = current_counter || current_user.counters.create!(eaten_at: Time.current)
 
     sushi_counter = @sushi_item.sushi_item_counters.find_or_initialize_by(counter_id: @counter.id)
-    sushi_counter.count ||= 0
-
-    if params[:direction] == "increment"
-      sushi_counter.count += 1
-    elsif params[:direction] == "decrement"
-      sushi_counter.count = [sushi_counter.count - 1, 0].max
-    end
-
-    sushi_counter.save!
+    sushi_counter.update_count!(params[:direction])
 
     respond_to do |format|
       format.turbo_stream
