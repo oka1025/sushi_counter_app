@@ -8,11 +8,24 @@ class SushiItemsController < ApplicationController
 
       if params[:favorites].present?
         @sushi_items = current_user.bookmarked_sushi_items
-            .includes(:sushi_item_counters, :category)
+            .includes(
+              :sushi_item_counters, 
+              :category,
+              :user_sushi_item_images,
+              :bookmarks,
+              image_attachment: :blob
+            )
             .order("id ASC")
       
       else
-        @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
+        @sushi_items = SushiItem
+            .includes(
+              :sushi_item_counters, 
+              :category,
+              :user_sushi_item_images,
+              :bookmarks,
+              image_attachment: :blob
+            )
             .where(category_id: @selected_category&.id)
             .where("created_by_user_id = ? OR created_by_user_id IS NULL", current_user.id)
             .order("id ASC")
