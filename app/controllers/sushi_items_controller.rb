@@ -1,41 +1,15 @@
 class SushiItemsController < ApplicationController
   before_action :selected_category, only: %i[index new create edit update]
+  before_action :set_counter, only: [:index]
+  before_action :set_sushi_items, only: [:index]
+  before_action :set_sushi_item_data, only: %i[index]
 
   def index
     if user_signed_in?
-      @counter = current_counter || current_user.counters.create!(eaten_at: Time.current)
-      set_current_counter(@counter)
-
-      if params[:favorites].present?
-        @sushi_items = current_user.bookmarked_sushi_items
-            .includes(
-              :sushi_item_counters, 
-              :category,
-              :user_sushi_item_images,
-              :bookmarks,
-              image_attachment: :blob
-            )
-            .order("id ASC")
-      
-      else
-        @sushi_items = SushiItem
-            .includes(
-              :sushi_item_counters, 
-              :category,
-              :user_sushi_item_images,
-              :bookmarks,
-              image_attachment: :blob
-            )
-            .where(category_id: @selected_category&.id)
-            .where("created_by_user_id = ? OR created_by_user_id IS NULL", current_user.id)
-            .order("id ASC")
-      end
-
       respond_to do |format|
         format.turbo_stream if turbo_frame_request?
         format.html
       end
-
     else
       @counter = nil
       redirect_to root_path
@@ -78,9 +52,8 @@ class SushiItemsController < ApplicationController
     @counter = current_user.counters.order(created_at: :desc).first_or_create!(eaten_at: Time.current)
 
     if @sushi_item.save
-      @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
-        .where(category_id: @return_category_id)
-        .order("id ASC")
+      set_sushi_items
+      set_sushi_item_data
 
       respond_to do |format|
         format.html { redirect_to sushi_items_path(category_id: @return_category_id), notice: t('sushi_items.create_notice') }
@@ -117,9 +90,8 @@ class SushiItemsController < ApplicationController
     end
 
     if @sushi_item.update(sushi_item_params)
-      @sushi_items = SushiItem.includes(:sushi_item_counters, :category)
-                              .where(category_id: @selected_category.id)
-                              .order("id ASC")
+      set_sushi_items
+      set_sushi_item_data
 
       respond_to do |format|
           format.turbo_stream 
@@ -174,6 +146,41 @@ class SushiItemsController < ApplicationController
     @categories = Category.all
     category_id = params[:category_id].presence || params[:return_category_id].presence || 1
     @selected_category = Category.find_by(id: category_id)
+  end
+
+  def set_counter
+    @counter = current_counter || current_user.counters.create!(eaten_at: Time.current)
+    set_current_counter(@counter)
+  end
+
+  def set_sushi_items
+    if params[:favorites].present?
+        @sushi_items = current_user.bookmarked_sushi_items
+          .includes(
+            image_attachment: :blob
+          )
+          .order("id ASC")
+
+    else
+      @sushi_items = SushiItem
+        .includes(
+          image_attachment: :blob
+        )
+        .where(category_id: @selected_category&.id)
+        .where("created_by_user_id = ? OR created_by_user_id IS NULL", current_user.id)
+        .order("id ASC")
+    end
+  end
+
+  def set_sushi_item_data
+    @user_images = UserSushiItemImage
+      .where(user_id: current_user.id, sushi_item_id: @sushi_items.ids)
+      .includes(:image_attachment)
+      .index_by(&:sushi_item_id)
+    @counters = SushiItemCounter
+      .where(counter_id: @counter.id, sushi_item_id: @sushi_items.ids)
+      .index_by(&:sushi_item_id)
+    @bookmarked_ids = current_user.bookmarks.pluck(:sushi_item_id).to_set
   end
 
 

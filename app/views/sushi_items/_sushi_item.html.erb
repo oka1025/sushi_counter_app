@@ -1,7 +1,8 @@
 <% if sushi_item.created_by_user_id == current_user.id || sushi_item.created_by_user_id == nil %>
   <div class="sushi-card position-relative d-flex flex-column justify-content-between" data-controller="sushi-card" style="min-width: 160px;" id="sushi_item_<%= sushi_item.id %>">
     <div class="count-display">
-      <% user_image = sushi_item.user_sushi_item_images.find_by(user_id: current_user.id) %>
+      <% user_image = @user_images[sushi_item.id] %> 
+      <% counter = @counters[sushi_item.id] %> 
 
       <% if user_image&.image&.attached? %>
         <%= image_tag user_image.image, class: "sushi-img" %>
@@ -28,7 +29,7 @@
         <% end %>
       
         <div class="sushi-count" id="count_<%= sushi_item.id %>">
-          <%= sushi_item.sushi_item_counters.find_by(counter_id: @counter.id)&.count || 0 %>
+          <%= counter&.count || 0 %>
         </div>
       
         <%= button_to update_count_sushi_item_path(sushi_item, direction: "increment"),
