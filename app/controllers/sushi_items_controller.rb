@@ -192,7 +192,12 @@ class SushiItemsController < ApplicationController
       "いなり" => "inari.png",
       "えび天握り" => "ebiten.png",
       "はまち" => "hamachi.png",
-      "たい" => "tai.png"
+      "たい" => "tai.png",
+      "赤貝" => "akagai.png",
+      "コーン" => "corn.png",
+      "いくら" => "ikura.png",
+      "いわし" => "iwasi.png",
+      "オニオンサーモン" => "onionsalmon.png"
     }[sushi.name]
 
     user_image = sushi.user_sushi_item_images.find_or_initialize_by(user_id: current_user.id)
