@@ -1,4 +1,6 @@
 class CountersController < ApplicationController
+  after_action :clear_old_sushi_count_session, except: [:edit, :update, :use]
+
   def reset_items
     counter = current_user.counters.find(params[:id])
     counter.sushi_item_counters.destroy_all
@@ -30,13 +32,15 @@ class CountersController < ApplicationController
 
   def edit
     @counter = current_user.counters.find(params[:id])
+    session[:old_sushi_count] ||= @counter.total_sushi_count
   end
 
   def update
     @counter = current_user.counters.find(params[:id])
     @new_counter = current_user.counters.order(created_at: :desc).first
+    @old_sushi_count = session[:old_sushi_count]
     @counter.update(saved: true)
-
+    
     if @counter.update(counter_params.except(:update_source))
       if params[:counter][:update_source] == "new"
         clear_current_counter
@@ -47,9 +51,19 @@ class CountersController < ApplicationController
         set_current_counter(counter)
       elsif params[:counter][:update_source] == "edit"
         clear_current_counter
+        added_coins = [@counter.total_sushi_count - (@old_sushi_count || 0), 0].max
+        if added_coins.positive?
+          current_user.coin += added_coins
+          current_user.save!
+        end
         set_current_counter(@new_counter)
         session.delete(:counter_update_source)
-        redirect_to counters_path, notice: t('counters.update_notice')
+        session.delete(:old_sushi_count)
+        if added_coins.positive?
+          redirect_to counters_path, notice: "#{added_coins}コイン追加獲得しました"
+        else
+          redirect_to counters_path, notice: t('counters.update_notice')
+        end
       else 
         redirect_to counters_path, notice: t('counters.update_else_notice')
       end
@@ -68,6 +82,7 @@ class CountersController < ApplicationController
   def destroy
     counter = current_user.counters.find(params[:id])
     counter.destroy!
+    session.delete(:old_sushi_count)
     redirect_to counters_path, notice: t('counters.destroy_notice')
   end
 
@@ -214,5 +229,9 @@ class CountersController < ApplicationController
     end
   
     ranked
+  end
+
+  def clear_old_sushi_count_session
+    session.delete(:old_sushi_count)
   end
 end
