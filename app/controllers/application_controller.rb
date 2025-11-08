@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :auto_guest_sign_in, unless: :devise_controller?
-
   def current_counter
     @current_counter ||= begin
       if session[:current_counter_id]
@@ -37,5 +36,9 @@ class ApplicationController < ActionController::Base
       name: "ゲスト",
       guest: true)
     sign_in(user)
+  end
+
+  def clear_old_sushi_count_session
+    session.delete(:old_sushi_count)
   end
 end

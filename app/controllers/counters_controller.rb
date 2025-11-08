@@ -1,5 +1,5 @@
 class CountersController < ApplicationController
-  after_action :clear_old_sushi_count_session, except: [:edit, :update, :use]
+  before_action :clear_old_sushi_count_session, except: [:edit, :use, :update]
 
   def reset_items
     counter = current_user.counters.find(params[:id])
@@ -32,7 +32,7 @@ class CountersController < ApplicationController
 
   def edit
     @counter = current_user.counters.find(params[:id])
-    session[:old_sushi_count] ||= @counter.total_sushi_count
+
   end
 
   def update
@@ -46,20 +46,21 @@ class CountersController < ApplicationController
         clear_current_counter
         current_user.coin += @counter.total_sushi_count
         current_user.save!
+        session.delete(:counter_update_source)
         redirect_to counters_path, notice: "#{@counter.total_sushi_count}コイン獲得しました"
         counter = current_user.counters.create!(eaten_at: Time.current)
         set_current_counter(counter)
       elsif params[:counter][:update_source] == "edit"
         clear_current_counter
         added_coins = [@counter.total_sushi_count - (@old_sushi_count || 0), 0].max
-        if added_coins.positive?
+        if added_coins != @counter.total_sushi_count
           current_user.coin += added_coins
           current_user.save!
         end
         set_current_counter(@new_counter)
         session.delete(:counter_update_source)
         session.delete(:old_sushi_count)
-        if added_coins.positive?
+        if added_coins != @counter.total_sushi_count && added_coins != 0
           redirect_to counters_path, notice: "#{added_coins}コイン追加獲得しました"
         else
           redirect_to counters_path, notice: t('counters.update_notice')
@@ -75,6 +76,7 @@ class CountersController < ApplicationController
   def use
     @counter = current_user.counters.find(params[:id])
     set_current_counter(@counter)
+    session[:old_sushi_count] ||= @counter.total_sushi_count
     session[:counter_update_source] = "edit"
     redirect_to sushi_items_path, notice: t('counters.edit_notice')
   end
@@ -82,7 +84,6 @@ class CountersController < ApplicationController
   def destroy
     counter = current_user.counters.find(params[:id])
     counter.destroy!
-    session.delete(:old_sushi_count)
     redirect_to counters_path, notice: t('counters.destroy_notice')
   end
 
