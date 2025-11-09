@@ -10,11 +10,16 @@
   <% if current_user %>
     <div class="d-flex justify-content-between align-items-center my-2 ms-2 me-2">
       <div id="coin-tooltip-target"
-          class="d-flex align-items-center bg-white border rounded-pill px-2 shadow-sm" 
-          style="min-width: 60px;"
+          class="d-flex"
           title="コインを使ってガチャを引くことができます。コインはカウント保存時に、一貫につき1コイン獲得できます。">
-        <%= image_tag("icons/coin.svg", size: "20x20", class: "me-2") %>
-        <strong class="text-dark"><%= current_user.coin %></strong>
+        <div class="d-flex align-items-center bg-white border rounded-pill px-2 shadow-sm" 
+            style="min-width: 60px;">
+          <%= image_tag("icons/coin.svg", size: "20x20", class: "me-2") %>
+          <strong class="text-dark"><%= current_user.coin %></strong>
+        </div>
+        <div class="ms-1">
+          <i class="bi bi-question-circle-fill"></i>
+        </div>
       </div>
       <% if controller_name == "gachas" || controller_name == "user_gacha_lists"%>
         <div class="small">

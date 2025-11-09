@@ -4,7 +4,6 @@ export default class extends Controller {
   static targets = ["flash", "result"]
 
   connect() {
-    console.log("gacha-result controller connected");
 
     // 画像が全て読み込まれるのを待つ
     const images = this.resultTarget.querySelectorAll("img");
