@@ -3,12 +3,9 @@ import { Controller } from "@hotwired/stimulus"
 import { Turbo } from "@hotwired/turbo-rails"
 
 export default class extends Controller {
-  connect() {
-    console.log("✅ search_form_controller connected!");
-  }
 
   submit(event) {
-    console.log("🚀 submit triggered!");
+
     event.preventDefault(); // 通常送信を防ぐ
 
     const form = this.element;
@@ -23,7 +20,6 @@ export default class extends Controller {
   }
 
   submitcounter(event) {
-    console.log("🚀 submit triggered!");
     event.preventDefault(); // 通常送信を防ぐ
 
     const form = this.element;

@@ -13,8 +13,6 @@ export default class extends Controller {
   }
 
   show() {
-    console.log("🔍 overlay:", this.overlayTarget)
-    console.log("🔍 frame:", this.frameTarget)
     this.overlayTarget.classList.remove("d-none")
     this.frameTarget.classList.remove("d-none")
   }

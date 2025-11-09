@@ -5,7 +5,6 @@ export default class extends Controller {
   static targets = ["input", "results"]
 
   connect() {
-    console.log("autocomplete_controller connected!");
     this.url = this.inputTarget.dataset.autocompleteUrl
     this.resultsTarget.innerHTML = ""
     this.timeout = null
