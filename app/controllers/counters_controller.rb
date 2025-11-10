@@ -10,7 +10,6 @@ class CountersController < ApplicationController
 
   def index
     base_scope = current_user.counters
-                      .includes(:sushi_item_counters)
                       .left_joins(:sushi_item_counters)
                       .where(saved: true)
                       .select("counters.*, COALESCE(SUM(sushi_item_counters.count), 0) as counter_total_count")

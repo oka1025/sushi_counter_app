@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <p>以下の寿司をカウントしました：</p>
+        <p>以下の寿司をカウントしました</p>
         <ul>
           <% @counter.sushi_item_counters.includes(:sushi_item).where.not(sushi_item_counters: { count: [nil, "0"] }).each do |sic| %>
             <li><%= sic.sushi_item.name %>：<%= sic.count %> 貫</li>
@@ -45,6 +45,6 @@
   </div>
   <div class="d-flex justify-content-between mb-6 mt-2">
       <%= link_to "削除", counter_path(@counter), method: :delete, turbo: false, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
-      <%= link_to "カウント画面へ", use_counter_path(@counter), method: :post, class: "btn btn-navy " %>
+      <%= link_to "カウントを編集する", use_counter_path(@counter), method: :post, class: "btn btn-navy " %>
   </div>
 </div>
