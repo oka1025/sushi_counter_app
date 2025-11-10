@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params) 
-      redirect_to user_path, notice: t('users.update_notice')
+      redirect_to root_path, notice: t('users.update_notice')
     else
       render :show, status: :unprocessable_entity
     end
