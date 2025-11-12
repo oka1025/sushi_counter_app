@@ -23,7 +23,7 @@ module ApplicationHelper
 
     if Rails.env.production?
       # publicアクセス可能なS3直URLを取得
-      url = Rails.application.routes.url_helpers.rails_blob_url(image, only_path: false)
+      url = image.service_url(disposition: :inline)
       # imgixホストに置き換え
       uri = URI.parse(url)
       uri.host = "sushi-counter.imgix.net"
