@@ -21,8 +21,14 @@ module ApplicationHelper
   def cdn_image_tag(image, **options)
     return unless image.attached?
 
-    cdn_host = Rails.env.production? ? "https://sushi-counter.imgix.net" : ""
-    path = Rails.application.routes.url_helpers.rails_blob_path(image, only_path: true)
-    image_tag "#{cdn_host}#{path}", **options
+    if Rails.env.production?
+      path = path = image.service_url
+      cdn_host = "https://sushi-counter.imgix.net"
+      uri = URI(path)
+      uri.host = URI(cdn_host).host
+      image_tag uri.to_s, **options
+    else
+      image_tag image, **options
+    end
   end
 end
