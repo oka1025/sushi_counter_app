@@ -17,4 +17,12 @@ module ApplicationHelper
     base_title = '寿司カウンター'
     title.present? ? "#{title} | #{base_title}" : base_title
   end
+
+  def cdn_image_tag(image, **options)
+    return unless image.attached?
+
+    cdn_host = Rails.env.production? ? "https://sushi-counter.imgix.net" : ""
+    path = Rails.application.routes.url_helpers.rails_blob_path(image, only_path: true)
+    image_tag "#{cdn_host}#{path}", **options
+  end
 end
