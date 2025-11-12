@@ -106,7 +106,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.active_storage.resolve_model_to_route = :rails_storage_proxy
-  config.asset_host = "https://sushi-counter.imgix.net"
 
   config.hosts << 'www.sushi-counter.com'
   config.hosts << 'sushi-counter.com'

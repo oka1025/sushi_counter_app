@@ -22,13 +22,24 @@ module ApplicationHelper
     return unless image.attached?
 
     if Rails.env.production?
-      path = path = image.service_url
-      cdn_host = "https://sushi-counter.imgix.net"
-      uri = URI(path)
-      uri.host = URI(cdn_host).host
+      # publicアクセス可能なS3直URLを取得
+      url = url_for(image)
+      
+      # imgixホストに置き換え
+      uri = URI.parse(url)
+      uri.host = "sushi-counter.imgix.net"
+      
+      # imgixの自動圧縮・最適化パラメータを追加（任意）
+      uri.query = "auto=format,compress" if uri.query.blank?
+      
       image_tag uri.to_s, **options
     else
+      # 開発環境は通常のimage_tag
       image_tag image, **options
     end
+  rescue => e
+    Rails.logger.error("[cdn_image_tag] #{e.message}")
+    # 例外時は通常のimage_tagにフォールバック
+    image_tag image, **options
   end
 end

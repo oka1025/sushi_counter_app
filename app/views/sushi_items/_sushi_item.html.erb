@@ -5,13 +5,13 @@
       <% counter = @counters[sushi_item.id] %> 
 
       <% if user_image&.image&.attached? %>
-        <%= image_tag user_image.image, class: "sushi-img" %>
+        <%= cdn_image_tag user_image.image, class: "sushi-img" %>
 
       <% elsif sushi_item.created_by_user_id.nil? && sushi_item.image.attached? %>
-        <%= image_tag sushi_item.image, class: "sushi-img" %>
+        <%= cdn_image_tag sushi_item.image, class: "sushi-img" %>
 
       <% elsif sushi_item.created_by_user_id == current_user.id && sushi_item.image.attached? %>
-        <%= image_tag sushi_item.image, class: "sushi-img" %>
+        <%= cdn_image_tag sushi_item.image, class: "sushi-img" %>
       <% end %>
     </div>
 
