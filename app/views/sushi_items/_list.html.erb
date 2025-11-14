@@ -1,0 +1,5 @@
+<% cache ['sushi_items_list', selected_category&.id, (sushi_items.maximum(:updated_at) || 0)] do %>
+  <div class="sushi-grid mb-7">
+    <%= render sushi_items %>
+  </div>
+<% end %>

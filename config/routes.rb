@@ -20,6 +20,9 @@ Rails.application.routes.draw do
       delete :remove_image
     end
     resource :bookmark, only: [:create, :destroy]
+    collection do
+      get :list
+    end
   end
 
   resources :counters, only: [:new, :update, :index, :show, :edit, :destroy] do
