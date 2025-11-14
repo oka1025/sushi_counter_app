@@ -31,7 +31,6 @@ class CountersController < ApplicationController
 
   def edit
     @counter = current_user.counters.find(params[:id])
-
   end
 
   def update

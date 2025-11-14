@@ -1,5 +1,11 @@
 <% content_for :title, "カウンター" %>
 
+<h2 class="mb-1">
+  <% if @counter && @counter.saved? %>
+    <span class="badge bg-warning text-dark mx-1">編集中</span>
+  <% end %>
+</h3>
+
 <turbo-frame id="category_nav" data-selected-category-id="<%= @selected_category&.id %>">
   <%= render partial: "sushi_items/category_and_list", locals: { categories: @categories, selected_category: @selected_category, sushi_items: @sushi_items, counter: @counter } %>
 </turbo-frame>

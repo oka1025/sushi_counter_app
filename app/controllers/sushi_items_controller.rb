@@ -72,7 +72,12 @@ class SushiItemsController < ApplicationController
 
   def update
     @sushi_item = SushiItem.find_by(id: params[:id])
-    @counter = current_user.counters.order(created_at: :desc).first_or_create!(eaten_at: Time.current)
+
+    @counter = current_counter
+    unless @counter
+      @counter = current_user.counters.order(created_at: :desc).first_or_create!(eaten_at: Time.current)
+      set_current_counter(@counter)
+    end
 
     unless @sushi_item.created_by_user_id == current_user.id || @sushi_item.created_by_user_id.nil?
       redirect_to sushi_items_path, alert: t('sushi_items.update_alert')
@@ -128,6 +133,10 @@ class SushiItemsController < ApplicationController
 
     sushi_counter = @sushi_item.sushi_item_counters.find_or_initialize_by(counter_id: @counter.id)
     sushi_counter.update_count!(params[:direction])
+
+    @sushi_items = @counter.sushi_items
+                          .where(category: @selected_category)
+                          .order(:position)
 
     respond_to do |format|
       format.turbo_stream
