@@ -58,7 +58,7 @@
         <% end %>
       </div>
       <div class="position-absolute" style="top: 0rem; left: 0.4rem;">
-        <%= render partial: "bookmark_buttons", locals: { sushi_item: sushi_item } %>
+        <%= render partial: "bookmark_buttons", locals: { sushi_item: sushi_item, bookmarked_ids: current_user.bookmarks.pluck(:sushi_item_id).to_set } %>
       </div>
     <% end %>
   </div>

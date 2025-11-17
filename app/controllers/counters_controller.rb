@@ -35,7 +35,7 @@ class CountersController < ApplicationController
 
   def update
     @counter = current_user.counters.find(params[:id])
-    @new_counter = current_user.counters.order(created_at: :desc).first
+    @in_use_counter = current_user.counters.order(created_at: :desc).first
     @old_sushi_count = session[:old_sushi_count]
     @counter.update(saved: true)
     
@@ -55,7 +55,7 @@ class CountersController < ApplicationController
           current_user.coin += added_coins
           current_user.save!
         end
-        set_current_counter(@new_counter)
+        set_current_counter(@in_use_counter)
         session.delete(:counter_update_source)
         session.delete(:old_sushi_count)
         if added_coins != @counter.total_sushi_count && added_coins != 0

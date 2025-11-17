@@ -49,7 +49,7 @@ class SushiItemsController < ApplicationController
 
     @sushi_item = SushiItem.new(sushi_item_params)
     @sushi_item.created_by_user = current_user
-    @counter = current_user.counters.order(created_at: :desc).first_or_create!(eaten_at: Time.current)
+    @counter = current_counter
 
     if @sushi_item.save
       set_sushi_items
@@ -164,17 +164,14 @@ class SushiItemsController < ApplicationController
 
   def set_sushi_items
     if params[:favorites].present?
-        @sushi_items = current_user.bookmarked_sushi_items
-          .includes(
-            image_attachment: :blob
-          )
+        @sushi_items = current_user
+          .bookmarked_sushi_items
+          .includes(image_attachment: :blob)
           .order("id ASC")
 
     else
       @sushi_items = SushiItem
-        .includes(
-          image_attachment: :blob
-        )
+        .includes(image_attachment: :blob)
         .where(category_id: @selected_category&.id)
         .where("created_by_user_id = ? OR created_by_user_id IS NULL", current_user.id)
         .order("id ASC")
@@ -189,7 +186,6 @@ class SushiItemsController < ApplicationController
     @counters = SushiItemCounter
       .where(counter_id: @counter.id, sushi_item_id: @sushi_items.ids)
       .index_by(&:sushi_item_id)
-    @bookmarked_ids = current_user.bookmarks.pluck(:sushi_item_id).to_set
   end
 
 
