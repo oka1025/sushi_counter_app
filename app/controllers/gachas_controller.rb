@@ -29,7 +29,11 @@ class GachasController < ApplicationController
       results << weighted_pool.sample
     end
 
+    new_flags = []
+
     user_gacha_records = results.map do |selected|
+      is_new = !current_user.user_gacha_lists.exists?(gacha_list_id: selected.id)
+      new_flags << is_new
       current_user.user_gacha_lists.create!(gacha_list: selected).tap do |record|
         record.update(public_token: SecureRandom.uuid)
       end
@@ -37,12 +41,14 @@ class GachasController < ApplicationController
     current_user.update(coin: current_user.coin - required_coin)
 
     session[:latest_gacha_items] = user_gacha_records.map(&:id)
+    session[:latest_gacha_new_flags] = new_flags
     redirect_to result_gachas_path
   end
 
   def result
     ids = session[:latest_gacha_items] || []
     @results = UserGachaList.includes(:gacha_list).where(id: ids)
+    @new_flags = session[:latest_gacha_new_flags] || []
   end
 
   def public_result

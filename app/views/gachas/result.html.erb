@@ -12,7 +12,7 @@
   <div data-gacha-result-target="flash" class="flash-overlay"></div>
   <div data-gacha-result-target="result" class="result-items text-center opacity-20">
     <div class="d-flex flex-wrap justify-content-center">
-      <% @results.each do |item| %>
+      <% @results.each_with_index do |item, i| %>
         <div class="m-3 text-center">
           <% rarity_class = case item.gacha_list.rarity
             when 'normal' then "rarity-#{item.gacha_list.rarity}"
@@ -25,7 +25,11 @@
             <div class="rarity-badge position-absolute top-0 end-0 px-2 py-1 mt-2 me-2 small rounded <%= rarity_class %>">
               <%= I18n.t("activerecord.attributes.gacha_list.rarity.#{item.gacha_list.rarity}") %>
             </div>
-            
+            <% if @new_flags[i] %>
+              <div class="fs-4 position-absolute top-0 start-0 px-2 py-1 mt-2 ms-2 rounded bg-danger text-white">
+                NEW
+              </div>
+            <% end %>
           </div>
           <strong class="d-block mt-2"><h3><%= item.gacha_list.name %></h3></strong>
           <div class="d-flex justify-content-center gap-3 mt-3">
